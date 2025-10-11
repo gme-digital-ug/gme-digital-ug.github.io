@@ -1,3 +1,10 @@
+# Github pages / ruby / jekyll
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+Gemfile.lock
 
 # Miscellaneous
 *.class
