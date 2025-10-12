@@ -17,3 +17,4 @@ Gemfile.lock
 .buildlog/
 .history
 .svn/
+.vscode/
