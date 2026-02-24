@@ -61,6 +61,17 @@
         Photos are stored locally on your device.</li>
   </ul>
 
+  <p><strong>Location Data (opt-in)</strong></p>
+  <ul>
+    <li>If you choose to enable it, NutriFlow may collect your device's location
+        when you log a meal. This is entirely optional and requires your explicit
+        permission. Location data is used solely to associate meals with a place
+        (e.g., "lunch at home" vs. "dinner at a restaurant") and is never shared
+        with third parties or used for advertising.</li>
+    <li>You can enable or disable location access at any time in your device
+        settings or within the app.</li>
+  </ul>
+
   <p><strong>Preferences &amp; Goals</strong></p>
   <ul>
     <li>Main goals, eating habit goals, and personal motivators you select during
@@ -69,8 +80,9 @@
 
   <p><strong>Automatically Collected</strong></p>
   <ul>
-    <li>We do <em>not</em> collect device identifiers, IP addresses, location data,
-        or analytics/tracking data.</li>
+    <li>We do <em>not</em> collect device identifiers, IP addresses, or
+        analytics/tracking data. Location data is only collected if you
+        explicitly opt in (see "Location Data" above).</li>
   </ul>
 
   <h2>2. How We Use Your Information</h2>
@@ -145,8 +157,7 @@
     please contact us at:
   </p>
   <p>
-    <!-- TODO: Replace with your real contact email -->
-    📧 <a href="mailto:your-email@example.com">your-email@example.com</a>
+    📧 <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a>
   </p>
 
   <div class="footer">
