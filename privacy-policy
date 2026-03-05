@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriFlow – Privacy Policy</title>
+  <style>
+    :root { --accent: #4CAF50; --bg: #fafafa; --text: #222; --muted: #555; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+           color: var(--text); background: var(--bg); line-height: 1.7; }
+    .container { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+    h1 { font-size: 2rem; margin-bottom: 8px; }
+    .subtitle { color: var(--muted); margin-bottom: 32px; }
+    h2 { font-size: 1.25rem; margin: 32px 0 12px; color: var(--accent); }
+    p, li { margin-bottom: 12px; }
+    ul { padding-left: 24px; }
+    a { color: var(--accent); }
+    .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #ddd;
+              color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Privacy Policy</h1>
+  <p class="subtitle">NutriFlow · Effective date: February 24, 2026</p>
+
+  <p>
+    NutriFlow ("we", "our", or "the app") is a personal nutrition and health
+    tracking application. This policy explains what information we collect, how
+    we use it, and your rights regarding that information.
+  </p>
+
+  <h2>1. Information We Collect</h2>
+
+  <p><strong>Account Information</strong></p>
+  <ul>
+    <li>Email address and username (required to create an account)</li>
+    <li>Password (stored securely by our authentication provider)</li>
+  </ul>
+
+  <p><strong>Health &amp; Body Data</strong></p>
+  <ul>
+    <li>Height, weight, birth year, and gender</li>
+    <li>Goal weight and nutrition goals (calorie, protein, carb, and fat targets)</li>
+    <li>Diet type and dietary preferences</li>
+    <li>Fitness level indicators</li>
+  </ul>
+
+  <p><strong>Nutrition Tracking Data</strong></p>
+  <ul>
+    <li>Meals logged (name, meal time, ingredients, nutritional values)</li>
+    <li>Water intake records</li>
+    <li>Weight tracking entries</li>
+  </ul>
+
+  <p><strong>Photos</strong></p>
+  <ul>
+    <li>Meal images you choose to capture via camera or select from your photo library.
+        Photos are stored locally on your device.</li>
+  </ul>
+
+  <p><strong>Location Data (opt-in)</strong></p>
+  <ul>
+    <li>If you choose to enable it, NutriFlow may collect your device's location
+        when you log a meal. This is entirely optional and requires your explicit
+        permission. Location data is used solely to associate meals with a place
+        (e.g., "lunch at home" vs. "dinner at a restaurant") and is never shared
+        with third parties or used for advertising.</li>
+    <li>You can enable or disable location access at any time in your device
+        settings or within the app.</li>
+  </ul>
+
+  <p><strong>Preferences &amp; Goals</strong></p>
+  <ul>
+    <li>Main goals, eating habit goals, and personal motivators you select during
+        onboarding or in settings.</li>
+  </ul>
+
+  <p><strong>Automatically Collected</strong></p>
+  <ul>
+    <li>We do <em>not</em> collect device identifiers, IP addresses, or
+        analytics/tracking data. Location data is only collected if you
+        explicitly opt in (see "Location Data" above).</li>
+  </ul>
+
+  <h2>2. How We Use Your Information</h2>
+  <ul>
+    <li>To provide and personalise the NutriFlow experience (tracking meals,
+        calculating nutritional summaries, and suggesting goals).</li>
+    <li>To authenticate your account and sync your data across sessions.</li>
+    <li>To compute nutrition plans based on your body measurements and goals.</li>
+  </ul>
+  <p>We do <strong>not</strong> use your data for advertising, profiling, or
+     selling to third parties.</p>
+
+  <h2>3. Data Storage &amp; Security</h2>
+  <p>
+    Your data is stored in a cloud database powered by
+    <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>,
+    hosted on secure servers with row-level security (RLS) policies ensuring
+    that only you can access your own data. Communication between the app and
+    the server is encrypted via HTTPS/TLS.
+  </p>
+  <p>
+    Meal photos remain on your device and are <em>not</em> uploaded to our
+    servers.
+  </p>
+
+  <h2>4. Third-Party Services</h2>
+  <p>NutriFlow uses the following third-party services:</p>
+  <ul>
+    <li><strong>Supabase</strong> – authentication and database hosting
+        (<a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase Privacy Policy</a>)</li>
+    <li><strong>Google Fonts</strong> – font delivery; may collect IP addresses per
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a></li>
+  </ul>
+  <p>We do not integrate any advertising SDKs, analytics trackers, or social
+     media SDKs.</p>
+
+  <h2>5. Data Retention</h2>
+  <p>
+    We retain your data for as long as your account is active. If you delete
+    your account, all associated data will be permanently removed from our
+    servers within 30 days.
+  </p>
+
+  <h2>6. Your Rights</h2>
+  <p>You have the right to:</p>
+  <ul>
+    <li><strong>Access</strong> – request a copy of your personal data.</li>
+    <li><strong>Correction</strong> – update inaccurate information via the app settings.</li>
+    <li><strong>Deletion</strong> – request deletion of your account and all associated data.</li>
+    <li><strong>Data Portability</strong> – request your data in a machine-readable format.</li>
+  </ul>
+  <p>To exercise any of these rights, contact us at the email address below.</p>
+
+  <h2>7. Children's Privacy</h2>
+  <p>
+    NutriFlow is not intended for children under the age of 13. We do not
+    knowingly collect personal information from children under 13. If you
+    believe a child has provided us with personal data, please contact us and
+    we will delete it promptly.
+  </p>
+
+  <h2>8. Changes to This Policy</h2>
+  <p>
+    We may update this privacy policy from time to time. Changes will be posted
+    on this page with an updated effective date. We encourage you to review this
+    policy periodically.
+  </p>
+
+  <h2>9. Contact Us</h2>
+  <p>
+    If you have questions or concerns about this privacy policy or your data,
+    please contact us at:
+  </p>
+  <p>
+    📧 <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a>
+  </p>
+
+  <div class="footer">
+    <p>&copy; 2026 NutriFlow. All rights reserved.</p>
+  </div>
+
+</div>
+</body>
+</html>
