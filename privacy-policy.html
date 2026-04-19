@@ -3,19 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NutriFlow – Privacy Policy</title>
+  <title>NutriMax – Privacy Policy</title>
+  <meta name="description" content="NutriMax privacy policy: how we collect, use, and protect your health and nutrition data. Compliant with GDPR, CCPA, App Store, and Google Play requirements.">
+  <meta name="robots" content="index, follow">
   <style>
     :root { --accent: #4CAF50; --bg: #fafafa; --text: #222; --muted: #555; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
            color: var(--text); background: var(--bg); line-height: 1.7; }
-    .container { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+    .container { max-width: 760px; margin: 0 auto; padding: 40px 24px 80px; }
     h1 { font-size: 2rem; margin-bottom: 8px; }
     .subtitle { color: var(--muted); margin-bottom: 32px; }
-    h2 { font-size: 1.25rem; margin: 32px 0 12px; color: var(--accent); }
+    h2 { font-size: 1.25rem; margin: 36px 0 12px; color: var(--accent); border-bottom: 1px solid #e0e0e0; padding-bottom: 4px; }
+    h3 { font-size: 1rem; margin: 20px 0 8px; }
     p, li { margin-bottom: 12px; }
-    ul { padding-left: 24px; }
+    ul { padding-left: 24px; margin-bottom: 12px; }
     a { color: var(--accent); }
+    .toc { background: #f0f7f0; border-left: 4px solid var(--accent); padding: 16px 20px; margin: 24px 0 32px; border-radius: 4px; }
+    .toc h2 { margin: 0 0 10px; border: none; font-size: 1rem; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin-bottom: 4px; }
+    .notice { background: #fff8e1; border-left: 4px solid #ffc107; padding: 12px 16px; border-radius: 4px; margin-bottom: 20px; }
     .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #ddd;
               color: var(--muted); font-size: 0.9rem; }
   </style>
@@ -24,144 +32,366 @@
 <div class="container">
 
   <h1>Privacy Policy</h1>
-  <p class="subtitle">NutriFlow · Effective date: February 24, 2026</p>
+  <p class="subtitle">NutriMax &nbsp;·&nbsp; Effective date: April 19, 2026 &nbsp;·&nbsp; Published by GME Digital UG (haftungsbeschränkt)</p>
 
   <p>
-    NutriFlow ("we", "our", or "the app") is a personal nutrition and health
-    tracking application. This policy explains what information we collect, how
-    we use it, and your rights regarding that information.
+    NutriMax ("we", "us", "our", or "the app") is a personal nutrition and health-tracking
+    mobile application developed by GME Digital UG (haftungsbeschränkt). This Privacy Policy
+    explains what personal information we collect when you use NutriMax, why we collect it,
+    how we use and protect it, with whom we share it, and the rights you have over your data.
+  </p>
+  <p>
+    This policy applies to the NutriMax mobile app available on Apple App Store and Google
+    Play Store, and to the website <a href="https://gme-digital-ug.github.io">https://gme-digital-ug.github.io</a>.
+    By using NutriMax you agree to the practices described here.
   </p>
 
-  <h2>1. Information We Collect</h2>
+  <nav class="toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#information-we-collect">Information We Collect</a></li>
+      <li><a href="#how-we-use-data">How We Use Your Information</a></li>
+      <li><a href="#device-permissions">Device Permissions</a></li>
+      <li><a href="#third-party-services">Third-Party Services</a></li>
+      <li><a href="#data-storage-security">Data Storage &amp; Security</a></li>
+      <li><a href="#data-retention">Data Retention &amp; Deletion</a></li>
+      <li><a href="#your-rights">Your Rights (GDPR / CCPA)</a></li>
+      <li><a href="#childrens-privacy">Children's Privacy</a></li>
+      <li><a href="#in-app-accessibility">In-App &amp; Store Accessibility</a></li>
+      <li><a href="#changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </nav>
 
-  <p><strong>Account Information</strong></p>
+  <!-- ─── 1. Information We Collect ─────────────────────────────────── -->
+  <h2 id="information-we-collect">1. Information We Collect</h2>
+
+  <h3>Account Information</h3>
   <ul>
-    <li>Email address and username (required to create an account)</li>
-    <li>Password (stored securely by our authentication provider)</li>
+    <li><strong>Email address</strong> – required to create and secure your account.</li>
+    <li><strong>Username / display name</strong> – used to personalise your in-app experience.</li>
+    <li><strong>Password</strong> – hashed and stored securely by our authentication provider (Supabase Auth); we never store passwords in plain text.</li>
   </ul>
 
-  <p><strong>Health &amp; Body Data</strong></p>
+  <h3>Health &amp; Body Data</h3>
+  <p>
+    NutriMax is a nutrition and health-tracking app. To provide its core features we collect
+    the following health-related information that you enter voluntarily:
+  </p>
   <ul>
-    <li>Height, weight, birth year, and gender</li>
-    <li>Goal weight and nutrition goals (calorie, protein, carb, and fat targets)</li>
-    <li>Diet type and dietary preferences</li>
-    <li>Fitness level indicators</li>
+    <li>Height and current weight</li>
+    <li>Birth year (used to calculate age-appropriate nutritional recommendations)</li>
+    <li>Biological sex / gender</li>
+    <li>Goal weight and target macronutrient splits (calories, protein, carbohydrates, fat)</li>
+    <li>Diet type (e.g. vegan, vegetarian, omnivore) and dietary preferences or restrictions</li>
+    <li>Fitness / activity level</li>
   </ul>
+  <p>
+    This data falls within the category of health data under GDPR Article 9. We process it
+    exclusively on the basis of your explicit consent (Art. 9(2)(a) GDPR) to deliver the
+    nutrition-tracking features you have requested.
+  </p>
 
-  <p><strong>Nutrition Tracking Data</strong></p>
+  <h3>Nutrition &amp; Meal Tracking Data</h3>
   <ul>
-    <li>Meals logged (name, meal time, ingredients, nutritional values)</li>
+    <li>Meals you log: name, meal time, food items, portion sizes, and nutritional values</li>
     <li>Water intake records</li>
-    <li>Weight tracking entries</li>
+    <li>Daily / weekly / monthly weight entries</li>
   </ul>
 
-  <p><strong>Photos</strong></p>
+  <h3>Photos (Camera &amp; Photo Library)</h3>
   <ul>
-    <li>Meal images you choose to capture via camera or select from your photo library.
-        Photos are stored locally on your device.</li>
+    <li>Meal images you choose to capture with the camera or select from your photo library.
+        Photos are stored <strong>locally on your device only</strong> and are <em>never</em>
+        uploaded to our servers.</li>
   </ul>
 
-  <p><strong>Location Data (opt-in)</strong></p>
+  <h3>Location Data (opt-in)</h3>
   <ul>
-    <li>If you choose to enable it, NutriFlow may collect your device's location
-        when you log a meal. This is entirely optional and requires your explicit
-        permission. Location data is used solely to associate meals with a place
-        (e.g., "lunch at home" vs. "dinner at a restaurant") and is never shared
-        with third parties or used for advertising.</li>
-    <li>You can enable or disable location access at any time in your device
-        settings or within the app.</li>
+    <li>If you choose to enable it, NutriMax may record your approximate device location when
+        you log a meal (e.g., to tag "lunch at home" vs. "dinner at a restaurant"). Location
+        access is entirely optional, requires your explicit permission, and is never shared with
+        third parties or used for advertising.</li>
+    <li>You can grant or revoke location permission at any time in your device settings.</li>
   </ul>
 
-  <p><strong>Preferences &amp; Goals</strong></p>
+  <h3>Preferences &amp; Goals</h3>
   <ul>
-    <li>Main goals, eating habit goals, and personal motivators you select during
-        onboarding or in settings.</li>
+    <li>Your main wellness goals, eating-habit targets, and personal motivators entered during
+        onboarding or updated in app settings.</li>
   </ul>
 
-  <p><strong>Automatically Collected</strong></p>
+  <h3>Automatically Collected Technical Data</h3>
   <ul>
-    <li>We do <em>not</em> collect device identifiers, IP addresses, or
-        analytics/tracking data. Location data is only collected if you
-        explicitly opt in (see "Location Data" above).</li>
+    <li>We do <em>not</em> collect persistent device identifiers (IDFA, Android Advertising ID),
+        IP addresses, or behavioural analytics/tracking data.</li>
+    <li>Supabase may temporarily process your IP address as part of secure session management
+        (see <a href="#third-party-services">Section 4</a>).</li>
   </ul>
 
-  <h2>2. How We Use Your Information</h2>
+  <!-- ─── 2. How We Use Your Information ───────────────────────────── -->
+  <h2 id="how-we-use-data">2. How We Use Your Information</h2>
+
+  <p>We use your data <strong>only</strong> for the following purposes:</p>
   <ul>
-    <li>To provide and personalise the NutriFlow experience (tracking meals,
-        calculating nutritional summaries, and suggesting goals).</li>
-    <li>To authenticate your account and sync your data across sessions.</li>
-    <li>To compute nutrition plans based on your body measurements and goals.</li>
+    <li><strong>Authentication &amp; account management</strong> – to create, secure, and
+        maintain your NutriMax account and to sync your data across your devices.</li>
+    <li><strong>Nutrition tracking &amp; personalisation</strong> – to log meals, calculate
+        calorie and macronutrient summaries, and display progress towards your goals.</li>
+    <li><strong>Health recommendations</strong> – to compute personalised daily calorie targets
+        and macronutrient ranges based on your body measurements, activity level, and goals.</li>
+    <li><strong>Meal photo storage</strong> – to let you attach images to meal entries. Photos
+        are processed and stored entirely on-device.</li>
+    <li><strong>Location tagging (opt-in)</strong> – to associate meal entries with a location
+        if you have granted location permission.</li>
+    <li><strong>Goal &amp; reminder features</strong> – to present your nutrition goals and, if
+        enabled, to send local (on-device) reminders.</li>
   </ul>
-  <p>We do <strong>not</strong> use your data for advertising, profiling, or
-     selling to third parties.</p>
-
-  <h2>3. Data Storage &amp; Security</h2>
   <p>
-    Your data is stored in a cloud database powered by
-    <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>,
-    hosted on secure servers with row-level security (RLS) policies ensuring
-    that only you can access your own data. Communication between the app and
-    the server is encrypted via HTTPS/TLS.
-  </p>
-  <p>
-    Meal photos remain on your device and are <em>not</em> uploaded to our
-    servers.
-  </p>
-
-  <h2>4. Third-Party Services</h2>
-  <p>NutriFlow uses the following third-party services:</p>
-  <ul>
-    <li><strong>Supabase</strong> – authentication and database hosting
-        (<a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase Privacy Policy</a>)</li>
-    <li><strong>Google Fonts</strong> – font delivery; may collect IP addresses per
-        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a></li>
-  </ul>
-  <p>We do not integrate any advertising SDKs, analytics trackers, or social
-     media SDKs.</p>
-
-  <h2>5. Data Retention</h2>
-  <p>
-    We retain your data for as long as your account is active. If you delete
-    your account, all associated data will be permanently removed from our
-    servers within 30 days.
+    We do <strong>not</strong> use your data for advertising, behavioural profiling, or selling
+    to third parties.
   </p>
 
-  <h2>6. Your Rights</h2>
-  <p>You have the right to:</p>
+  <!-- ─── 3. Device Permissions ─────────────────────────────────────── -->
+  <h2 id="device-permissions">3. Device Permissions</h2>
+
+  <p>NutriMax may request the following permissions on your device:</p>
+
+  <h3>Camera</h3>
+  <p>
+    Used <em>only</em> when you choose to photograph a meal. Images are saved locally on your
+    device and are never transmitted to our servers. You can deny camera permission without
+    affecting any other feature of the app.
+  </p>
+
+  <h3>Photo Library / Storage</h3>
+  <p>
+    Used <em>only</em> when you choose to attach an existing photo to a meal entry. Access is
+    limited to photos you explicitly select. Images remain on your device.
+  </p>
+
+  <h3>Location (optional)</h3>
+  <p>
+    Used <em>only</em> when you opt in to meal location tagging (see Section 1). The app
+    requests "while using" location access; it does not request background location.
+  </p>
+
+  <h3>Notifications (optional)</h3>
+  <p>
+    Used <em>only</em> to deliver local, on-device reminders (e.g., meal or water-intake
+    reminders) that you configure within the app. We do not use push notification services that
+    transmit your data to external servers.
+  </p>
+
+  <h3>Microphone</h3>
+  <p>NutriMax does <strong>not</strong> request or use microphone access.</p>
+
+  <h3>Device Identifiers</h3>
+  <p>
+    NutriMax does <strong>not</strong> collect advertising identifiers (IDFA, GAID) or other
+    persistent device identifiers for tracking purposes.
+  </p>
+
+  <!-- ─── 4. Third-Party Services ───────────────────────────────────── -->
+  <h2 id="third-party-services">4. Third-Party Services</h2>
+
+  <p>
+    NutriMax uses a small number of carefully selected third-party services. Each service
+    operates under its own privacy policy and security controls:
+  </p>
+
+  <h3>Supabase (Authentication &amp; Database)</h3>
+  <p>
+    <a href="https://supabase.com" target="_blank" rel="noopener noreferrer">Supabase</a>
+    powers our cloud authentication and database backend. Account credentials, health/body
+    data, and nutrition logs are stored in Supabase-managed PostgreSQL databases protected by
+    row-level security (RLS). Supabase processes data on infrastructure hosted in the EU (AWS
+    eu-central-1) or another region we configure.
+    <br>
+    <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Supabase Privacy Policy →</a>
+  </p>
+
+  <h3>Apple (App Store / iOS platform)</h3>
+  <p>
+    When you download NutriMax from the Apple App Store, Apple collects data as part of the
+    download and payment process in accordance with Apple's own privacy policy. We do not
+    receive your Apple ID or payment details.
+    <br>
+    <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple Privacy Policy →</a>
+  </p>
+
+  <h3>Google (Google Play / Android platform)</h3>
+  <p>
+    When you download NutriMax from Google Play, Google collects data as part of the download
+    process in accordance with Google's privacy policy.
+    <br>
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy →</a>
+  </p>
+
+  <h3>No advertising or analytics SDKs</h3>
+  <p>
+    NutriMax does <strong>not</strong> integrate any advertising networks, cross-app tracking
+    SDKs, social-media SDKs, or third-party analytics services. We do not sell or share your
+    data with data brokers or marketing companies.
+  </p>
+
+  <!-- ─── 5. Data Storage & Security ────────────────────────────────── -->
+  <h2 id="data-storage-security">5. Data Storage &amp; Security</h2>
+
   <ul>
-    <li><strong>Access</strong> – request a copy of your personal data.</li>
-    <li><strong>Correction</strong> – update inaccurate information via the app settings.</li>
-    <li><strong>Deletion</strong> – request deletion of your account and all associated data.</li>
-    <li><strong>Data Portability</strong> – request your data in a machine-readable format.</li>
+    <li><strong>Encryption in transit</strong> – all communication between the NutriMax app and
+        our backend is encrypted using HTTPS/TLS 1.2 or higher.</li>
+    <li><strong>Encryption at rest</strong> – Supabase encrypts data at rest using AES-256
+        on managed cloud infrastructure.</li>
+    <li><strong>Row-Level Security (RLS)</strong> – database access policies ensure that each
+        user can only read and write their own data; no cross-user data access is possible.</li>
+    <li><strong>Access controls</strong> – only authorised GME Digital personnel have access to
+        production infrastructure, and access is protected by multi-factor authentication.</li>
+    <li><strong>Meal photos</strong> – stored exclusively on your device and never transmitted
+        to our servers.</li>
+    <li><strong>No plain-text passwords</strong> – passwords are hashed by Supabase Auth before
+        storage.</li>
   </ul>
-  <p>To exercise any of these rights, contact us at the email address below.</p>
-
-  <h2>7. Children's Privacy</h2>
   <p>
-    NutriFlow is not intended for children under the age of 13. We do not
-    knowingly collect personal information from children under 13. If you
-    believe a child has provided us with personal data, please contact us and
-    we will delete it promptly.
+    While we take industry-standard precautions to protect your data, no system is completely
+    immune to security risks. We encourage you to use a strong, unique password and to keep
+    your device software up to date.
   </p>
 
-  <h2>8. Changes to This Policy</h2>
+  <!-- ─── 6. Data Retention & Deletion ──────────────────────────────── -->
+  <h2 id="data-retention">6. Data Retention &amp; Deletion</h2>
+
   <p>
-    We may update this privacy policy from time to time. Changes will be posted
-    on this page with an updated effective date. We encourage you to review this
-    policy periodically.
+    We retain your personal data for as long as your NutriMax account is active. Once you
+    delete your account, all associated personal data (account info, health data, nutrition
+    logs) will be permanently and irreversibly deleted from our servers <strong>within 30
+    days</strong>.
   </p>
 
-  <h2>9. Contact Us</h2>
+  <h3>How to delete your account</h3>
+  <ul>
+    <li><strong>In-app:</strong> Go to <em>Settings → Account → Delete Account</em> and follow
+        the confirmation steps.</li>
+    <li><strong>By email:</strong> Send a deletion request to
+        <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a> from the
+        email address linked to your account. We will confirm deletion within 5 business days
+        and complete it within 30 days.</li>
+  </ul>
   <p>
-    If you have questions or concerns about this privacy policy or your data,
-    please contact us at:
+    Note: Deleting the app from your device does <em>not</em> automatically delete your
+    account or cloud data. Please use one of the methods above to request full data removal.
+  </p>
+
+  <!-- ─── 7. Your Rights (GDPR / CCPA) ──────────────────────────────── -->
+  <h2 id="your-rights">7. Your Rights (GDPR / CCPA)</h2>
+
+  <p>
+    Depending on your country of residence, you may have the following rights regarding your
+    personal data:
+  </p>
+  <ul>
+    <li><strong>Access</strong> – request a copy of the personal data we hold about you.</li>
+    <li><strong>Rectification / Correction</strong> – update or correct inaccurate information
+        via the app's profile and settings screens, or by contacting us.</li>
+    <li><strong>Erasure / Deletion</strong> – request deletion of your account and all
+        associated data (see Section 6).</li>
+    <li><strong>Data Portability</strong> – request your personal data in a structured,
+        machine-readable format (JSON or CSV).</li>
+    <li><strong>Restriction of Processing</strong> – request that we limit how we use your
+        data while a dispute is resolved.</li>
+    <li><strong>Objection</strong> – object to certain types of data processing.</li>
+    <li><strong>Withdraw Consent</strong> – where processing is based on consent, you may
+        withdraw it at any time without affecting lawfulness of prior processing.</li>
+  </ul>
+  <p>
+    <strong>CCPA (California Residents):</strong> You have the right to know what personal
+    information we collect and share, the right to delete your personal information, and the
+    right not to be discriminated against for exercising your privacy rights. We do not sell
+    personal information.
   </p>
   <p>
-    📧 <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a>
+    To exercise any of these rights, contact us at
+    <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a>. We will
+    respond within 30 days (GDPR) or 45 days (CCPA). We may ask you to verify your identity
+    before processing your request.
+  </p>
+  <p>
+    If you are located in the EU/EEA and believe your data rights are being infringed, you
+    have the right to lodge a complaint with your local data protection authority.
+  </p>
+
+  <!-- ─── 8. Children's Privacy ──────────────────────────────────────── -->
+  <h2 id="childrens-privacy">8. Children's Privacy</h2>
+
+  <p>
+    NutriMax is intended for users aged <strong>13 and older</strong>. We do not knowingly
+    collect personal information from children under 13 (or under 16 where required by
+    applicable law, such as the GDPR). If we become aware that we have inadvertently collected
+    data from a child below the applicable age threshold, we will delete that information as
+    quickly as possible.
+  </p>
+  <p>
+    <strong>For parents and guardians:</strong> If you believe your child under 13 (or 16 in
+    the EU) has created a NutriMax account or provided us with personal data without your
+    consent, please contact us immediately at
+    <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a>. We will
+    promptly verify and delete the account and all associated data within 5 business days of
+    confirmation.
+  </p>
+  <p>
+    If you are between 13 and 17, please review this Privacy Policy with a parent or guardian
+    before using NutriMax. Users in this age group should obtain parental consent before
+    sharing health data in the app.
+  </p>
+
+  <!-- ─── 9. In-App & Store Accessibility ───────────────────────────── -->
+  <h2 id="in-app-accessibility">9. In-App &amp; Store Accessibility</h2>
+
+  <p>
+    This Privacy Policy is accessible at the following locations:
+  </p>
+  <ul>
+    <li><strong>In the NutriMax app:</strong> Navigate to <em>About → Privacy Policy</em>.</li>
+    <li><strong>On the web:</strong>
+        <a href="https://gme-digital-ug.github.io/privacy-policy">https://gme-digital-ug.github.io/privacy-policy</a>
+    </li>
+    <li><strong>Apple App Store listing:</strong> Linked in the app's App Store product page.</li>
+    <li><strong>Google Play listing:</strong> Linked in the app's Google Play product page.</li>
+  </ul>
+  <p>
+    The URL above is a permanent, publicly accessible link that is indexed by search engines
+    and does not require a login to view.
+  </p>
+
+  <!-- ─── 10. Changes to This Policy ────────────────────────────────── -->
+  <h2 id="changes">10. Changes to This Policy</h2>
+  <p>
+    We may update this Privacy Policy from time to time to reflect changes in our app,
+    applicable laws, or industry standards. When we make material changes, we will update the
+    "Effective date" at the top of this page and, where appropriate, notify you within the app.
+    We encourage you to review this policy periodically.
+  </p>
+
+  <!-- ─── 11. Contact Us ─────────────────────────────────────────────── -->
+  <h2 id="contact">11. Contact Us</h2>
+  <p>
+    If you have questions or concerns about this Privacy Policy or how we handle your data,
+    please contact us:
+  </p>
+  <ul>
+    <li>📧 Email: <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a></li>
+    <li>🏢 GME Digital UG (haftungsbeschränkt), Germany</li>
+  </ul>
+  <p>
+    We aim to respond to all privacy-related enquiries within <strong>5 business days</strong>.
   </p>
 
   <div class="footer">
-    <p>&copy; 2026 NutriFlow. All rights reserved.</p>
+    <p>
+      &copy; 2026 GME Digital UG (haftungsbeschränkt). All rights reserved. &nbsp;|&nbsp;
+      <a href="impressum.html">Impressum</a> &nbsp;|&nbsp;
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+    </p>
   </div>
 
 </div>
