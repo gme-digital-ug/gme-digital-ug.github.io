@@ -75,10 +75,15 @@
   </p>
   <ul>
     <li><strong>Company:</strong> GME Digital UG (haftungsbeschränkt)</li>
-    <li><strong>Address:</strong> Germany (full registered address available on request and in our
-        <a href="impressum.html">Impressum</a>)</li>
-    <li><strong>Email:</strong> <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a></li>
+    <li><strong>Registered address:</strong> Kolonnenstraße 8, 10827 Berlin, Germany</li>
+    <li><strong>Managing director:</strong> Grygoriy Garyuk</li>
+    <li><strong>Commercial register:</strong> Amtsgericht Charlottenburg, HRB 278658</li>
+    <li><strong>Email:</strong> <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
   </ul>
+  <p>
+    These details match our <a href="impressum.html">Impressum</a> (legal notice) as required by
+    the German Telemedia Act (TMG) and the Digital Services Act (DDG).
+  </p>
   <p>
     GME Digital UG is not required to appoint a Data Protection Officer (DPO) under Article 37
     GDPR. For all privacy-related enquiries, please contact us at the email address above.
@@ -154,23 +159,50 @@
   <h2 id="legal-basis">3. Legal Basis for Processing</h2>
 
   <p>
-    Under GDPR, we rely on the following legal bases for each processing activity:
+    Under GDPR, we rely on the following legal bases for each processing activity. The table
+    below maps every data category to its specific legal basis:
+  </p>
+
+  <h3>Consent — Art. 6(1)(a) &amp; Art. 9(2)(a) GDPR</h3>
+  <p>
+    Used for health-related special-category data and optional features that require your
+    explicit permission. You may withdraw consent at any time (see
+    <a href="#consent">Section 5</a>).
   </p>
   <ul>
-    <li><strong>Consent (Art. 6(1)(a) &amp; Art. 9(2)(a) GDPR)</strong> – for processing
-        health and body data (height, weight, diet type, fitness level, nutrition goals) and for
-        optional features such as location tagging and meal photos. You provide this consent
-        when you enter data into the app, and you may withdraw it at any time (see
-        <a href="#consent">Section 5</a>).</li>
-    <li><strong>Performance of a contract (Art. 6(1)(b) GDPR)</strong> – for processing your
-        account information (email, username, password) and nutrition tracking data (meal logs,
-        water intake, weight entries), which are necessary to provide the NutriMax service you
-        have requested.</li>
-    <li><strong>Legitimate interest (Art. 6(1)(f) GDPR)</strong> – for security-related
-        processing such as fraud prevention, protecting the integrity of our systems, and
-        temporary IP address processing during authentication sessions. Our legitimate interest
-        is to keep NutriMax and its users safe.</li>
+    <li><strong>Height, weight, birth year, biological sex</strong> – health data (Art. 9)</li>
+    <li><strong>Goal weight, macronutrient targets, diet type</strong> – health data (Art. 9)</li>
+    <li><strong>Fitness / activity level</strong> – health data (Art. 9)</li>
+    <li><strong>Dietary preferences / restrictions</strong> – health data (Art. 9)</li>
+    <li><strong>Location data</strong> – opt-in only; used for meal location tagging</li>
+    <li><strong>Meal photos</strong> – opt-in only; stored locally on device, not uploaded</li>
   </ul>
+
+  <h3>Performance of a contract — Art. 6(1)(b) GDPR</h3>
+  <p>
+    Used for data that is necessary to provide the NutriMax service you have requested.
+  </p>
+  <ul>
+    <li><strong>Email address</strong> – required for account creation, login, and communication</li>
+    <li><strong>Username / display name</strong> – required for in-app personalisation</li>
+    <li><strong>Password (hashed)</strong> – required for account security</li>
+    <li><strong>Meal logs</strong> (food items, portion sizes, nutritional values, meal times) – core service feature</li>
+    <li><strong>Water intake records</strong> – core service feature</li>
+    <li><strong>Daily / weekly weight entries</strong> – core service feature</li>
+    <li><strong>Wellness goals &amp; personal motivators</strong> – core service feature</li>
+  </ul>
+
+  <h3>Legitimate interest — Art. 6(1)(f) GDPR</h3>
+  <p>
+    Used for processing that is necessary to protect the security and integrity of NutriMax.
+    You have the right to object (see <a href="#your-rights">Section 11</a>).
+  </p>
+  <ul>
+    <li><strong>IP address</strong> – temporarily processed by Supabase during authentication
+        sessions for fraud prevention and rate limiting; not stored long-term by us</li>
+    <li><strong>Session tokens</strong> – used to maintain your authenticated session securely</li>
+  </ul>
+
   <p>
     Where we rely on consent, you have the right to withdraw it at any time. Where we rely on
     legitimate interest, you have the right to object (see <a href="#your-rights">Section 11</a>).
@@ -318,10 +350,31 @@
     (Frankfurt).
   </p>
   <p>
-    In limited circumstances, data may be processed outside the EU/EEA — for example, by
-    Supabase's US-based support operations or by Apple/Google as part of the app distribution
-    process. Where personal data is transferred outside the EU/EEA, we ensure that adequate
-    safeguards are in place, including:
+    In limited circumstances, data may be processed outside the EU/EEA by the following
+    third-party services:
+  </p>
+  <ul>
+    <li><strong>Supabase</strong> – account credentials, health/body data, and nutrition logs
+        are stored on EU infrastructure (AWS eu-central-1). Supabase's US-based support and
+        engineering teams may access data for maintenance. Supabase participates in the
+        <strong>EU–US Data Privacy Framework</strong> and has <strong>Standard Contractual
+        Clauses (SCCs)</strong> in place.
+        <br>
+        <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Supabase Privacy Policy →</a></li>
+    <li><strong>Apple</strong> – collects download and payment data when you install NutriMax
+        from the App Store. We do not receive your Apple ID or payment details. Apple complies
+        with the <strong>EU–US Data Privacy Framework</strong>.
+        <br>
+        <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple Privacy Policy →</a></li>
+    <li><strong>Google</strong> – collects download data when you install NutriMax from Google
+        Play. Google is certified under the <strong>EU–US Data Privacy Framework</strong> and
+        has <strong>SCCs</strong> in place.
+        <br>
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy →</a></li>
+  </ul>
+  <p>
+    Where personal data is transferred outside the EU/EEA, we ensure that adequate safeguards
+    are in place, including:
   </p>
   <ul>
     <li><strong>Standard Contractual Clauses (SCCs)</strong> – approved by the European
@@ -331,8 +384,13 @@
         Data Privacy Framework for certified US entities).</li>
   </ul>
   <p>
+    NutriMax does <strong>not</strong> use Firebase, Sentry, OpenAI / LLM APIs, or any other
+    third-party services beyond those listed above. No data is shared with advertising
+    networks, analytics providers, or data brokers.
+  </p>
+  <p>
     You may request further information about international transfer safeguards by contacting
-    us at <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a>.
+    us at <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>.
   </p>
 
   <!-- ─── 9. Data Storage & Security ────────────────────────────────── -->
@@ -373,7 +431,7 @@
     <li><strong>In-app:</strong> Go to <em>Settings → Account → Delete Account</em> and follow
         the confirmation steps.</li>
     <li><strong>By email:</strong> Send a deletion request to
-        <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a> from the
+        <a href="mailto:main@gmedigital.de">main@gmedigital.de</a> from the
         email address linked to your account. We will confirm deletion within 5 business days
         and complete it within 30 days.</li>
   </ul>
@@ -411,7 +469,7 @@
   </p>
   <p>
     To exercise any of these rights, contact us at
-    <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a>. We will
+    <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>. We will
     respond within 30 days (GDPR) or 45 days (CCPA). We may ask you to verify your identity
     before processing your request.
   </p>
@@ -434,7 +492,7 @@
     <strong>For parents and guardians:</strong> If you believe your child under 13 (or 16 in
     the EU) has created a NutriMax account or provided us with personal data without your
     consent, please contact us immediately at
-    <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a>. We will
+    <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>. We will
     promptly verify and delete the account and all associated data within 5 business days of
     confirmation.
   </p>
@@ -479,8 +537,8 @@
     please contact us:
   </p>
   <ul>
-    <li>📧 Email: <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a></li>
-    <li>🏢 GME Digital UG (haftungsbeschränkt), Germany</li>
+    <li>📧 Email: <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
+    <li>🏢 GME Digital UG (haftungsbeschränkt), Kolonnenstraße 8, 10827 Berlin, Germany</li>
   </ul>
   <p>
     We aim to respond to all privacy-related enquiries within <strong>5 business days</strong>.
