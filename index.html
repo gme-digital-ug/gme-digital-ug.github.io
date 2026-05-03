@@ -1,24 +1,171 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GME Digital</title>
+  <title>GME Digital – Smart apps. Real impact.</title>
+  <meta name="description" content="GME Digital UG builds modern, evidence-based mobile apps. Discover NutriMax, your pocket nutritionist.">
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 20vh; }
-    footer { position: fixed; bottom: 2rem; width: 100%; font-size: 0.9rem; }
-    a { margin: 0 1rem; color: #333; text-decoration: none; }
+    :root {
+      --green:      #22c55e;
+      --green-dark: #16a34a;
+      --text:       #111827;
+      --muted:      #6b7280;
+      --bg:         #ffffff;
+      --surface:    #f9fafb;
+      --border:     #e5e7eb;
+      --radius:     12px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────────────── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+    .nav-links  { display: flex; gap: 1.5rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ────────────────────────────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── PRODUCTS ────────────────────────────────────────────────────────── */
+    .products { padding: 4rem 1.5rem; }
+    .products-container { max-width: 960px; margin: 0 auto; }
+    .products h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .products-subtitle {
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text);
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      transform: translateY(-3px);
+    }
+    .product-card-banner {
+      background: linear-gradient(135deg, #052e16 0%, #14532d 45%, #166534 100%);
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .product-card-body { padding: 1.25rem; flex: 1; }
+    .product-card-body h3 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+    .product-card-body p  { color: var(--muted); font-size: 0.9rem; }
+    .product-card-footer {
+      padding: 0.75rem 1.25rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; margin: 0 0.6rem; }
+    footer a:hover { color: var(--text); }
   </style>
 </head>
 <body>
-  <h1>GME Digital UG (haftungsbeschränkt)</h1>
-  <p>Turning ideas into apps.</p>
-    <!-- Smart apps. Real impact. -->
 
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-brand">GME Digital</a>
+    <div class="nav-links">
+      <a href="nutrimax/index.html">NutriMax</a>
+      <a href="impressum.html">Impressum</a>
+    </div>
+  </nav>
 
-<footer>
+  <!-- HERO -->
+  <header class="hero">
+    <h1>Smart apps.<br>Real impact.</h1>
+    <p>We turn ideas into beautiful, evidence-based mobile experiences.</p>
+  </header>
+
+  <!-- PRODUCTS -->
+  <section class="products">
+    <div class="products-container">
+      <h2>Our Apps</h2>
+      <p class="products-subtitle">Discover what we've built.</p>
+      <div class="product-grid">
+        <a href="nutrimax/index.html" class="product-card">
+          <div class="product-card-banner">🥗</div>
+          <div class="product-card-body">
+            <h3>NutriMax</h3>
+            <p>Goal-driven nutrition tracking, AI meal suggestions, and real-world progress visualisation — your evidence-based pocket nutritionist.</p>
+          </div>
+          <div class="product-card-footer">
+            Explore NutriMax →
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
     <a href="impressum.html">Impressum</a> |
     <a href="datenschutz.html">Datenschutzerklärung</a>
-</footer>
+  </footer>
+
 </body>
 </html>
