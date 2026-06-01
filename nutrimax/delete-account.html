@@ -156,7 +156,51 @@
       object-fit: cover;
       border-radius: 18px;
       display: block;
+      cursor: zoom-in;
     }
+
+    /* ── IMAGE LIGHTBOX ─────────────────────────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+    .lightbox.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox img {
+      max-width: min(96vw, 680px);
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.45);
+      background: #fff;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
 
     .step-label {
       font-size: 0.9rem;
@@ -271,7 +315,7 @@
       <div class="step-card">
         <div class="step-number">1</div>
         <div class="step-image-placeholder">
-          <img src="assets/delete_1.png" alt="Open the sidebar">
+          <img src="assets/delete_1.png" alt="Open the sidebar" class="zoomable-image">
         </div>
         <span class="step-label">Open the sidebar</span>
       </div>
@@ -280,7 +324,7 @@
       <div class="step-card">
         <div class="step-number">2</div>
         <div class="step-image-placeholder">
-          <img src="assets/delete_2.png" alt="Navigate to Settings">
+          <img src="assets/delete_2.png" alt="Navigate to Settings" class="zoomable-image">
         </div>
         <span class="step-label">Navigate to Settings</span>
       </div>
@@ -289,7 +333,7 @@
       <div class="step-card">
         <div class="step-number">3</div>
         <div class="step-image-placeholder">
-          <img src="assets/delete_3.png" alt="Scroll down and tap Delete Account">
+          <img src="assets/delete_3.png" alt="Scroll down and tap Delete Account" class="zoomable-image">
         </div>
         <span class="step-label">Scroll down &amp; tap "Delete Account"</span>
       </div>
@@ -298,7 +342,7 @@
       <div class="step-card">
         <div class="step-number">4</div>
         <div class="step-image-placeholder">
-          <img src="assets/delete_4.png" alt="Confirm deletion">
+          <img src="assets/delete_4.png" alt="Confirm deletion" class="zoomable-image">
         </div>
         <span class="step-label">Confirm the deletion</span>
       </div>
@@ -335,6 +379,11 @@
 
   </div>
 
+  <div class="lightbox" id="image-lightbox" aria-hidden="true">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close image">&times;</button>
+    <img id="lightbox-image" src="" alt="">
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-links">
@@ -346,6 +395,45 @@
     </div>
     <p>&copy; 2026 NutriMax by GME Digital UG (haftungsbeschränkt). All rights reserved.</p>
   </footer>
+
+  <script>
+    (function () {
+      const zoomableImages = document.querySelectorAll('.zoomable-image');
+      const lightbox = document.getElementById('image-lightbox');
+      const lightboxImage = document.getElementById('lightbox-image');
+      const lightboxClose = document.getElementById('lightbox-close');
+
+      function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.src;
+        lightboxImage.alt = sourceImage.alt;
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightboxImage.src = '';
+      }
+
+      zoomableImages.forEach((image) => {
+        image.addEventListener('click', () => openLightbox(image));
+      });
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
