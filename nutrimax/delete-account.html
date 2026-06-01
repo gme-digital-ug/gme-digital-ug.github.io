@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriMax – Delete Account</title>
+  <meta name="description" content="Request account deletion for your NutriMax account — in-app or via email.">
+  <style>
+    :root {
+      --green:       #22c55e;
+      --green-dark:  #16a34a;
+      --green-light: #dcfce7;
+      --text:        #111827;
+      --muted:       #6b7280;
+      --bg:          #ffffff;
+      --surface:     #f9fafb;
+      --border:      #e5e7eb;
+      --radius:      12px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────────────── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--green-dark);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .nav-back:hover { color: var(--green-dark); }
+
+    /* ── PAGE HEADER ─────────────────────────────────────────────────────── */
+    .page-header {
+      background: linear-gradient(135deg, #052e16 0%, #14532d 45%, #166534 100%);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1.5rem 3.5rem;
+    }
+    .page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .page-header p {
+      color: #bbf7d0;
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── CONTENT ─────────────────────────────────────────────────────────── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .section-label {
+      display: block;
+      color: var(--green-dark);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    h2.section-title {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      font-size: 1rem;
+    }
+
+    /* ── STEPS GRID ──────────────────────────────────────────────────────── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .step-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-image-placeholder {
+      width: 100%;
+      aspect-ratio: 9/19;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    .step-image-placeholder .ph-icon { font-size: 2rem; opacity: 0.6; }
+    .step-image-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+      cursor: zoom-in;
+    }
+
+    /* ── IMAGE LIGHTBOX ─────────────────────────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+    .lightbox.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox img {
+      max-width: min(96vw, 680px);
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.45);
+      background: #fff;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
+
+    .step-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+      color: var(--text);
+    }
+
+    /* ── DIVIDER ─────────────────────────────────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    /* ── EMAIL CARD ──────────────────────────────────────────────────────── */
+    .email-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+
+    .email-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .email-card p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .email-card ul {
+      padding-left: 1.4rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .email-card ul li { margin-bottom: 0.35rem; }
+
+    .email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green);
+      color: #fff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .email-link:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+    }
+
+    .notice {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      border-radius: 6px;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.9rem;
+      color: #78350f;
+      margin-top: 1.25rem;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--text);
+      color: #9ca3af;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.875rem;
+    }
+    footer a { color: #86efac; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-brand">NutriMax</a>
+    <a href="../index.html" class="nav-back">← GME Digital</a>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <h1>Delete Your Account</h1>
+    <p>You can delete your NutriMax account directly in the app or by sending us an email request.</p>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="container">
+
+    <!-- IN-APP DELETION -->
+    <span class="section-label">Option 1 — In-App</span>
+    <h2 class="section-title">Delete your account from within the app</h2>
+    <p class="section-desc">
+      Follow these four steps to permanently delete your account and all associated data directly inside NutriMax.
+      The deletion takes effect immediately and cannot be undone.
+    </p>
+
+    <div class="steps-grid">
+
+      <!-- Step 1 -->
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-image-placeholder">
+          <img src="assets/delete_1.png" alt="Open the sidebar" class="zoomable-image">
+        </div>
+        <span class="step-label">Open the sidebar</span>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-image-placeholder">
+          <img src="assets/delete_2.png" alt="Navigate to Settings" class="zoomable-image">
+        </div>
+        <span class="step-label">Navigate to Settings</span>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-image-placeholder">
+          <img src="assets/delete_3.png" alt="Scroll down and tap Delete Account" class="zoomable-image">
+        </div>
+        <span class="step-label">Scroll down &amp; tap "Delete Account"</span>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-image-placeholder">
+          <img src="assets/delete_4.png" alt="Confirm deletion" class="zoomable-image">
+        </div>
+        <span class="step-label">Confirm the deletion</span>
+      </div>
+
+    </div>
+
+    <hr class="divider">
+
+    <!-- EMAIL DELETION -->
+    <span class="section-label">Option 2 — By Email</span>
+    <h2 class="section-title">Request account deletion by email</h2>
+    <p class="section-desc">
+      If you are unable to access the app, you can request the deletion of your account by sending an email to us.
+    </p>
+
+    <div class="email-card">
+      <h3>📧 Send a deletion request</h3>
+      <p>
+        Write an email to <strong><a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a></strong>
+        with the subject line <em>"Account Deletion Request"</em> and include the following information:
+      </p>
+      <ul>
+        <li><strong>Email address</strong> linked to your NutriMax account</li>
+      </ul>
+      <a href="mailto:main.gme.digital@gmail.com?subject=Account%20Deletion%20Request" class="email-link">
+        ✉️ Send deletion request
+      </a>
+      <div class="notice">
+        ⏱ Deletion requests submitted by email are processed <strong>within 2 business days</strong>
+        (Germany). You will receive a confirmation once your account and all associated data have been
+        permanently removed.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="lightbox" id="image-lightbox" aria-hidden="true">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close image">&times;</button>
+    <img id="lightbox-image" src="" alt="">
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="../privacy-policy.html">Privacy Policy</a>
+      <a href="../terms-of-use.html">Terms of Use</a>
+      <a href="index.html">NutriMax</a>
+      <a href="../index.html">GME Digital</a>
+      <a href="../impressum.html">Impressum</a>
+    </div>
+    <p>&copy; 2026 NutriMax by GME Digital UG (haftungsbeschränkt). All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function () {
+      const zoomableImages = document.querySelectorAll('.zoomable-image');
+      const lightbox = document.getElementById('image-lightbox');
+      const lightboxImage = document.getElementById('lightbox-image');
+      const lightboxClose = document.getElementById('lightbox-close');
+
+      function openLightbox(sourceImage) {
+        lightboxImage.src = sourceImage.src;
+        lightboxImage.alt = sourceImage.alt;
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightboxImage.src = '';
+      }
+
+      zoomableImages.forEach((image) => {
+        image.addEventListener('click', () => openLightbox(image));
+      });
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
