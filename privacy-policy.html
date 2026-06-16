@@ -128,9 +128,17 @@
   <h3>Photos (Camera &amp; Photo Library)</h3>
   <ul>
     <li>Meal images you choose to capture with the camera or select from your photo library.
-        Photos are stored <strong>locally on your device only</strong> and are <em>never</em>
-        uploaded to our servers.</li>
+          Photos are stored <strong>locally on your device</strong>. If you use the optional
+          AI-based nutrition estimation feature, the selected meal photo is transmitted to our
+          third-party AI service provider for processing as described in <a href="#third-party-services">Section 7</a>.</li>
   </ul>
+
+    <h3>AI Meal Estimation Inputs (optional)</h3>
+    <ul>
+      <li>If you choose to use the optional AI-based nutrition estimation feature, NutriMax may
+          send the meal photo you selected and any meal description or other text you enter for
+          that feature to our third-party AI service provider to generate nutrition estimates.</li>
+    </ul>
 
   <h3>Location Data (opt-in)</h3>
   <ul>
@@ -175,7 +183,10 @@
     <li><strong>Fitness / activity level</strong> – health data (Art. 9)</li>
     <li><strong>Dietary preferences / restrictions</strong> – health data (Art. 9)</li>
     <li><strong>Location data</strong> – opt-in only; used for meal location tagging</li>
-    <li><strong>Meal photos</strong> – opt-in only; stored locally on device, not uploaded</li>
+    <li><strong>Meal photos</strong> – opt-in only; stored locally on device unless you submit
+        them for optional AI-based nutrition estimation</li>
+    <li><strong>AI meal estimation inputs</strong> – optional meal photos and text you submit
+        for AI-based nutrition estimation</li>
   </ul>
 
   <h3>Performance of a contract — Art. 6(1)(b) GDPR</h3>
@@ -220,7 +231,10 @@
     <li><strong>Health recommendations</strong> – to compute personalised daily calorie targets
         and macronutrient ranges based on your body measurements, activity level, and goals.</li>
     <li><strong>Meal photo storage</strong> – to let you attach images to meal entries. Photos
-        are processed and stored entirely on-device.</li>
+      are stored on-device unless you choose to submit them for optional AI-based nutrition
+      estimation.</li>
+    <li><strong>AI-based nutrition estimation</strong> – to analyze a meal photo and/or meal
+      description that you choose to submit and return estimated nutrition data.</li>
     <li><strong>Location tagging (opt-in)</strong> – to associate meal entries with a location
         if you have granted location permission.</li>
     <li><strong>Goal &amp; reminder features</strong> – to present your nutrition goals and, if
@@ -240,12 +254,17 @@
         diet type, etc.) for the first time.</li>
     <li>When you enable optional features such as location tagging or meal photo capture and
         grant the corresponding device permission.</li>
+    <li>When you intentionally submit a meal photo and/or meal description for the optional
+      AI-based nutrition estimation feature.</li>
   </ul>
   <p><strong>How to withdraw consent:</strong></p>
   <ul>
     <li><strong>Device permissions</strong> – revoke camera, photo library, or location access
         at any time via your device's Settings app. The app will continue to work; only the
         specific feature tied to that permission will be disabled.</li>
+    <li><strong>AI-based nutrition estimation</strong> – stop using the optional AI estimation
+      feature. If you do not submit a meal photo or meal description for estimation, that
+      data will not be sent to the third-party AI service.</li>
     <li><strong>Health / body data</strong> – delete individual data points in the app's
         profile or settings screens, or delete your entire account to remove all data (see
         <a href="#data-retention">Section 10</a>).</li>
@@ -266,14 +285,16 @@
   <h3>Camera</h3>
   <p>
     Used <em>only</em> when you choose to photograph a meal. Images are saved locally on your
-    device and are never transmitted to our servers. You can deny camera permission without
-    affecting any other feature of the app.
+    device. If you use the optional AI-based nutrition estimation feature, the selected image
+    may also be transmitted to our third-party AI service provider for processing. You can deny
+    camera permission without affecting any other feature of the app.
   </p>
 
   <h3>Photo Library / Storage</h3>
   <p>
     Used <em>only</em> when you choose to attach an existing photo to a meal entry. Access is
-    limited to photos you explicitly select. Images remain on your device.
+    limited to photos you explicitly select. Images remain on your device unless you submit a
+    selected image for optional AI-based nutrition estimation.
   </p>
 
   <h3>Location (optional)</h3>
@@ -315,6 +336,17 @@
     eu-central-1) or another region we configure.
     <br>
     <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Supabase Privacy Policy →</a>
+  </p>
+
+  <h3>OpenAI (AI-based Nutrition Estimation)</h3>
+  <p>
+    NutriMax uses <a href="https://openai.com" target="_blank" rel="noopener noreferrer">OpenAI</a>
+    to provide an optional AI-based nutrition estimation feature. When you choose to use this
+    feature, the meal photo you submit and any related text you enter are transmitted to OpenAI
+    for processing to generate estimated nutrition information. We do not use OpenAI for
+    advertising, profiling, or unrelated analytics.
+    <br>
+    <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">OpenAI Privacy Policy →</a>
   </p>
 
   <h3>Apple (App Store / iOS platform)</h3>
@@ -371,6 +403,12 @@
         has <strong>SCCs</strong> in place.
         <br>
         <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy →</a></li>
+      <li><strong>OpenAI</strong> – if you use the optional AI-based nutrition estimation feature,
+        the meal photo you submit and any related text you enter are sent to OpenAI for
+        processing. This may involve processing outside the EU/EEA. We rely on the safeguards
+        provided under OpenAI's applicable contractual and privacy commitments.
+        <br>
+        <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">OpenAI Privacy Policy →</a></li>
   </ul>
   <p>
     Where personal data is transferred outside the EU/EEA, we ensure that adequate safeguards
@@ -384,9 +422,10 @@
         Data Privacy Framework for certified US entities).</li>
   </ul>
   <p>
-    NutriMax does <strong>not</strong> use Firebase, Sentry, OpenAI / LLM APIs, or any other
-    third-party services beyond those listed above. No data is shared with advertising
-    networks, analytics providers, or data brokers.
+    NutriMax does <strong>not</strong> use Firebase, Sentry, advertising networks,
+    cross-app tracking SDKs, or third-party analytics services. NutriMax does use OpenAI for
+    optional AI-based nutrition estimation as described above. No data is sold to or shared
+    with data brokers or marketing companies.
   </p>
   <p>
     You may request further information about international transfer safeguards by contacting
@@ -405,8 +444,9 @@
         user can only read and write their own data; no cross-user data access is possible.</li>
     <li><strong>Access controls</strong> – only authorised GME Digital personnel have access to
         production infrastructure, and access is protected by multi-factor authentication.</li>
-    <li><strong>Meal photos</strong> – stored exclusively on your device and never transmitted
-        to our servers.</li>
+    <li><strong>Meal photos</strong> – stored on your device. If you use the optional AI-based
+      nutrition estimation feature, the selected photo is also transmitted securely to OpenAI
+      for processing.</li>
     <li><strong>No plain-text passwords</strong> – passwords are hashed by Supabase Auth before
         storage.</li>
   </ul>
