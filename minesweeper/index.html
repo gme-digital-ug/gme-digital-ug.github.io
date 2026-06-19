@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minesweeper – The classic puzzle, beautifully rebuilt</title>
-  <meta name="description" content="A modern, ad-free Minesweeper for phone, tablet, and desktop. Fair first-click safety, smart no-guess protection, custom boards, light & dark themes. Free forever — no accounts, no tracking.">
+  <meta name="description"
+    content="A modern, ad-free Minesweeper for phone, tablet, and desktop. Fair first-click safety, smart no-guess protection, custom boards, light & dark themes. Free forever — no accounts, no tracking.">
   <style>
     :root {
-      --blue:       #2563eb;
-      --blue-dark:  #1d4ed8;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
       --blue-light: #dbeafe;
-      --text:       #0f172a;
-      --muted:      #64748b;
-      --bg:         #ffffff;
-      --surface:    #f8fafc;
-      --border:     #e2e8f0;
-      --radius:     12px;
+      --text: #0f172a;
+      --muted: #64748b;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --border: #e2e8f0;
+      --radius: 12px;
     }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
@@ -36,22 +44,27 @@
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(8px);
       z-index: 100;
     }
+
     .nav-brand {
       font-weight: 700;
       font-size: 1.25rem;
       color: var(--blue-dark);
       text-decoration: none;
     }
+
     .nav-home {
       font-size: 0.9rem;
       color: var(--muted);
       text-decoration: none;
     }
-    .nav-home:hover { color: var(--blue-dark); }
+
+    .nav-home:hover {
+      color: var(--blue-dark);
+    }
 
     /* ── HERO ────────────────────────────────────────────────────────────── */
     .hero {
@@ -60,10 +73,11 @@
       text-align: center;
       padding: 6rem 1.5rem 5rem;
     }
+
     .hero-badge {
       display: inline-block;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 999px;
       padding: 0.3rem 1rem;
       font-size: 0.8rem;
@@ -71,6 +85,7 @@
       text-transform: uppercase;
       margin-bottom: 1.25rem;
     }
+
     .hero h1 {
       font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: 800;
@@ -78,19 +93,25 @@
       line-height: 1.1;
       margin-bottom: 1rem;
     }
-    .hero h1 span { color: #93c5fd; }
+
+    .hero h1 span {
+      color: #93c5fd;
+    }
+
     .hero-tagline {
       font-size: clamp(1rem, 2.5vw, 1.3rem);
       color: #cbd5e1;
       max-width: 600px;
       margin: 0 auto 2.5rem;
     }
+
     .hero-cta {
       display: flex;
       gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
     }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -104,9 +125,22 @@
       cursor: pointer;
       border: none;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-    .btn-primary   { background: var(--blue); color: #fff; }
-    .btn-secondary { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.35); }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
 
     /* ── STORE BUTTONS ───────────────────────────────────────────────────── */
     .store-section {
@@ -116,9 +150,24 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-    .store-section h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .store-section p  { color: var(--muted); margin-bottom: 2rem; }
-    .store-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .store-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .store-section p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .store-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     .store-btn {
       display: inline-flex;
       align-items: center;
@@ -135,12 +184,28 @@
       cursor: not-allowed;
       position: relative;
     }
-    .store-btn .store-icon { font-size: 1.6rem; line-height: 1; }
-    .store-btn .store-label { display: flex; flex-direction: column; text-align: left; }
-    .store-btn .store-label small { font-size: 0.7rem; font-weight: 400; opacity: 0.8; }
+
+    .store-btn .store-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .store-btn .store-label {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .store-btn .store-label small {
+      font-size: 0.7rem;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+
     .store-btn .coming-soon {
       position: absolute;
-      top: -10px; right: -10px;
+      top: -10px;
+      right: -10px;
       background: var(--blue);
       color: #fff;
       font-size: 0.65rem;
@@ -152,8 +217,15 @@
     }
 
     /* ── SECTIONS ────────────────────────────────────────────────────────── */
-    section { padding: 5rem 1.5rem; }
-    .container { max-width: 1080px; margin: 0 auto; }
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
     .section-label {
       display: block;
       color: var(--blue-dark);
@@ -163,12 +235,14 @@
       text-transform: uppercase;
       margin-bottom: 0.75rem;
     }
+
     h2.section-title {
       font-size: clamp(1.6rem, 3.5vw, 2.25rem);
       font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 1rem;
     }
+
     .section-desc {
       color: var(--muted);
       max-width: 560px;
@@ -183,6 +257,7 @@
       gap: 4rem;
       align-items: center;
     }
+
     .about-grid .visual {
       background: var(--blue-light);
       border-radius: 24px;
@@ -196,19 +271,34 @@
       font-size: 1rem;
       font-weight: 600;
     }
-    .about-text p { color: var(--muted); margin-bottom: 1.2rem; font-size: 1.05rem; }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+
     @media (max-width: 680px) {
-      .about-grid { grid-template-columns: 1fr; }
-      .about-grid .visual { display: none; }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid .visual {
+        display: none;
+      }
     }
 
     /* ── FEATURES ────────────────────────────────────────────────────────── */
-    .features-bg { background: var(--surface); }
+    .features-bg {
+      background: var(--surface);
+    }
+
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1.5rem;
     }
+
     .feature-card {
       background: var(--bg);
       border: 1px solid var(--border);
@@ -216,17 +306,32 @@
       padding: 1.75rem;
       transition: box-shadow 0.2s;
     }
-    .feature-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+    .feature-card:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
     .feature-icon {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       background: var(--blue-light);
       border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.5rem;
       margin-bottom: 1rem;
     }
-    .feature-card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
-    .feature-card p  { color: var(--muted); font-size: 0.9rem; }
+
+    .feature-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
 
     /* ── SCREENSHOTS ─────────────────────────────────────────────────────── */
     .screenshots-grid {
@@ -234,6 +339,7 @@
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 1.25rem;
     }
+
     .screenshot-placeholder {
       background: var(--blue-light);
       border: 2px dashed #93c5fd;
@@ -250,14 +356,38 @@
       text-align: center;
       padding: 1rem;
     }
-    .screenshot-placeholder .ph-icon { font-size: 2rem; opacity: 0.6; }
+
+    .screenshot-placeholder .ph-icon {
+      font-size: 2rem;
+      opacity: 0.6;
+    }
 
     /* ── DONATE ──────────────────────────────────────────────────────────── */
-    .donate-bg { background: var(--blue-light); }
-    .donate-inner { max-width: 680px; margin: 0 auto; text-align: center; }
-    .donate-inner .donate-emoji { font-size: 2.5rem; }
-    .donate-inner h2 { font-size: clamp(1.6rem, 3.5vw, 2.25rem); font-weight: 800; margin: 0.5rem 0 1rem; }
-    .donate-inner p { color: #334155; font-size: 1.05rem; margin-bottom: 2rem; }
+    .donate-bg {
+      background: var(--blue-light);
+    }
+
+    .donate-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .donate-inner .donate-emoji {
+      font-size: 2.5rem;
+    }
+
+    .donate-inner h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+      font-weight: 800;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .donate-inner p {
+      color: #334155;
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
 
     /* ── FOOTER ──────────────────────────────────────────────────────────── */
     footer {
@@ -267,11 +397,26 @@
       padding: 2.5rem 1.5rem;
       font-size: 0.875rem;
     }
-    footer a { color: #93c5fd; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-    footer .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    footer .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
   </style>
 </head>
+
 <body>
 
   <!-- NAV -->
@@ -343,27 +488,32 @@
         <div class="feature-card">
           <div class="feature-icon">🧠</div>
           <h3>Fair-Guess Protection</h3>
-          <p>When the board forces an unavoidable 50/50, a mine won't be hiding under your guess. Gamble when a safe move exists, though, and you're on your own.</p>
+          <p>When the board forces an unavoidable 50/50, a mine won't be hiding under your guess. Gamble when a safe
+            move exists, though, and you're on your own.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🎚️</div>
           <h3>Presets &amp; Custom Boards</h3>
-          <p>Easy, Normal, Hard, and Extreme presets — or craft your own grid from 5×5 up to 30×30 with the mine count you choose.</p>
+          <p>Easy, Normal, Hard, and Extreme presets — or craft your own grid from 5×5 up to 30×30 with the mine count
+            you choose.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🚩</div>
           <h3>Flexible Flagging</h3>
-          <p>Long-press to flag, or switch on flag mode for tap-to-flag. Mark suspected mines the way that suits you.</p>
+          <p>Long-press to flag, or switch on flag mode for tap-to-flag. Mark suspected mines the way that suits you.
+          </p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🎨</div>
           <h3>Light &amp; Dark Themes</h3>
-          <p>Match your system or pick Light or Dark by hand. A responsive layout adapts cleanly from phone to desktop.</p>
+          <p>Match your system or pick Light or Dark by hand. A responsive layout adapts cleanly from phone to desktop.
+          </p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🔒</div>
           <h3>Private by Design</h3>
-          <p>No sign-up, no ads, no analytics, no data collection. The game runs entirely on your device — fully offline.</p>
+          <p>No sign-up, no ads, no analytics, no data collection. The game runs entirely on your device — fully
+            offline.</p>
         </div>
       </div>
     </div>
@@ -411,15 +561,16 @@
   <section class="donate-bg">
     <div class="donate-inner">
       <div class="donate-emoji">❤️</div>
-      <h2>Free forever — supported by you</h2>
+      <h2>Free — supported by you</h2>
       <p>
-        Minesweeper is free to play with no ads and no paywalls, and that's how it's
-        meant to stay. If the game brightens your commute or coffee break, a small
+        Minesweeper is free to play with no ads and no paywalls. If the game brightens your commute or coffee break, a
+        small
         voluntary tip helps cover development and keeps it growing. You can tip
         directly inside the app, or buy me a coffee on Ko-fi below. Entirely
         optional — every feature is yours either way.
       </p>
-      <a href="https://ko-fi.com/gmedigi" class="btn btn-primary" target="_blank" rel="noopener noreferrer">☕ Buy me a coffee on Ko-fi</a>
+      <a href="https://ko-fi.com/gmedigi" class="btn btn-primary" target="_blank" rel="noopener noreferrer">☕ Buy me a
+        coffee on Ko-fi</a>
     </div>
   </section>
 
@@ -461,4 +612,5 @@
   </footer>
 
 </body>
+
 </html>
