@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper – The classic puzzle, beautifully rebuilt</title>
+  <meta name="description"
+    content="A modern, ad-free Minesweeper for phone, tablet, and desktop. Fair first-click safety, smart no-guess protection, custom boards, light & dark themes. Free forever — no accounts, no tracking.">
+  <style>
+    :root {
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --blue-light: #dbeafe;
+      --text: #0f172a;
+      --muted: #64748b;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────────────── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--blue-dark);
+      text-decoration: none;
+    }
+
+    .nav-home {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .nav-home:hover {
+      color: var(--blue-dark);
+    }
+
+    /* ── HERO ────────────────────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 45%, #1e3a8a 100%);
+      color: #fff;
+      text-align: center;
+      padding: 6rem 1.5rem 5rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 span {
+      color: #93c5fd;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: #cbd5e1;
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    /* ── STORE BUTTONS ───────────────────────────────────────────────────── */
+    .store-section {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .store-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .store-section p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .store-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.6rem;
+      background: var(--text);
+      color: #fff;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.15s, transform 0.15s;
+      opacity: 0.6;
+      cursor: not-allowed;
+      position: relative;
+    }
+
+    .store-btn .store-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .store-btn .store-label {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .store-btn .store-label small {
+      font-size: 0.7rem;
+      font-weight: 400;
+      opacity: 0.8;
+    }
+
+    .store-btn .coming-soon {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTIONS ────────────────────────────────────────────────────────── */
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: block;
+      color: var(--blue-dark);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    h2.section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 3rem;
+      font-size: 1.05rem;
+    }
+
+    /* ── ABOUT ───────────────────────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-grid .visual {
+      background: var(--blue-light);
+      border-radius: 24px;
+      aspect-ratio: 9/16;
+      max-width: 280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue-dark);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 680px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid .visual {
+        display: none;
+      }
+    }
+
+    /* ── FEATURES ────────────────────────────────────────────────────────── */
+    .features-bg {
+      background: var(--surface);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--blue-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* ── SCREENSHOTS ─────────────────────────────────────────────────────── */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .screenshot-placeholder {
+      background: var(--blue-light);
+      border: 2px dashed #93c5fd;
+      border-radius: 20px;
+      aspect-ratio: 9/19;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--blue-dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .screenshot-placeholder .ph-icon {
+      font-size: 2rem;
+      opacity: 0.6;
+    }
+
+    /* ── DONATE ──────────────────────────────────────────────────────────── */
+    .donate-bg {
+      background: var(--blue-light);
+    }
+
+    .donate-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .donate-inner .donate-emoji {
+      font-size: 2.5rem;
+    }
+
+    .donate-inner h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+      font-weight: 800;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .donate-inner p {
+      color: #334155;
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--text);
+      color: #94a3b8;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.875rem;
+    }
+
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    footer .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-brand">Minesweeper</a>
+    <a href="../index.html" class="nav-home">← GME Digital</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="hero-badge">💣 The classic, rebuilt</span>
+    <h1>Meet <span>Minesweeper</span></h1>
+    <p class="hero-tagline">
+      The timeless logic puzzle, thoughtfully rebuilt for modern devices —
+      fair first clicks, smart guess protection, custom boards, and a clean
+      interface that works everywhere. Free, ad-free, and private.
+    </p>
+    <div class="hero-cta">
+      <a href="#download" class="btn btn-primary">📲 Get the App</a>
+      <a href="#features" class="btn btn-secondary">Explore Features</a>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <span class="section-label">What is Minesweeper?</span>
+          <h2 class="section-title">A fair, modern take on a timeless puzzle</h2>
+          <p>
+            Minesweeper is the logic game you already know — clear the board without
+            detonating a single mine — rebuilt from the ground up with a clean
+            interface, smooth controls, and rules that play fair.
+          </p>
+          <p>
+            Your first reveal is always safe, and when the board genuinely forces a
+            50/50 guess, you won't be punished for it. Tune the challenge with four
+            difficulty presets or design your own board, from a cosy 5×5 to a
+            sprawling 30×30 minefield.
+          </p>
+          <p>
+            No accounts. No ads. No tracking. Just you, the grid, and the satisfying
+            click of a perfectly cleared board — on your phone, tablet, or desktop.
+          </p>
+        </div>
+        <div class="visual">
+          <!-- Swap with <img src="screenshot-board.png" alt="Minesweeper app preview"> -->
+          📱 App preview<br>coming soon
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-bg" id="features">
+    <div class="container">
+      <span class="section-label">Features</span>
+      <h2 class="section-title">Everything you love, nothing in the way</h2>
+      <p class="section-desc">
+        Faithful to the original where it counts, and refined everywhere else.
+      </p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Always-Safe First Click</h3>
+          <p>Your opening reveal can never be a mine, so every game starts with a real opportunity to play.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>Fair-Guess Protection</h3>
+          <p>When the board forces an unavoidable 50/50, a mine won't be hiding under your guess. Gamble when a safe
+            move exists, though, and you're on your own.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎚️</div>
+          <h3>Presets &amp; Custom Boards</h3>
+          <p>Easy, Normal, Hard, and Extreme presets — or craft your own grid from 5×5 up to 30×30 with the mine count
+            you choose.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🚩</div>
+          <h3>Flexible Flagging</h3>
+          <p>Long-press to flag, or switch on flag mode for tap-to-flag. Mark suspected mines the way that suits you.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>Light &amp; Dark Themes</h3>
+          <p>Match your system or pick Light or Dark by hand. A responsive layout adapts cleanly from phone to desktop.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Private by Design</h3>
+          <p>No sign-up, no ads, no analytics, no data collection. The game runs entirely on your device — fully
+            offline.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <section>
+    <div class="container">
+      <span class="section-label">Screenshots</span>
+      <h2 class="section-title">Clean, tactile, and easy on the eyes</h2>
+      <p class="section-desc">
+        A crisp board, readable numbers, and controls that feel right on any screen.
+      </p>
+      <div class="screenshots-grid">
+        <div class="screenshot-placeholder">
+          <span class="ph-icon">🖼️</span>
+          <!-- Replace with: <img src="screenshot-game.png" alt="Minesweeper game board"> -->
+          Game Board
+        </div>
+        <div class="screenshot-placeholder">
+          <span class="ph-icon">🖼️</span>
+          <!-- Replace with: <img src="screenshot-settings.png" alt="Difficulty settings"> -->
+          Difficulty Settings
+        </div>
+        <div class="screenshot-placeholder">
+          <span class="ph-icon">🖼️</span>
+          <!-- Replace with: <img src="screenshot-custom.png" alt="Custom board builder"> -->
+          Custom Board
+        </div>
+        <div class="screenshot-placeholder">
+          <span class="ph-icon">🖼️</span>
+          <!-- Replace with: <img src="screenshot-dark.png" alt="Dark theme"> -->
+          Dark Theme
+        </div>
+        <div class="screenshot-placeholder">
+          <span class="ph-icon">🖼️</span>
+          <!-- Replace with: <img src="screenshot-win.png" alt="Victory screen"> -->
+          Victory 😎
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DONATE -->
+  <section class="donate-bg">
+    <div class="donate-inner">
+      <div class="donate-emoji">❤️</div>
+      <h2>Free — supported by you</h2>
+      <p>
+        Minesweeper is free to play with no ads and no paywalls. If the game brightens your commute or coffee break, a
+        small
+        voluntary tip helps cover development and keeps it growing. You can tip
+        directly inside the app, or buy me a coffee on Ko-fi below. Entirely
+        optional — every feature is yours either way.
+      </p>
+      <a href="https://ko-fi.com/gmedigi" class="btn btn-primary" target="_blank" rel="noopener noreferrer">☕ Buy me a
+        coffee on Ko-fi</a>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD / STORE BUTTONS -->
+  <div class="store-section" id="download">
+    <h2>Get Minesweeper</h2>
+    <p>Coming soon to iOS and Android.</p>
+    <div class="store-buttons">
+      <!-- Replace href="#" with the actual App Store URL when available -->
+      <a href="#" class="store-btn" aria-label="Download on the App Store (coming soon)">
+        <span class="store-icon">🍎</span>
+        <span class="store-label">
+          <small>Download on the</small>
+          App Store
+        </span>
+        <span class="coming-soon">Soon</span>
+      </a>
+      <!-- Replace href="#" with the actual Google Play URL when available -->
+      <a href="#" class="store-btn" aria-label="Get it on Google Play (coming soon)">
+        <span class="store-icon">▶️</span>
+        <span class="store-label">
+          <small>Get it on</small>
+          Google Play
+        </span>
+        <span class="coming-soon">Soon</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <a href="../index.html">GME Digital</a>
+      <a href="../impressum.html">Impressum</a>
+    </div>
+    <p>&copy; 2026 Minesweeper by GME Digital UG (haftungsbeschränkt). All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
