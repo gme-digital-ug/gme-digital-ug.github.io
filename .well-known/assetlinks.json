@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gmedigital.nutriflow",
+      "sha256_cert_fingerprints": ["48:9F:81:6B:62:51:AB:D7:5C:7B:45:23:37:7A:CF:73:48:D2:15:85:BF:52:EB:66:12:5C:7B:23:82:B3:07:FB"]
+    }
+  }
+]
