@@ -7,6 +7,10 @@ accounts: false          # no sign-up, no accounts
 personal_data: false     # collects no personal data; everything stays on the device
 free: true               # free of charge, optional tips only
 web_path: "/minesweeper/"
+pages:                   # from the site root; the shared footer links them (docs/adr/0003)
+  home: "minesweeper/index.html"
+  privacy: "minesweeper/privacy-policy.html"
+  terms: "minesweeper/terms-of-use.html"
 effective:
   privacy: "November 18, 2026"
   terms: "November 18, 2026"

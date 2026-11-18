@@ -33,6 +33,7 @@ const REQUIRED_PATHS = [
   'minesweeper/privacy-policy.html',
   'minesweeper/terms-of-use.html',
   'm/index.html',
+  'assets/css/site.css',
   'google4b2bd9d1f918206f.html',
   '.well-known/assetlinks.json',
   'CNAME',
@@ -59,6 +60,26 @@ const AGREED_CORRECTIONS = [
   { page: 'privacy-policy.html', ...RETIRED_GMAIL },
   { page: 'nutrimax/delete-account.html', ...RETIRED_GMAIL },
 ];
+
+// The page shell (docs/adr/0003): one stylesheet and one legal footer on every page.
+const SHELL = {
+  css: '_includes/shell/site.css',         // the one source of the shared CSS,
+  stylesheet: 'assets/css/site.css',       // published from it for every page,
+  inlined: ['m/index.html'],               // except these, which inline it (their CSP allows no request)
+  exempt: ['google4b2bd9d1f918206f.html'], // Search Console verification file: not a page, left as is
+  // Tokens the shell defines and pages only use.
+  tokens: ['--text', '--muted', '--bg', '--surface', '--border', '--radius', '--font',
+    '--accent', '--accent-strong', '--accent-soft', '--accent-bright', '--accent-gradient'],
+  // Whose legal documents a page's footer links, by path prefix (legal documents:
+  // the app in their front matter). Every other page is the company's own; its
+  // footer links every app's documents.
+  appOf: [['nutrimax/', 'nutrimax'], ['m/', 'nutrimax'], ['minesweeper/', 'minesweeper']],
+};
+
+// The Shared Meal page's Content-Security-Policy, exactly as the owner decided
+// (docs/adr/0003). Changing it is a decision, not an edit.
+const SHARED_MEAL_CSP = "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; " +
+  "img-src data:; base-uri 'none'; form-action 'none'";
 
 // ---------------------------------------------------------------- helpers
 
@@ -129,6 +150,19 @@ const isPublic = (p) =>
 
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+// The site file a relative href on page p points to ("../impressum.html" on
+// "nutrimax/index.html" -> "impressum.html"); p itself for a bare "#fragment".
+function resolveHref(p, href) {
+  const path = href.split('#')[0];
+  if (!path) return p;
+  const dir = p.includes('/') ? p.slice(0, p.lastIndexOf('/') + 1) : '';
+  const resolved = [];
+  for (const s of (dir + path).split('/')) {
+    if (s === '..') resolved.pop(); else if (s !== '.' && s !== '') resolved.push(s);
+  }
+  return resolved.join('/') + (path.endsWith('/') ? 'index.html' : '');
+}
+
 // ---------------------------------------------------------------- checks
 
 const { source, site, baseline } = args;
@@ -176,10 +210,10 @@ for (const p of [...expected].filter((p) => siteFiles.includes(p))) {
   check(pattern.test(out), `/${p} output differs from its source outside the Liquid tags`);
 }
 
-// 5. No Liquid left unrendered in any HTML output.
+// 5. No Liquid left unrendered in any HTML or CSS output.
 const htmlOut = siteFiles.filter((p) => p.endsWith('.html'));
 const migrated = MIGRATED_PAGES.includes('*') ? htmlOut : MIGRATED_PAGES;
-for (const p of htmlOut) {
+for (const p of siteFiles.filter((p) => /\.(html|css)$/.test(p))) {
   const out = text(site, p);
   check(!/\{\{|\{%/.test(out), `/${p} contains unrendered Liquid ({{ or {%)`);
 }
@@ -290,7 +324,7 @@ const DELETION = {
   notInSummary: [/business days/, /within 30 days/, /Settings/, /→/],
 };
 const sectionOf = (html, id) => {
-  const m = html.match(new RegExp(`<h2 id="${id}">[\\s\\S]*?(?=<h2[ >]|<div class="footer">)`));
+  const m = html.match(new RegExp(`<h2 id="${id}">[\\s\\S]*?(?=<h2[ >]|</main>|<footer[ >])`));
   return m ? m[0] : '';
 };
 if (existsSync(join(site, DELETION.page))) {
@@ -374,24 +408,110 @@ for (const p of htmlOut) {
   const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
   check(dupes.length === 0, `/${p} has duplicate ids: ${[...new Set(dupes)].join(', ')}`);
 
-  const dir = p.includes('/') ? p.slice(0, p.lastIndexOf('/') + 1) : '';
   for (const [, href] of html.matchAll(/\shref="([^"]*)"/g)) {
     if (/^(?:[a-z]+:|\/\/)/i.test(href)) continue; // mailto:, https:, intent:, ...
     const [path, frag] = href.split('#');
-    let target = p;
-    if (path) {
-      const parts = (dir + path).split('/');
-      const resolved = [];
-      for (const s of parts) {
-        if (s === '..') resolved.pop(); else if (s !== '.' && s !== '') resolved.push(s);
-      }
-      target = resolved.join('/') + (path.endsWith('/') ? 'index.html' : '');
-      if (!check(siteFiles.includes(target), `/${p} links to ${href}, which is not in the site`)) continue;
-    }
+    const target = resolveHref(p, href);
+    if (path && !check(siteFiles.includes(target), `/${p} links to ${href}, which is not in the site`)) continue;
     if (frag && target.endsWith('.html')) {
       check(idsOf(text(site, target)).includes(frag), `/${p} links to ${href}, but /${target} has no id "${frag}"`);
     }
   }
+}
+
+// 15. The page shell (docs/adr/0003). The shared CSS has one source, published
+//     unchanged as the stylesheet; it defines the shared tokens and the accents.
+const lf = (s) => s.replace(/\r\n/g, '\n');
+const shellCss = existsSync(join(source, SHELL.css)) ? lf(text(source, SHELL.css)).trim() : '';
+check(shellCss !== '', `${SHELL.css} (the shared CSS) is missing`);
+if (existsSync(join(site, SHELL.stylesheet))) {
+  check(lf(text(site, SHELL.stylesheet)).trim() === shellCss, `/${SHELL.stylesheet} is not ${SHELL.css} as it is`);
+}
+const shellDefines = new Set([...shellCss.matchAll(/(--[\w-]+)\s*:/g)].map(([, t]) => t));
+for (const t of SHELL.tokens) check(shellDefines.has(t), `${SHELL.css} does not define ${t}`);
+const accents = new Set([...shellCss.matchAll(/\[data-accent="([\w-]+)"\]/g)].map(([, a]) => a));
+
+// 16. Every page uses the shell: it links the stylesheet (or inlines it, if listed),
+//     picks a defined accent, and doesn't define tokens or base rules itself.
+const appOfPage = (p) =>
+  Object.entries(legalPages).find(([, d]) => d.privacy === p || d.terms === p)?.[0] ??
+  SHELL.appOf.find(([prefix]) => p.startsWith(prefix))?.[1];
+const shellPages = htmlOut.filter((p) => !SHELL.exempt.includes(p));
+for (const p of shellPages) {
+  const html = text(site, p);
+  const sheets = [...html.matchAll(/<link\b[^>]*\brel="stylesheet"[^>]*>/g)]
+    .map(([tag]) => resolveHref(p, tag.match(/\shref="([^"]*)"/)?.[1] ?? ''));
+  if (SHELL.inlined.includes(p)) {
+    check(shellCss && lf(html).includes(shellCss), `/${p} does not inline ${SHELL.css} in a <style> element`);
+  } else {
+    check(sheets.includes(SHELL.stylesheet), `/${p} does not link the shared stylesheet /${SHELL.stylesheet}`);
+  }
+  const accent = html.match(/<html\b[^>]*\sdata-accent="([^"]*)"/)?.[1];
+  check(accents.has(accent), `/${p} picks no accent defined in ${SHELL.css} (<html data-accent="${accent ?? ''}">)`);
+
+  // The page's own CSS: its <style> elements in the source (an included shell is not its own).
+  const own = existsSync(join(source, p)) ? [...text(source, p).matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)]
+    .map(([, css]) => css.replace(/\{%-?\s*include\s+shell\/site\.css\s*-?%\}/, '').replace(/\/\*[\s\S]*?\*\//g, ''))
+    .join('\n') : '';
+  for (const [, t] of own.matchAll(/(--[\w-]+)\s*:/g)) {
+    check(false, `${p} defines the CSS variable ${t}; tokens and accents live in ${SHELL.css}`);
+  }
+  for (const t of new Set([...own.matchAll(/var\((--[\w-]+)/g)].map(([, t]) => t))) {
+    check(shellDefines.has(t), `${p} uses ${t}, which ${SHELL.css} does not define`);
+  }
+  for (const [rule, re] of [['the base font', /font-family\s*:/], ['the box-sizing reset', /box-sizing\s*:/],
+    ['the footer', /(?:^|[\s,}])(?:footer|\.site-footer[\w-]*|\.footer)\b[^{;]*\{/m]]) {
+    check(!re.test(own), `${p} styles ${rule} itself; that belongs to ${SHELL.css}`);
+  }
+}
+
+// 17. Every page has the one legal footer (_includes/shell/footer.html): relative
+//     links to the Impressum and the Datenschutzerklärung, to the privacy policy and
+//     terms of use of the page's own app (a company page: of every app) and of no
+//     other app, and the company's name.
+for (const p of shellPages) {
+  const html = text(site, p);
+  const footers = [...html.matchAll(/<footer\b[^>]*>[\s\S]*?<\/footer>/g)].map(([f]) => f);
+  if (!check(footers.length === 1 && /^<footer class="site-footer\b/.test(footers[0] ?? ''),
+    `/${p} should have exactly one shared footer (<footer class="site-footer">), has ${footers.length} footer(s)`)) continue;
+  const hrefs = [...footers[0].matchAll(/\shref="([^"]*)"/g)].map(([, h]) => h);
+  for (const h of hrefs) check(!/^(?:[a-z]+:|\/)/i.test(h), `/${p}: footer link ${h} is not relative`);
+  const links = hrefs.map((h) => resolveHref(p, h));
+  for (const want of ['impressum.html', 'datenschutz.html']) {
+    check(links.includes(want), `/${p}: footer does not link /${want}`);
+  }
+  const app = appOfPage(p);
+  for (const [a, docs] of Object.entries(legalPages)) {
+    for (const doc of [docs.privacy, docs.terms].filter(Boolean)) {
+      if (!app || app === a) check(links.includes(doc), `/${p}: footer does not link /${doc} (${a})`);
+      else check(!links.includes(doc), `/${p}: footer links /${doc} of ${a}, but the page is ${app}'s`);
+    }
+  }
+  check(footers[0].includes(facts.name), `/${p}: footer does not name ${facts.name}`);
+}
+
+// 18. The Shared Meal page (and any page that inlines the shell) makes no request
+//     and reads nothing from the address: its CSP is exactly the agreed one, no
+//     element loads anything (only <a> has an href), its CSS loads nothing, and its
+//     scripts are inline and don't touch the address or the network.
+for (const p of SHELL.inlined.filter((p) => existsSync(join(site, p)))) {
+  const html = text(site, p);
+  const csp = html.match(/<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]*)"/i)?.[1];
+  check(csp === SHARED_MEAL_CSP, `/${p}: Content-Security-Policy changed to "${csp}"`);
+  check(/<meta name="referrer" content="no-referrer">/.test(html), `/${p} lost <meta name="referrer" content="no-referrer">`);
+  const markup = html.replace(/<!--[\s\S]*?-->/g, '');
+  for (const [what, re] of [
+    ['a <link> element', /<link\b/i], ['a <base> element', /<base\b/i],
+    ['an attribute that loads a resource', /\s(?:src|srcset|poster|background|data|action|formaction|ping|manifest|xlink:href)\s*=/i],
+    ['a meta refresh', /http-equiv="refresh"/i], ['a CSS url()', /url\s*\(/i], ['a CSS @import', /@import/i],
+  ]) check(!re.test(markup), `/${p} has ${what}, which would make a request`);
+  for (const [, tag] of markup.matchAll(/<([a-zA-Z][\w-]*)\b[^>]*\shref\s*=/g)) {
+    check(tag.toLowerCase() === 'a', `/${p}: <${tag}> has an href, which may load a resource`);
+  }
+  const scripts = [...markup.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)]
+    .map(([, js]) => js.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '')).join('\n');
+  const reads = /\b(?:location|URL|documentURI|baseURI|referrer|history|fetch|XMLHttpRequest|WebSocket|EventSource|sendBeacon|Image|Worker|import)\b/;
+  check(!reads.test(scripts), `/${p}: a script reads the address or makes a request (${scripts.match(reads)?.[0]})`);
 }
 
 // ---------------------------------------------------------------- report

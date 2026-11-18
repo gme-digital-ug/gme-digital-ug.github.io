@@ -16,10 +16,12 @@ layout: null
       by a signed-in account;
     * it makes no network request: no fonts, no images, no analytics. The
       Content-Security-Policy below enforces that, and `no-referrer` keeps
-      even the address out of the store link's request.
+      even the address out of the store link's request. So the shared
+      stylesheet and footer are built into the page, not linked
+      (docs/adr/0003); tools/check-site.mjs checks all of this.
   The only script picks English or German from navigator.language.
 -->
-<html lang="en">
+<html lang="en" data-accent="nutrimax" data-color-scheme="auto">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,42 +31,27 @@ layout: null
   <meta name="robots" content="noindex, nofollow">
   <title>A NutriMax meal</title>
   <style>
-    :root {
-      --brand: #16a34a;
-      --brand-dark: #15803d;
-      --bg: #f3faf5;
-      --card: #ffffff;
-      --text: #0f2a1a;
-      --muted: #4b6455;
-      --border: #d7eadd;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --brand: #4ade80;
-        --brand-dark: #22c55e;
-        --bg: #0b1510;
-        --card: #13211a;
-        --text: #e6f4ea;
-        --muted: #a3bfae;
-        --border: #23382b;
-      }
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; }
+{% include shell/site.css %}
+  </style>
+  <style>
+    /* The Shared Meal card. Tokens, accent (NutriMax), dark scheme, base and
+       footer come from the shared CSS above. */
     body {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       padding: 24px 16px;
-      background: var(--bg);
-      color: var(--text);
-      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--surface);
+      font-size: 16px;
+      line-height: 1.5;
     }
     main {
       width: 100%;
       max-width: 420px;
-      background: var(--card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 24px;
       padding: 32px 24px;
@@ -76,26 +63,29 @@ layout: null
       height: 72px;
       margin: 0 auto 16px;
       border-radius: 20px;
-      background: var(--brand);
+      background: var(--accent-strong);
       display: flex;
       align-items: center;
       justify-content: center;
     }
     h1 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 8px; }
     h2 { font-size: 1rem; margin: 24px 0 4px; }
-    p { margin: 0 0 16px; color: var(--muted); }
+    main p { margin: 0 0 16px; color: var(--muted); }
     .cta {
       display: block;
       margin: 24px 0 8px;
       padding: 14px 20px;
       border-radius: 999px;
-      background: var(--brand);
+      background: var(--accent-strong);
       color: #fff;
       font-weight: 600;
       text-decoration: none;
     }
-    .cta:hover, .cta:focus-visible { background: var(--brand-dark); }
-    @media (prefers-color-scheme: dark) { .cta { color: #06200f; } }
+    .cta:hover, .cta:focus-visible { filter: brightness(0.9); }
+    @media (prefers-color-scheme: dark) {
+      .mark, .cta { background: var(--accent); }
+      .cta { color: #06200f; }
+    }
     ol {
       text-align: left;
       margin: 0 0 16px;
@@ -159,6 +149,7 @@ layout: null
         Seite wird nichts über die Mahlzeit angezeigt.</small>
     </section>
   </main>
+{% include shell/footer.html app="nutrimax" %}
   <script>
     // Language only. This script deliberately never touches `location`.
     (function () {

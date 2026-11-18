@@ -2,7 +2,7 @@
 layout: null
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-accent="minesweeper">
 
 <head>
   <meta charset="UTF-8">
@@ -10,34 +10,8 @@ layout: null
   <title>Minesweeper – The classic puzzle, beautifully rebuilt</title>
   <meta name="description"
     content="A modern, ad-free Minesweeper for phone, tablet, and desktop. Fair first-click safety, smart no-guess protection, custom boards, light & dark themes. Free forever — no accounts, no tracking.">
+  {% include shell/stylesheet.html %}
   <style>
-    :root {
-      --blue: #2563eb;
-      --blue-dark: #1d4ed8;
-      --blue-light: #dbeafe;
-      --text: #0f172a;
-      --muted: #64748b;
-      --bg: #ffffff;
-      --surface: #f8fafc;
-      --border: #e2e8f0;
-      --radius: 12px;
-    }
-
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.6;
-    }
-
     /* ── NAV ─────────────────────────────────────────────────────────────── */
     nav {
       display: flex;
@@ -55,7 +29,7 @@ layout: null
     .nav-brand {
       font-weight: 700;
       font-size: 1.25rem;
-      color: var(--blue-dark);
+      color: var(--accent-strong);
       text-decoration: none;
     }
 
@@ -66,12 +40,12 @@ layout: null
     }
 
     .nav-home:hover {
-      color: var(--blue-dark);
+      color: var(--accent-strong);
     }
 
     /* ── HERO ────────────────────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 45%, #1e3a8a 100%);
+      background: var(--accent-gradient);
       color: #fff;
       text-align: center;
       padding: 6rem 1.5rem 5rem;
@@ -98,7 +72,7 @@ layout: null
     }
 
     .hero h1 span {
-      color: #93c5fd;
+      color: var(--accent-bright);
     }
 
     .hero-tagline {
@@ -135,7 +109,7 @@ layout: null
     }
 
     .btn-primary {
-      background: var(--blue);
+      background: var(--accent);
       color: #fff;
     }
 
@@ -209,7 +183,7 @@ layout: null
       position: absolute;
       top: -10px;
       right: -10px;
-      background: var(--blue);
+      background: var(--accent);
       color: #fff;
       font-size: 0.65rem;
       font-weight: 700;
@@ -231,7 +205,7 @@ layout: null
 
     .section-label {
       display: block;
-      color: var(--blue-dark);
+      color: var(--accent-strong);
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -262,7 +236,7 @@ layout: null
     }
 
     .about-grid .visual {
-      background: var(--blue-light);
+      background: var(--accent-soft);
       border-radius: 24px;
       aspect-ratio: 9/16;
       max-width: 280px;
@@ -270,7 +244,7 @@ layout: null
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--blue-dark);
+      color: var(--accent-strong);
       font-size: 1rem;
       font-weight: 600;
     }
@@ -317,7 +291,7 @@ layout: null
     .feature-icon {
       width: 48px;
       height: 48px;
-      background: var(--blue-light);
+      background: var(--accent-soft);
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -344,8 +318,8 @@ layout: null
     }
 
     .screenshot-placeholder {
-      background: var(--blue-light);
-      border: 2px dashed #93c5fd;
+      background: var(--accent-soft);
+      border: 2px dashed var(--accent-bright);
       border-radius: 20px;
       aspect-ratio: 9/19;
       display: flex;
@@ -353,7 +327,7 @@ layout: null
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      color: var(--blue-dark);
+      color: var(--accent-strong);
       font-size: 0.8rem;
       font-weight: 600;
       text-align: center;
@@ -367,7 +341,7 @@ layout: null
 
     /* ── DONATE ──────────────────────────────────────────────────────────── */
     .donate-bg {
-      background: var(--blue-light);
+      background: var(--accent-soft);
     }
 
     .donate-inner {
@@ -390,32 +364,6 @@ layout: null
       color: #334155;
       font-size: 1.05rem;
       margin-bottom: 2rem;
-    }
-
-    /* ── FOOTER ──────────────────────────────────────────────────────────── */
-    footer {
-      background: var(--text);
-      color: #94a3b8;
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-      font-size: 0.875rem;
-    }
-
-    footer a {
-      color: #93c5fd;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    footer .footer-links {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
     }
   </style>
 </head>
@@ -604,15 +552,7 @@ layout: null
   </div>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="footer-links">
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="terms-of-use.html">Terms of Use</a>
-      <a href="../index.html">GME Digital</a>
-      <a href="../impressum.html">Impressum</a>
-    </div>
-    <p>&copy; 2026 Minesweeper by {{ site.data.company.name }}. All rights reserved.</p>
-  </footer>
+{% include shell/footer.html app="minesweeper" tone="dark" %}
 
 </body>
 

@@ -1,0 +1,32 @@
+{%- comment -%}
+  The legal footer of every page (docs/adr/0003).
+    app   the page's app, a key of _data/apps (nutrimax, minesweeper): the footer
+          links that app's page, privacy policy, terms of use and Delete account
+          page. Without it (the company's own pages) it links every app's.
+    tone  "dark" for the dark footer of the product landing pages.
+  Every footer links the home page, the Impressum and the Datenschutzerklärung.
+{%- endcomment -%}
+{%- include shell/root.html -%}
+{%- if include.app -%}
+  {%- unless site.data.apps[include.app] -%}{%- include shell/no-app-facts-for/{{ include.app }}.html -%}{%- endunless -%}
+{%- endif %}
+  <footer class="site-footer{% if include.tone == "dark" %} site-footer-dark{% endif %}">
+{%- for shell_pair in site.data.apps -%}
+  {%- if include.app and include.app != shell_pair[0] -%}{%- continue -%}{%- endif -%}
+  {%- assign shell_app = shell_pair[1] %}
+    <p class="site-footer-links">
+      <a href="{{ shell_root }}{{ shell_app.pages.home }}">{{ shell_app.name }}</a>
+      <a href="{{ shell_root }}{{ shell_app.pages.privacy }}">Privacy Policy</a>
+      <a href="{{ shell_root }}{{ shell_app.pages.terms }}">Terms of Use</a>
+      {%- if shell_app.delete_account %}
+      <a href="{{ shell_root }}{{ shell_app.delete_account }}">Delete Account</a>
+      {%- endif %}
+    </p>
+{%- endfor %}
+    <p class="site-footer-links">
+      <a href="{{ shell_root }}index.html">GME Digital</a>
+      <a href="{{ shell_root }}impressum.html">Impressum</a>
+      <a href="{{ shell_root }}datenschutz.html">Datenschutzerklärung</a>
+    </p>
+    <p>&copy; {{ site.time | date: "%Y" }} {{ site.data.company.name }}</p>
+  </footer>

@@ -2,16 +2,15 @@
 layout: null
 ---
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-accent="gme">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Datenschutzerklärung</title>
-  <style>
-    body { font-family: sans-serif; max-width: 700px; margin: 3rem auto; line-height: 1.6; }
-    a { color: #333; }
-  </style>
+  {% include shell/stylesheet.html %}
 </head>
 <body>
+<main class="doc">
   <h1>Datenschutzerklärung</h1>
 
   <p>Wir freuen uns über Ihr Interesse an unserer Website. Der Schutz Ihrer Privatsphäre ist für uns sehr wichtig. Nachstehend informieren wir Sie ausführlich über den Umgang mit Ihren Daten.</p>
@@ -88,5 +87,7 @@ layout: null
   <p>Diese Datenschutzerklärung ist aktuell gültig und hat den Stand November 2026. Durch die Weiterentwicklung unserer Website und Angebote darüber oder aufgrund geänderter gesetzlicher beziehungsweise behördlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern.</p>
 
   <p><a href="index.html">Zurück zur Startseite</a></p>
+</main>
+{% include shell/footer.html %}
 </body>
 </html>

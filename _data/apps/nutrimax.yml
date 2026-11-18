@@ -8,6 +8,10 @@ personal_data: true      # we process users' personal data (rights, internationa
 free: false              # free of charge: no liability cap, statutory-warranty note instead
 web_path: ""             # the app's website, shown after the Company origin
 delete_account: "nutrimax/delete-account.html"   # from the site root
+pages:                   # from the site root; the shared footer links them (docs/adr/0003)
+  home: "nutrimax/index.html"
+  privacy: "privacy-policy.html"
+  terms: "terms-of-use.html"
 effective:
   privacy: "November 18, 2026"
   terms: "November 18, 2026"

@@ -2,16 +2,15 @@
 layout: null
 ---
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-accent="gme">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Impressum</title>
-  <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 3rem auto; line-height: 1.6; }
-    a { color: #333; }
-  </style>
+  {% include shell/stylesheet.html %}
 </head>
 <body>
+<main class="doc">
   <h1>Impressum</h1>
 
   <p><strong>{{ site.data.company.name }}</strong><br>
@@ -40,5 +39,7 @@ layout: null
   {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}</p>
 
   <p><a href="index.html">Zurück zur Startseite</a></p>
+</main>
+{% include shell/footer.html %}
 </body>
 </html>

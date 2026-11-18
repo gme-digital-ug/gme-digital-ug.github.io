@@ -29,6 +29,58 @@ shows it changes on the next deploy. Pages use them like this:
 
 Don't type a Company fact into a page; `tools/check-site.mjs` fails if you do.
 
+## The page shell: one stylesheet, one footer
+
+Every page shares one stylesheet and one legal footer
+([ADR 0003](docs/adr/0003-shared-page-shell-inlined-into-the-shared-meal-page.md)):
+
+| What | Where |
+| --- | --- |
+| Design tokens (`--text`, `--muted`, `--bg`, `--surface`, `--border`, `--radius`, `--font`), base styles, document pages (`<main class="doc">`), footer styles | `_includes/shell/site.css` |
+| Each product's accent (`--accent`, `--accent-strong`, `--accent-soft`, `--accent-bright`, `--accent-gradient`) | `_includes/shell/site.css`, one `[data-accent="..."]` block per product |
+| The legal footer | `_includes/shell/footer.html` |
+| Which pages the footer links for an app | `pages:` and `delete_account` in `_data/apps/<app>.yml` |
+
+`_includes/shell/site.css` is published as `/assets/css/site.css` (through
+`assets/css/site.css`, which only includes it). A page uses the shell like this:
+
+```html
+<html lang="en" data-accent="nutrimax">
+<head>
+  ...
+  {% include shell/stylesheet.html %}
+  <style>/* only this page's own layout: hero, grids, ... */</style>
+</head>
+<body>
+  ...
+{% include shell/footer.html app="nutrimax" tone="dark" %}
+</body>
+```
+
+- **Accent:** a page picks its product's accent with `data-accent` on `<html>`
+  (`gme`, `nutrimax` or `minesweeper`) and uses the accent variables; it never
+  defines a CSS variable itself. To change a product's colour, edit its block in
+  `site.css`. A new product gets a new block there.
+- **Footer:** `app=` names the page's app (a legal document passes `app=page.app`);
+  the footer then links that app's page, privacy policy, terms of use and Delete
+  account page. The company's own pages (home, Impressum, Datenschutz) leave `app`
+  out and link every app's documents. Every footer links the home page, the
+  Impressum and the Datenschutzerklärung. `tone="dark"` is the dark footer of the
+  product landing pages. Links are relative and work from any folder.
+- **Page-local CSS** is for the page's own layout only (nav, hero, grids). Shared
+  styles use classes, never bare elements, because they reach every page.
+- **The Shared Meal page (`m/index.html`)** may not load a stylesheet: its
+  Content-Security-Policy allows no request. It inlines the same file instead,
+  `<style>{% include shell/site.css %}</style>`, and opts into the dark scheme with
+  `data-color-scheme="auto"`. Don't widen its CSP to link the stylesheet.
+
+`tools/check-site.mjs` checks all of this: every page (except the Search Console
+verification file) links the stylesheet (or inlines it), picks a defined accent,
+defines no CSS variable, base font, reset or footer style of its own, and has the
+one footer with working links to the Impressum, the Datenschutzerklärung and its
+app's documents (and no other app's); the Shared Meal page keeps its exact CSP and
+makes no request.
+
 ## Editing the privacy policies and terms of use
 
 Each app's privacy policy and terms of use are built from one legal-document module
@@ -61,8 +113,10 @@ update its effective date in the app facts.
    for each of its own sections. Use the shared snippets in `_includes/legal/snippets/`
    where they fit (app stores, licence, survival clause, personal use).
 3. **Page URLs:** copy `minesweeper/privacy-policy.html` and
-   `minesweeper/terms-of-use.html` to `<app>/`, set `app: <app>` and the section list,
-   and adjust the title, description and footer.
+   `minesweeper/terms-of-use.html` to `<app>/`, set `app: <app>`, the section list and
+   `data-accent`, and adjust the title and description. List the app's pages under
+   `pages:` in its app facts (the footer links them) and give it an accent block in
+   `_includes/shell/site.css`.
 4. **Check:** add both URLs to `REQUIRED_PATHS` in `tools/check-site.mjs` once they are
    registered with the stores, then run `tools/build-site.sh`. It checks that both
    documents exist, state the minimum age from the app facts and contain the shared
