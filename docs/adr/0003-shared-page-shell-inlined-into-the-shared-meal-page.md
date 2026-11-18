@@ -88,3 +88,13 @@ Minesweeper was delisted from the app stores and removed from the site on 2026-1
 with its accent block in the shared CSS. The company's own pages now link only
 NutriMax's documents in their footer, and only the NutriMax landing page carries the
 landing-page component CSS mentioned above.
+
+## Update 2026-11-18: the Shared Meal page keeps its own colours
+
+The Shared Meal page was meant to look the same apart from the footer, but taking the
+homepage's gray neutrals and the generic dark scheme had changed its colours. It now
+opts into a NutriMax colour scheme in the shared CSS, `data-color-scheme="nutrimax"`:
+its original green-tinted neutrals, light and dark, and its original button colours,
+with a new accent token `--accent-hover` for hovered fills. The page still defines no
+CSS variables. The gray dark scheme (`data-color-scheme="auto"`), which no other page
+used, is gone.

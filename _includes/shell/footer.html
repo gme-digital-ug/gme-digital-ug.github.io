@@ -7,9 +7,7 @@
   Every footer links the home page, the Impressum and the Datenschutzerklärung.
 {%- endcomment -%}
 {%- include shell/root.html -%}
-{%- if include.app -%}
-  {%- unless site.data.apps[include.app] -%}{%- include shell/no-app-facts-for/{{ include.app }}.html -%}{%- endunless -%}
-{%- endif %}
+{%- if include.app -%}{%- include shell/app-facts.html app=include.app -%}{%- endif %}
   <footer class="site-footer{% if include.tone == "dark" %} site-footer-dark{% endif %}">
 {%- for shell_pair in site.data.apps -%}
   {%- if include.app and include.app != shell_pair[0] -%}{%- continue -%}{%- endif -%}

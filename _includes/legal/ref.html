@@ -1,7 +1,7 @@
 {%- comment -%}
   A cross-reference to a section of this legal page, numbered as the page lists it:
   include legal/ref.html id="consent" gives a link "Section 5" to #consent;
-  add plain="yes" for the words without the link. An unknown id fails the build.
+  add plain=true for the words without the link. An unknown id fails the build.
 {%- endcomment -%}
 {%- assign legal_ref_n = nil -%}
 {%- for legal_ref_s in page.sections -%}

@@ -88,3 +88,7 @@ app could exercise them any more: `accounts`, `personal_data` and `free`, and th
 all-ages variant (an app without `min_age`; `min_age` is now required). The shared
 sections now read as written for NutriMax. A future app that differs adds an app fact
 and a branch for the difference (README, "Adding another app").
+
+Also on 2026-11-18, the app's website stopped being a separate fact (`web_path`): the
+documents now name and link the app's `pages.home`, the same page the footer links,
+and `tools/check-site.mjs` reads which pages belong to an app from `pages:`.

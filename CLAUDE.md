@@ -9,7 +9,7 @@ Static GitHub Pages site served at `share.gmedigital.de` (see `CNAME`). Pushing 
 - `m/index.html` has a strict CSP (inline styles and scripts only, no requests): it inlines the shared CSS instead of linking it. Don't widen the CSP; `tools/check-site.mjs` pins it.
 - The two legal documents above (`/privacy-policy.html`, `/terms-of-use.html`) are assembled from `_includes/legal/` and `_data/apps/` (ADR 0002, README): edit wording there, not in the pages.
 - `impressum.html` and `datenschutz.html` are the German legal pages. Every page links to both through the shared footer; `tools/check-site.mjs` enforces it.
-- Page shell (ADR 0003, README): tokens, accents, base and footer styles live only in `_includes/shell/site.css`; every page uses `_includes/shell/footer.html` and picks its accent with `<html data-accent="...">`. Don't define CSS variables or footer styles in a page.
+- Page shell (ADR 0003, README): tokens, accents, base and footer styles live only in `_includes/shell/site.css`; every page uses `_includes/shell/footer.html` and picks its accent with `<html data-accent="...">` (the Shared Meal page also its colour scheme, `data-color-scheme="nutrimax"`). Don't define CSS variables or footer styles in a page.
 
 ## Company facts
 

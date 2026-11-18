@@ -3,8 +3,9 @@
    as /assets/css/site.css for every page, and inlined into the Shared Meal page
    (/m/), whose Content-Security-Policy allows no request.
 
-   A page picks its accent with <html data-accent="gme|nutrimax">.
-   Pages only use these tokens; they never define them (tools/check-site.mjs).
+   A page picks its accent with <html data-accent="gme|nutrimax"> and may opt into
+   a colour scheme with <html data-color-scheme="nutrimax">. Pages only use these
+   tokens; they never define them (tools/check-site.mjs).
    Beyond the base rules, style classes only, never bare elements (nav, section,
    footer): this file reaches every page, the Shared Meal page included. */
 
@@ -19,13 +20,15 @@
   --font:    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
 }
 
-/* Accents. --accent fills buttons and badges; --accent-strong is accent text
-   and lines on light backgrounds; --accent-soft tints backgrounds;
-   --accent-bright is accent on dark backgrounds; --accent-gradient fills heroes. */
+/* Accents. --accent fills buttons and badges; --accent-strong is accent text,
+   lines and fills on the page background (--accent-hover: hovered fills);
+   --accent-soft tints backgrounds; --accent-bright is accent on dark
+   backgrounds; --accent-gradient fills heroes. */
 :root,
 [data-accent="gme"] {
   --accent:          #22c55e;
   --accent-strong:   #16a34a;
+  --accent-hover:    #15803d;
   --accent-soft:     #dcfce7;
   --accent-bright:   #86efac;
   --accent-gradient: linear-gradient(135deg, #052e16 0%, #14532d 45%, #166534 100%);
@@ -33,20 +36,32 @@
 [data-accent="nutrimax"] {
   --accent:          #22c55e;
   --accent-strong:   #16a34a;
+  --accent-hover:    #15803d;
   --accent-soft:     #dcfce7;
   --accent-bright:   #86efac;
   --accent-gradient: linear-gradient(135deg, #052e16 0%, #14532d 45%, #166534 100%);
 }
 
-/* Dark scheme, for pages that opt in with <html data-color-scheme="auto">
-   (the Shared Meal page). Every other page is light only. */
+/* Colour schemes. Pages are light, with the neutrals above, unless they opt in:
+   <html data-color-scheme="nutrimax"> gives NutriMax's green-tinted neutrals,
+   light or dark as the system is set. The Shared Meal page uses it to keep the
+   app's own look. */
+[data-color-scheme="nutrimax"] {
+  --text:    #0f2a1a;
+  --muted:   #4b6455;
+  --bg:      #ffffff;
+  --surface: #f3faf5;
+  --border:  #d7eadd;
+}
 @media (prefers-color-scheme: dark) {
-  [data-color-scheme="auto"] {
-    --text:    #f3f4f6;
-    --muted:   #9ca3af;
-    --bg:      #111827;
-    --surface: #030712;
-    --border:  #1f2937;
+  [data-color-scheme="nutrimax"] {
+    --text:    #e6f4ea;
+    --muted:   #a3bfae;
+    --bg:      #13211a;
+    --surface: #0b1510;
+    --border:  #23382b;
+    --accent-strong: #4ade80;
+    --accent-hover:  #22c55e;
   }
 }
 
@@ -112,6 +127,5 @@ body {
   padding: 2.5rem 1.5rem;
   font-size: 0.875rem;
 }
-.site-footer-dark a,
-.site-footer-dark a:hover { color: var(--accent-bright); }
-.site-footer-dark a:hover { text-decoration: underline; }
+.site-footer-dark a { color: var(--accent-bright); }
+.site-footer-dark a:hover { color: var(--accent-bright); text-decoration: underline; }

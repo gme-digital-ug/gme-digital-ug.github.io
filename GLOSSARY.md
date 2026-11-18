@@ -14,9 +14,9 @@ App facts (docs/adr/0002). The German `datenschutz.html` and `impressum.html` ar
 legal documents in this sense; they cover the company and the website.
 
 **App facts**
-What an app's legal documents say that differs between apps: name, minimum age,
-its website path, its Delete account page and the documents' effective dates. One file
-per app, `_data/apps/<app>.yml`.
+What an app's legal documents say that differs between apps: name, minimum age, its
+pages (website, legal documents, Delete account page) and the documents' effective
+dates. One file per app, `_data/apps/<app>.yml`.
 
 **Page shell**
 What every page shares: the design tokens, base styles and document styles in

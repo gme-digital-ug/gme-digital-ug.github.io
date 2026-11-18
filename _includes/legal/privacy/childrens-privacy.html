@@ -8,8 +8,9 @@
     <strong>For parents and guardians:</strong> If you believe your child under {{ legal_app.min_age }} has created a
     {{ legal_app.name }} account or provided us with personal data, please contact us immediately at
     <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a>. We will
-    promptly verify and delete the account and all associated data within 5 business days of
-    confirmation.
+    promptly verify the report and delete the account and all associated data; our
+    <a href="{{ shell_root }}{{ legal_app.delete_account }}">Delete account page</a> says how long
+    deletion takes.
   </p>
 {%- if legal_app.min_age < 18 %}
   <p>

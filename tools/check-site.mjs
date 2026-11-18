@@ -36,15 +36,9 @@ const REQUIRED_PATHS = [
   'CNAME',
 ];
 
-// Repo files that must never be published (mirrors `exclude` in _config.yml).
-const INTERNAL = [
-  'CLAUDE.md', 'README.md', 'GLOSSARY.md', 'HANDOFF.md', 'Gemfile', 'Gemfile.lock',
-  'docs/', 'tools/', '.github/', '_config.yml', '_data/', '.gitignore', '.nojekyll',
-];
-
-// Pages already moved to the Company facts source ('*' = every HTML page): their
-// source must not hand-type a Company fact, and every fact they show must match.
-const MIGRATED_PAGES = ['*'];
+// Repo files that must never be published: the `exclude` list in _config.yml
+// (read from there), plus these, which Jekyll never publishes anyway.
+const JEKYLL_INTERNAL = ['_config.yml', '_data/', '.gitignore', '.nojekyll'];
 
 // Fixes to the pre-migration pages that the migration makes on purpose. Each
 // entry: page, the old text, the new text, and why. Only used with --baseline.
@@ -66,11 +60,8 @@ const SHELL = {
   exempt: ['google4b2bd9d1f918206f.html'], // Search Console verification file: not a page, left as is
   // Tokens the shell defines and pages only use.
   tokens: ['--text', '--muted', '--bg', '--surface', '--border', '--radius', '--font',
-    '--accent', '--accent-strong', '--accent-soft', '--accent-bright', '--accent-gradient'],
-  // Whose legal documents a page's footer links, by path prefix (legal documents:
-  // the app in their front matter). Every other page is the company's own; its
-  // footer links every app's documents.
-  appOf: [['nutrimax/', 'nutrimax'], ['m/', 'nutrimax']],
+    '--accent', '--accent-strong', '--accent-hover', '--accent-soft', '--accent-bright', '--accent-gradient'],
+  // Which app's documents a page's footer links comes from the app facts (appOfPage).
 };
 
 // The Shared Meal page's Content-Security-Policy, exactly as the owner decided
@@ -114,18 +105,19 @@ const frontMatter = (buf) => {
   return m ? { yaml: m[1], body: buf.toString('utf8').slice(m[0].length) } : null;
 };
 
-// Minimal YAML reader for _data/company.yml: nested maps of scalars, 2-space indent.
+// Minimal YAML reader for _data/company.yml and _data/apps/*.yml: nested maps of
+// scalars, 2-space indent.
 function parseYaml(src) {
   const root = {};
   const stack = [{ indent: -1, obj: root }];
   for (const raw of src.split(/\r?\n/)) {
     if (/^\s*(#.*)?$/.test(raw)) continue;
     const m = raw.match(/^( *)([\w-]+):\s*(.*)$/);
-    if (!m) throw new Error(`company.yml: cannot read line: ${raw}`);
+    if (!m) throw new Error(`cannot read YAML line: ${raw}`);
     const [, ind, key, rest] = m;
     while (stack.at(-1).indent >= ind.length) stack.pop();
     const parent = stack.at(-1).obj;
-    const value = rest.replace(/\s+#.*$/, '').trim();
+    const value = rest.replace(/(?:^|\s+)#.*$/, '').trim();
     if (value === '') {
       parent[key] = {};
       stack.push({ indent: ind.length, obj: parent[key] });
@@ -139,6 +131,18 @@ const leaves = (obj, prefix = '') =>
   Object.entries(obj).flatMap(([k, v]) =>
     typeof v === 'object' ? leaves(v, `${prefix}${k}.`) : [[`${prefix}${k}`, v]]);
 
+// The `exclude` list of _config.yml: its "  - item" lines.
+function excludeOf(yml) {
+  const lines = yml.split(/\r?\n/);
+  const list = [];
+  for (const line of lines.slice(lines.findIndex((l) => /^exclude:\s*$/.test(l)) + 1 || lines.length)) {
+    const item = line.match(/^\s+-\s*(.*?)\s*(?:#.*)?$/)?.[1];
+    if (item === undefined) break;
+    list.push(item.replace(/^(["'])(.*)\1$/, '$2'));
+  }
+  return list;
+}
+let INTERNAL = JEKYLL_INTERNAL; // + _config.yml's exclude list, once the source is known
 const isInternal = (p) => INTERNAL.some((i) => (i.endsWith('/') ? p.startsWith(i) : p === i));
 const isPublic = (p) =>
   !isInternal(p) &&
@@ -157,19 +161,32 @@ function resolveHref(p, href) {
   for (const s of (dir + path).split('/')) {
     if (s === '..') resolved.pop(); else if (s !== '.' && s !== '') resolved.push(s);
   }
-  return resolved.join('/') + (path.endsWith('/') ? 'index.html' : '');
+  if (path.endsWith('/')) resolved.push('index.html');
+  return resolved.join('/');
 }
 
 // ---------------------------------------------------------------- checks
 
 const { source, site, baseline } = args;
+const excluded = excludeOf(text(source, '_config.yml'));
+check(excluded.length > 0, '_config.yml has no exclude list');
+INTERNAL = [...excluded, ...JEKYLL_INTERNAL];
 const srcFiles = walk(source);
 const siteFiles = walk(site);
 const company = parseYaml(text(source, '_data/company.yml'));
 const facts = Object.fromEntries(leaves(company));
 
-// 1. Required URLs exist.
+// The app facts, _data/apps/<app>.yml, by app. An app's pages are the ones its
+// facts name (`pages:` and `delete_account`), from the site root.
+const apps = Object.fromEntries(srcFiles.filter((p) => /^_data\/apps\/[\w-]+\.yml$/.test(p))
+  .map((p) => [p.slice('_data/apps/'.length, -'.yml'.length), parseYaml(text(source, p))]));
+const pagesOf = (f) => [...Object.values(f.pages ?? {}), f.delete_account].filter(Boolean);
+
+// 1. Required URLs exist, and so does every page an app's facts name.
 for (const p of REQUIRED_PATHS) check(existsSync(join(site, p)), `missing in site: /${p}`);
+for (const [app, f] of Object.entries(apps)) {
+  for (const p of pagesOf(f)) check(existsSync(join(site, p)), `_data/apps/${app}.yml names /${p}, which is not in the site`);
+}
 
 // 2. assetlinks.json byte-identical to the source (and to the baseline, if given).
 const al = '.well-known/assetlinks.json';
@@ -209,7 +226,6 @@ for (const p of [...expected].filter((p) => siteFiles.includes(p))) {
 
 // 5. No Liquid left unrendered in any HTML or CSS output.
 const htmlOut = siteFiles.filter((p) => p.endsWith('.html'));
-const migrated = MIGRATED_PAGES.includes('*') ? htmlOut : MIGRATED_PAGES;
 for (const p of siteFiles.filter((p) => /\.(html|css)$/.test(p))) {
   const out = text(site, p);
   check(!/\{\{|\{%/.test(out), `/${p} contains unrendered Liquid ({{ or {%)`);
@@ -217,7 +233,6 @@ for (const p of siteFiles.filter((p) => /\.(html|css)$/.test(p))) {
 
 // 6. Every Company fact a built page names is the value in _data/company.yml.
 //    Each detector finds anything that looks like that fact, right or drifted.
-//    (Checked on migrated pages.)
 const origin = facts.origin;
 const detectors = [
   ['email', /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g, () => facts.email],
@@ -230,7 +245,7 @@ const detectors = [
   ['name', /GME Digital UG\s*\([^)]*\)/g, () => facts.name],
   ['origin', /https?:\/\/[\w.-]*(?:gmedigital|github\.io)[\w.-]*/g, () => origin],
 ];
-for (const p of migrated) {
+for (const p of htmlOut) {
   const out = text(site, p);
   for (const [fact, re, want] of detectors) {
     for (const [found] of out.matchAll(re)) {
@@ -239,7 +254,7 @@ for (const p of migrated) {
   }
 }
 
-// 7. Migrated pages don't hand-type Company facts in their source.
+// 7. Pages don't hand-type Company facts in their source.
 // City and country alone are too common to flag ("the laws of Germany", "courts
 // of Berlin"); the postcode and street catch a hand-typed address.
 const GENERIC = ['address.city', 'address.country_de', 'address.country_en'];
@@ -252,7 +267,7 @@ const handTyped = [
 // Includes and app facts end up in pages too, so they are held to the same rule.
 const partials = srcFiles.filter((p) =>
   (p.startsWith('_includes/') && p.endsWith('.html')) || (p.startsWith('_data/') && p !== '_data/company.yml'));
-for (const p of [...migrated, ...partials]) {
+for (const p of [...htmlOut, ...partials]) {
   const src = text(source, p);
   for (const [fact, value] of handTyped) {
     if (value === 'tbd') continue; // placeholders are not facts yet
@@ -275,9 +290,10 @@ if (baseline) {
 }
 
 // 9. Legal documents (pages with `app: <name>` in their front matter, see
-//    docs/adr/0002): every app has a privacy policy and terms of use, and both
-//    state the minimum age from its app facts (_data/apps/<name>.yml). Every
-//    "aged N", "under N", "at least N", "between N" in them must be that age.
+//    docs/adr/0002): every app has a privacy policy and terms of use. Both link
+//    the app's website (`pages.home` in its app facts, _data/apps/<name>.yml) and
+//    state its minimum age: every "aged N", "under N", "at least N", "between N"
+//    in them must be that age.
 const AGE = /\b(?:aged|under|at least|between)\s+(?:<strong>)?(\d{1,2})\b/g;
 const legalPages = {}; // app -> { privacy, terms }
 for (const p of srcFiles.filter((p) => p.endsWith('.html') && isPublic(p))) {
@@ -292,13 +308,17 @@ for (const p of srcFiles.filter((p) => p.endsWith('.html') && isPublic(p))) {
 check(legalPages.nutrimax, 'expected the legal documents of NutriMax');
 for (const [app, docs] of Object.entries(legalPages)) {
   const factsFile = `_data/apps/${app}.yml`;
-  if (!check(existsSync(join(source, factsFile)), `app ${app} has no app facts ${factsFile}`)) continue;
-  const appFacts = parseYaml(text(source, factsFile));
+  const appFacts = apps[app];
+  if (!check(appFacts, `app ${app} has no app facts ${factsFile}`)) continue;
   for (const doc of ['privacy', 'terms']) {
     const p = docs[doc];
     if (!check(p, `app ${app} has no ${doc} page`) || !existsSync(join(site, p))) continue;
     const out = text(site, p);
     check(out.includes(`<p class="subtitle">${appFacts.name} `), `/${p} is not titled for ${appFacts.name}`);
+    const main = out.match(/<main\b[\s\S]*<\/main>/)?.[0] ?? '';
+    const mainLinks = [...main.matchAll(/\shref="([^"]*)"/g)].map(([, h]) => resolveHref(p, h));
+    check(appFacts.pages?.home && mainLinks.includes(appFacts.pages.home),
+      `/${p} does not link ${appFacts.name}'s website /${appFacts.pages?.home} (pages.home in ${factsFile})`);
     if (!check(appFacts.min_age, `${factsFile} has no min_age`)) continue;
     const ages = [...out.matchAll(AGE)].map(([, n]) => n);
     check(ages.length > 0, `/${p} does not state the minimum age ${appFacts.min_age}`);
@@ -308,12 +328,13 @@ for (const [app, docs] of Object.entries(legalPages)) {
 
 // 10. The NutriMax account-deletion contract (email, response time, in-app path and
 //     timing) is stated only on the Delete account page; the privacy policy's
-//     deletion section links there instead of repeating timings or the in-app path.
+//     sections on deletion (Data Retention & Deletion, Children's Privacy) link
+//     there instead of repeating timings or the in-app path.
 const DELETION = {
   page: 'nutrimax/delete-account.html',
   states: ['within 5 business days', 'within 30 days', 'takes effect immediately',
     'User Settings', `mailto:${facts.email}`],
-  summary: { page: 'privacy-policy.html', section: 'data-retention' },
+  summary: { page: 'privacy-policy.html', sections: ['data-retention', 'childrens-privacy'] },
   notInSummary: [/business days/, /within 30 days/, /Settings/, /→/],
 };
 const sectionOf = (html, id) => {
@@ -324,14 +345,13 @@ if (existsSync(join(site, DELETION.page))) {
   const page = text(site, DELETION.page);
   for (const s of DELETION.states) check(page.includes(s), `/${DELETION.page} does not state "${s}"`);
 }
-if (existsSync(join(site, DELETION.summary.page))) {
-  const sec = sectionOf(text(site, DELETION.summary.page), DELETION.summary.section);
-  check(sec !== '', `/${DELETION.summary.page} has no #${DELETION.summary.section} section`);
+for (const id of existsSync(join(site, DELETION.summary.page)) ? DELETION.summary.sections : []) {
+  const where = `/${DELETION.summary.page}#${id}`;
+  const sec = sectionOf(text(site, DELETION.summary.page), id);
+  check(sec !== '', `/${DELETION.summary.page} has no #${id} section`);
   check(sec.includes(`href="${DELETION.page}"`) || sec.includes(`href="./${DELETION.page}"`),
-    `/${DELETION.summary.page}#${DELETION.summary.section} does not link to /${DELETION.page}`);
-  for (const re of DELETION.notInSummary) {
-    check(!re.test(sec), `/${DELETION.summary.page}#${DELETION.summary.section} restates the deletion contract (${re})`);
-  }
+    `${where} does not link to /${DELETION.page}`);
+  for (const re of DELETION.notInSummary) check(!re.test(sec), `${where} restates the deletion contract (${re})`);
 }
 
 // 11. Shared legal wording is written once (docs/adr/0002): each of these phrases
@@ -375,7 +395,9 @@ for (const [kind, phrases] of Object.entries(SHARED_WORDING)) {
 }
 
 // 12-14. Every built HTML page is well-formed (each non-void element closed, in
-//     order), has unique ids, and every link to a fragment or a site file resolves.
+//     order), has unique ids, and every link to a fragment or a site file resolves;
+//     a link that shows a site address ("https://share.gmedigital.de/nutrimax/")
+//     goes to that address.
 const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta',
   'source', 'track', 'wbr']);
 const idsOf = (html) => [...html.matchAll(/\sid="([^"]*)"/g)].map(([, id]) => id);
@@ -409,6 +431,11 @@ for (const p of htmlOut) {
       check(idsOf(text(site, target)).includes(frag), `/${p} links to ${href}, but /${target} has no id "${frag}"`);
     }
   }
+  for (const [, href, shown] of html.matchAll(/<a\s[^>]*?href="([^"]*)"[^>]*>\s*([^<]*?)\s*<\/a>/g)) {
+    if (!shown.startsWith(origin) || /^(?:[a-z]+:|\/\/)/i.test(href)) continue;
+    const want = resolveHref('', `./${shown.slice(origin.length).replace(/^\//, '')}`);
+    check(resolveHref(p, href) === want, `/${p} shows ${shown} but links to ${href}`);
+  }
 }
 
 // 15. The page shell (docs/adr/0003). The shared CSS has one source, published
@@ -422,12 +449,18 @@ if (existsSync(join(site, SHELL.stylesheet))) {
 const shellDefines = new Set([...shellCss.matchAll(/(--[\w-]+)\s*:/g)].map(([, t]) => t));
 for (const t of SHELL.tokens) check(shellDefines.has(t), `${SHELL.css} does not define ${t}`);
 const accents = new Set([...shellCss.matchAll(/\[data-accent="([\w-]+)"\]/g)].map(([, a]) => a));
+const schemes = new Set([...shellCss.matchAll(/\[data-color-scheme="([\w-]+)"\]/g)].map(([, s]) => s));
 
 // 16. Every page uses the shell: it links the stylesheet (or inlines it, if listed),
-//     picks a defined accent, and doesn't define tokens or base rules itself.
+//     picks a defined accent (and colour scheme, if any), and doesn't define tokens
+//     or base rules itself.
+// The app a page belongs to: a legal document's from its front matter; else the app
+// whose facts name the page, or a page in the same folder (nutrimax/...). Every
+// other page is the company's own; its footer links every app's documents.
+const folderOf = (p) => p.slice(0, p.lastIndexOf('/') + 1);
 const appOfPage = (p) =>
   Object.entries(legalPages).find(([, d]) => d.privacy === p || d.terms === p)?.[0] ??
-  SHELL.appOf.find(([prefix]) => p.startsWith(prefix))?.[1];
+  Object.entries(apps).find(([, f]) => pagesOf(f).some((q) => q === p || (folderOf(q) && folderOf(q) === folderOf(p))))?.[0];
 const shellPages = htmlOut.filter((p) => !SHELL.exempt.includes(p));
 for (const p of shellPages) {
   const html = text(site, p);
@@ -440,6 +473,8 @@ for (const p of shellPages) {
   }
   const accent = html.match(/<html\b[^>]*\sdata-accent="([^"]*)"/)?.[1];
   check(accents.has(accent), `/${p} picks no accent defined in ${SHELL.css} (<html data-accent="${accent ?? ''}">)`);
+  const scheme = html.match(/<html\b[^>]*\sdata-color-scheme="([^"]*)"/)?.[1];
+  if (scheme !== undefined) check(schemes.has(scheme), `/${p} picks a colour scheme ${SHELL.css} does not define: ${scheme}`);
 
   // The page's own CSS: its <style> elements in the source (an included shell is not its own).
   const own = existsSync(join(source, p)) ? [...text(source, p).matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)]

@@ -37,9 +37,10 @@ Every page shares one stylesheet and one legal footer
 | What | Where |
 | --- | --- |
 | Design tokens (`--text`, `--muted`, `--bg`, `--surface`, `--border`, `--radius`, `--font`), base styles, document pages (`<main class="doc">`), footer styles | `_includes/shell/site.css` |
-| Each product's accent (`--accent`, `--accent-strong`, `--accent-soft`, `--accent-bright`, `--accent-gradient`) | `_includes/shell/site.css`, one `[data-accent="..."]` block per product |
+| Each product's accent (`--accent`, `--accent-strong`, `--accent-hover`, `--accent-soft`, `--accent-bright`, `--accent-gradient`) | `_includes/shell/site.css`, one `[data-accent="..."]` block per product |
+| Colour schemes a page can opt into (NutriMax's green-tinted neutrals, light or dark) | `_includes/shell/site.css`, `[data-color-scheme="..."]` |
 | The legal footer | `_includes/shell/footer.html` |
-| Which pages the footer links for an app | `pages:` and `delete_account` in `_data/apps/<app>.yml` |
+| An app's pages (which the footer links, and which pages are the app's) | `pages:` and `delete_account` in `_data/apps/<app>.yml` |
 
 `_includes/shell/site.css` is published as `/assets/css/site.css` (through
 `assets/css/site.css`, which only includes it). A page uses the shell like this:
@@ -71,15 +72,17 @@ Every page shares one stylesheet and one legal footer
   styles use classes, never bare elements, because they reach every page.
 - **The Shared Meal page (`m/index.html`)** may not load a stylesheet: its
   Content-Security-Policy allows no request. It inlines the same file instead,
-  `<style>{% include shell/site.css %}</style>`, and opts into the dark scheme with
-  `data-color-scheme="auto"`. Don't widen its CSP to link the stylesheet.
+  `<style>{% include shell/site.css %}</style>`. It keeps the app's own look by
+  opting into NutriMax's colour scheme, `data-color-scheme="nutrimax"` (green-tinted
+  neutrals, dark when the system is). Don't widen its CSP to link the stylesheet.
 
 `tools/check-site.mjs` checks all of this: every page (except the Search Console
-verification file) links the stylesheet (or inlines it), picks a defined accent,
-defines no CSS variable, base font, reset or footer style of its own, and has the
+verification file) links the stylesheet (or inlines it), picks a defined accent
+(and colour scheme, if any), defines no CSS variable, base font, reset or footer style of its own, and has the
 one footer with working links to the Impressum, the Datenschutzerklärung and its
 app's documents (and no other app's); the Shared Meal page keeps its exact CSP and
-makes no request.
+makes no request. A page is an app's if its app facts list it under `pages:` (or
+`delete_account`) or it sits in the same folder as one of those pages.
 
 ## Editing the privacy policies and terms of use
 
@@ -107,10 +110,14 @@ app-facts file, its own sections and two thin pages.
 
 1. **App facts:** copy `_data/apps/nutrimax.yml` to `_data/apps/<app>.yml` and fill
    it in. `min_age` is required (the shared Eligibility and Children's Privacy
-   sections state it).
+   sections state it). List the app's pages under `pages:`: `home` (its landing
+   page, `<app>/index.html`; the documents name it as the app's website), `privacy`,
+   `terms` and any other page of the app outside its folder; `delete_account` is its
+   Delete account page.
 2. **Shared wording that doesn't fit:** the shared sections are written for an app
    like NutriMax: users have accounts (Your Rights and Changes talk about deleting
-   your account and link the app's own `data-retention` section), it processes
+   your account, Your Rights links the app's own `data-retention` section and
+   Children's Privacy its Delete account page), it processes
    personal data and it isn't free (the liability cap). Where the new app differs,
    add an app fact for the difference and an `{% if %}` on it in the shared section,
    so NutriMax's text stays as it is; where a whole section differs, give the app its
@@ -123,13 +130,13 @@ app-facts file, its own sections and two thin pages.
    where they fit (app stores, licence, survival clause, personal use).
 4. **Page URLs:** copy `privacy-policy.html` and `terms-of-use.html` to `<app>/`, set
    `app: <app>`, the section list and `data-accent`, and adjust the title and
-   description. List the app's pages under
-   `pages:` in its app facts (the footer links them) and give it an accent block in
-   `_includes/shell/site.css`.
-5. **Check:** add both URLs to `REQUIRED_PATHS` in `tools/check-site.mjs` once they are
-   registered with the stores, then run `tools/build-site.sh`. It checks that both
-   documents exist, state the minimum age from the app facts and contain the shared
-   wording.
+   description. Give the app an accent block in `_includes/shell/site.css`.
+5. **Check:** run `tools/build-site.sh`. It reads the app's pages from its app facts
+   and checks that they exist, that both documents link the app's website, state the
+   minimum age and contain the shared wording, and that the app's pages have its
+   footer. Once the documents' URLs are registered with the stores, also pin them in
+   `REQUIRED_PATHS` in `tools/check-site.mjs` (and in CLAUDE.md), so they can't
+   disappear by accident.
 
 ## Building and checking locally
 

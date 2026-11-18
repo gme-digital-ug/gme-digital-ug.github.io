@@ -21,7 +21,7 @@ layout: null
       (docs/adr/0003); tools/check-site.mjs checks all of this.
   The only script picks English or German from navigator.language.
 -->
-<html lang="en" data-accent="nutrimax" data-color-scheme="auto">
+<html lang="en" data-accent="nutrimax" data-color-scheme="nutrimax">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,8 +34,8 @@ layout: null
 {% include shell/site.css %}
   </style>
   <style>
-    /* The Shared Meal card. Tokens, accent (NutriMax), dark scheme, base and
-       footer come from the shared CSS above. */
+    /* The Shared Meal card. Tokens, accent and colour scheme (NutriMax: green
+       tinted, light or dark), base and footer come from the shared CSS above. */
     body {
       min-height: 100vh;
       display: flex;
@@ -81,11 +81,8 @@ layout: null
       font-weight: 600;
       text-decoration: none;
     }
-    .cta:hover, .cta:focus-visible { filter: brightness(0.9); }
-    @media (prefers-color-scheme: dark) {
-      .mark, .cta { background: var(--accent); }
-      .cta { color: #06200f; }
-    }
+    .cta:hover, .cta:focus-visible { background: var(--accent-hover); }
+    @media (prefers-color-scheme: dark) { .cta { color: #06200f; } }
     ol {
       text-align: left;
       margin: 0 0 16px;
