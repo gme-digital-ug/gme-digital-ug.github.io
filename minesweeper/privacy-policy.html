@@ -1,10 +1,13 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minesweeper – Privacy Policy</title>
-  <meta name="description" content="Minesweeper privacy policy: the app collects no personal data, has no accounts, no tracking, and no analytics. All game data stays on your device. Published by GME Digital UG.">
+  <meta name="description" content="Minesweeper privacy policy: the app collects no personal data, has no accounts, no tracking, and no analytics. All game data stays on your device. Published by {{ site.data.company.short_name }}.">
   <meta name="robots" content="index, follow">
   <style>
     :root { --accent: #2563eb; --bg: #fafafa; --text: #222; --muted: #555; }
@@ -32,7 +35,7 @@
 <div class="container">
 
   <h1>Privacy Policy</h1>
-  <p class="subtitle">Minesweeper &nbsp;·&nbsp; Effective date: June 19, 2026 &nbsp;·&nbsp; Published by GME Digital UG (haftungsbeschränkt)</p>
+  <p class="subtitle">Minesweeper &nbsp;·&nbsp; Effective date: June 19, 2026 &nbsp;·&nbsp; Published by {{ site.data.company.name }}</p>
 
   <div class="notice">
     <strong>The short version:</strong> Minesweeper does not collect, store, or share any
@@ -42,14 +45,14 @@
 
   <p>
     Minesweeper ("the app", "we", "us", or "our") is a free puzzle game developed by
-    GME Digital UG (haftungsbeschränkt). This Privacy Policy explains what information the
+    {{ site.data.company.name }}. This Privacy Policy explains what information the
     app does and does not handle, and what rights you have. We have deliberately designed
     Minesweeper to work without collecting personal data.
   </p>
   <p>
     This policy applies to the Minesweeper mobile app distributed via the Apple App Store and
     Google Play Store, and to its web pages at
-    <a href="index.html">https://share.gmedigital.de/minesweeper/</a>.
+    <a href="index.html">{{ site.data.company.origin }}/minesweeper/</a>.
     By using Minesweeper you agree to the practices described here.
   </p>
 
@@ -78,11 +81,11 @@
     The company responsible for the Minesweeper app is:
   </p>
   <ul>
-    <li><strong>Company:</strong> GME Digital UG (haftungsbeschränkt)</li>
-    <li><strong>Registered address:</strong> Kolonnenstraße 8, 10827 Berlin, Germany</li>
-    <li><strong>Managing director:</strong> Grygoriy Garyuk</li>
-    <li><strong>Commercial register:</strong> Amtsgericht Charlottenburg, HRB 278658</li>
-    <li><strong>Email:</strong> <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
+    <li><strong>Company:</strong> {{ site.data.company.name }}</li>
+    <li><strong>Registered address:</strong> {{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
+    <li><strong>Managing director:</strong> {{ site.data.company.managing_director }}</li>
+    <li><strong>Commercial register:</strong> {{ site.data.company.register.court }}, {{ site.data.company.register.number }}</li>
+    <li><strong>Email:</strong> <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
   </ul>
   <p>
     These details match our <a href="../impressum.html">Impressum</a> (legal notice) as
@@ -236,7 +239,7 @@
   </p>
   <p>
     We do not sell or share personal information. If you have any question about your rights, you
-    can contact us at <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>. If you are in the
+    can contact us at <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a>. If you are in the
     EU/EEA, you also have the right to lodge a complaint with your local data protection authority.
   </p>
 
@@ -246,7 +249,7 @@
     Minesweeper is a general-audience game suitable for all ages. Because it collects no personal
     data and requires no account, it does not knowingly gather information from children or anyone
     else. If you have questions about children using the app, please contact us at
-    <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>.
+    <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a>.
   </p>
 
   <!-- ─── 12. Changes to This Policy ───────────────────────────────────── -->
@@ -264,8 +267,8 @@
     If you have questions or concerns about this Privacy Policy, please contact us:
   </p>
   <ul>
-    <li>📧 Email: <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
-    <li>🏢 GME Digital UG (haftungsbeschränkt), Kolonnenstraße 8, 10827 Berlin, Germany</li>
+    <li>📧 Email: <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
+    <li>🏢 {{ site.data.company.name }}, {{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
   </ul>
   <p>
     We aim to respond to all privacy-related enquiries within <strong>5 business days</strong>.
@@ -273,7 +276,7 @@
 
   <div class="footer">
     <p>
-      &copy; 2026 GME Digital UG (haftungsbeschränkt). All rights reserved. &nbsp;|&nbsp;
+      &copy; 2026 {{ site.data.company.name }}. All rights reserved. &nbsp;|&nbsp;
       <a href="terms-of-use.html">Terms of Use</a> &nbsp;|&nbsp;
       <a href="index.html">Minesweeper</a> &nbsp;|&nbsp;
       <a href="../impressum.html">Impressum</a>

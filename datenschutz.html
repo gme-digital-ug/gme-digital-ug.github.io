@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -14,12 +17,12 @@
   <p>Wir freuen uns über Ihr Interesse an unserer Website. Der Schutz Ihrer Privatsphäre ist für uns sehr wichtig. Nachstehend informieren wir Sie ausführlich über den Umgang mit Ihren Daten.</p>
 
   <h2>1. Verantwortlicher</h2>
-  <p><strong>GME Digital UG (haftungsbeschränkt)</strong><br>
-  Kolonnenstraße 8<br>
-  10827 Berlin<br>
-  Deutschland<br>
-  E-Mail: main@gmedigital.de<br>
-  Telefon: +49 1523 6181017</p>
+  <p><strong>{{ site.data.company.name }}</strong><br>
+  {{ site.data.company.address.street }}<br>
+  {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}<br>
+  {{ site.data.company.address.country_de }}<br>
+  E-Mail: {{ site.data.company.email }}<br>
+  Telefon: {{ site.data.company.phone }}</p>
 
   <h2>2. Erhebung und Speicherung personenbezogener Daten sowie Art und Zweck von deren Verwendung</h2>
   <h3>a) Beim Besuch der Website</h3>

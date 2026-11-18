@@ -1,10 +1,13 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minesweeper – Terms of Use</title>
-  <meta name="description" content="Minesweeper Terms of Use: the rules and conditions governing your use of the free Minesweeper app provided by GME Digital UG.">
+  <meta name="description" content="Minesweeper Terms of Use: the rules and conditions governing your use of the free Minesweeper app provided by {{ site.data.company.short_name }}.">
   <meta name="robots" content="index, follow">
   <style>
     :root { --accent: #2563eb; --bg: #fafafa; --text: #222; --muted: #555; }
@@ -32,7 +35,7 @@
 <div class="container">
 
   <h1>Terms of Use</h1>
-  <p class="subtitle">Minesweeper &nbsp;·&nbsp; Effective date: June 19, 2026 &nbsp;·&nbsp; Published by GME Digital UG (haftungsbeschränkt)</p>
+  <p class="subtitle">Minesweeper &nbsp;·&nbsp; Effective date: June 19, 2026 &nbsp;·&nbsp; Published by {{ site.data.company.name }}</p>
 
   <div class="notice">
     <strong>Please read these Terms of Use carefully before using Minesweeper.</strong> By
@@ -66,10 +69,10 @@
     Minesweeper is operated by:
   </p>
   <ul>
-    <li><strong>GME Digital UG (haftungsbeschränkt)</strong></li>
-    <li>Kolonnenstraße 8, 10827 Berlin, Germany</li>
-    <li>📧 <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
-    <li>Registered at Amtsgericht Charlottenburg, HRB 278658</li>
+    <li><strong>{{ site.data.company.name }}</strong></li>
+    <li>{{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
+    <li>📧 <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
+    <li>Registered at {{ site.data.company.register.court }}, {{ site.data.company.register.number }}</li>
   </ul>
 
   <!-- ─── 2. Scope ───────────────────────────────────────────────────── -->
@@ -77,13 +80,13 @@
   <p>
     These Terms of Use govern your access to and use of the Minesweeper mobile application
     (available on the Apple App Store and Google Play Store) and the associated web pages at
-    <a href="index.html">https://share.gmedigital.de/minesweeper/</a>
+    <a href="index.html">{{ site.data.company.origin }}/minesweeper/</a>
     (collectively, the "Service").
   </p>
   <p>
     These Terms are supplemented by our
     <a href="privacy-policy.html">Privacy Policy</a>, which forms an integral part of the
-    agreement between you and GME Digital UG.
+    agreement between you and {{ site.data.company.short_name }}.
   </p>
 
   <!-- ─── 3. Eligibility ─────────────────────────────────────────────── -->
@@ -150,7 +153,7 @@
   <p>
     "Minesweeper" as a game concept is generic and not claimed by us. However, all content, code,
     design, graphics, layout, and other original materials of <em>this particular</em> Minesweeper
-    app are the property of GME Digital UG (haftungsbeschränkt) or its licensors and are protected
+    app are the property of {{ site.data.company.name }} or its licensors and are protected
     by applicable copyright, trademark, and other intellectual-property laws.
   </p>
   <p>
@@ -174,7 +177,7 @@
   <p>
     The Service is provided <strong>"as is"</strong> and <strong>"as available"</strong> without
     warranty of any kind, express or implied. To the fullest extent permitted by applicable law,
-    GME Digital UG disclaims all warranties, including but not limited to:
+    {{ site.data.company.short_name }} disclaims all warranties, including but not limited to:
   </p>
   <ul>
     <li>Implied warranties of merchantability, fitness for a particular purpose, and non-infringement;</li>
@@ -188,7 +191,7 @@
   <!-- ─── 10. Limitation of Liability ────────────────────────────────── -->
   <h2 id="liability">10. Limitation of Liability</h2>
   <p>
-    To the fullest extent permitted by applicable law, GME Digital UG and its officers, employees,
+    To the fullest extent permitted by applicable law, {{ site.data.company.short_name }} and its officers, employees,
     and affiliates shall not be liable for any indirect, incidental, special, consequential, or
     punitive damages arising out of or relating to your use of or inability to use the Service.
   </p>
@@ -247,8 +250,8 @@
     If you have questions or concerns about these Terms of Use, please contact us:
   </p>
   <ul>
-    <li>📧 Email: <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
-    <li>🏢 GME Digital UG (haftungsbeschränkt), Kolonnenstraße 8, 10827 Berlin, Germany</li>
+    <li>📧 Email: <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
+    <li>🏢 {{ site.data.company.name }}, {{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
   </ul>
   <p>
     We aim to respond to all enquiries within <strong>5 business days</strong>.
@@ -256,7 +259,7 @@
 
   <div class="footer">
     <p>
-      &copy; 2026 GME Digital UG (haftungsbeschränkt). All rights reserved. &nbsp;|&nbsp;
+      &copy; 2026 {{ site.data.company.name }}. All rights reserved. &nbsp;|&nbsp;
       <a href="privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp;
       <a href="index.html">Minesweeper</a> &nbsp;|&nbsp;
       <a href="../impressum.html">Impressum</a>

@@ -1,10 +1,13 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NutriMax – Terms of Use</title>
-  <meta name="description" content="NutriMax Terms of Use: the rules and conditions governing your use of the NutriMax app and services provided by GME Digital UG.">
+  <meta name="description" content="NutriMax Terms of Use: the rules and conditions governing your use of the NutriMax app and services provided by {{ site.data.company.short_name }}.">
   <meta name="robots" content="index, follow">
   <style>
     :root { --accent: #4CAF50; --bg: #fafafa; --text: #222; --muted: #555; }
@@ -32,7 +35,7 @@
 <div class="container">
 
   <h1>Terms of Use</h1>
-  <p class="subtitle">NutriMax &nbsp;·&nbsp; Effective date: April 25, 2026 &nbsp;·&nbsp; Published by GME Digital UG (haftungsbeschränkt)</p>
+  <p class="subtitle">NutriMax &nbsp;·&nbsp; Effective date: April 25, 2026 &nbsp;·&nbsp; Published by {{ site.data.company.name }}</p>
 
   <div class="notice">
     <strong>Please read these Terms of Use carefully before using NutriMax.</strong> By downloading,
@@ -68,10 +71,10 @@
     NutriMax is operated by:
   </p>
   <ul>
-    <li><strong>GME Digital UG (haftungsbeschränkt)</strong></li>
-    <li>Kolonnenstraße 8, 10827 Berlin, Germany</li>
-    <li>📧 <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
-    <li>Registered at Amtsgericht Charlottenburg, HRB 278658</li>
+    <li><strong>{{ site.data.company.name }}</strong></li>
+    <li>{{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
+    <li>📧 <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
+    <li>Registered at {{ site.data.company.register.court }}, {{ site.data.company.register.number }}</li>
   </ul>
 
   <!-- ─── 2. Scope ───────────────────────────────────────────────────── -->
@@ -79,14 +82,14 @@
   <p>
     These Terms of Use govern your access to and use of the NutriMax mobile application
     (available on the Apple App Store and Google Play Store) and the associated website at
-    <a href="index.html">https://share.gmedigital.de</a>
+    <a href="index.html">{{ site.data.company.origin }}</a>
     (collectively, the "Service").
   </p>
   <p>
     These Terms are supplemented by our
     <a href="privacy-policy.html">Privacy Policy</a> and, where applicable, our
     <a href="datenschutz.html">Datenschutzerklärung</a>, which form an integral part of the
-    agreement between you and GME Digital UG.
+    agreement between you and {{ site.data.company.short_name }}.
   </p>
 
   <!-- ─── 3. Eligibility ─────────────────────────────────────────────── -->
@@ -110,7 +113,7 @@
   <ul>
     <li>Provide accurate, current, and complete information;</li>
     <li>Keep your login credentials confidential and not share them with others;</li>
-    <li>Notify us immediately at <a href="mailto:main@gmedigital.de">main@gmedigital.de</a> if
+    <li>Notify us immediately at <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a> if
         you suspect unauthorised access to your account;</li>
     <li>Be responsible for all activity that occurs under your account.</li>
   </ul>
@@ -171,7 +174,7 @@
   <h2 id="intellectual-property">8. Intellectual Property</h2>
   <p>
     All content, code, design, logos, graphics, and other materials in or associated with
-    NutriMax are the exclusive property of GME Digital UG (haftungsbeschränkt) or its licensors
+    NutriMax are the exclusive property of {{ site.data.company.name }} or its licensors
     and are protected by applicable copyright, trademark, and other intellectual-property laws.
   </p>
   <p>
@@ -187,7 +190,7 @@
     weight entries, wellness goals, and profile information.
   </p>
   <p>
-    You retain ownership of your User Content. By using the Service you grant GME Digital UG a
+    You retain ownership of your User Content. By using the Service you grant {{ site.data.company.short_name }} a
     limited licence to process your User Content solely for the purpose of providing and improving
     the Service, as described in our <a href="privacy-policy.html">Privacy Policy</a>.
   </p>
@@ -210,7 +213,7 @@
   <p>
     The Service is provided <strong>"as is"</strong> and <strong>"as available"</strong> without
     warranty of any kind, express or implied. To the fullest extent permitted by applicable law,
-    GME Digital UG disclaims all warranties, including but not limited to:
+    {{ site.data.company.short_name }} disclaims all warranties, including but not limited to:
   </p>
   <ul>
     <li>Implied warranties of merchantability, fitness for a particular purpose, and
@@ -223,7 +226,7 @@
   <!-- ─── 12. Limitation of Liability ──────────────────────────────── -->
   <h2 id="liability">12. Limitation of Liability</h2>
   <p>
-    To the fullest extent permitted by applicable law, GME Digital UG and its officers, employees,
+    To the fullest extent permitted by applicable law, {{ site.data.company.short_name }} and its officers, employees,
     and affiliates shall not be liable for any indirect, incidental, special, consequential, or
     punitive damages arising out of or relating to your use of or inability to use the Service.
   </p>
@@ -240,7 +243,7 @@
   <h2 id="termination">13. Termination</h2>
   <p>
     You may stop using the Service and delete your account at any time via the app settings or by
-    contacting us at <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>.
+    contacting us at <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a>.
   </p>
   <p>
     We reserve the right to suspend or terminate your access to the Service at our sole discretion
@@ -295,8 +298,8 @@
     If you have questions or concerns about these Terms of Use, please contact us:
   </p>
   <ul>
-    <li>📧 Email: <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
-    <li>🏢 GME Digital UG (haftungsbeschränkt), Kolonnenstraße 8, 10827 Berlin, Germany</li>
+    <li>📧 Email: <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
+    <li>🏢 {{ site.data.company.name }}, {{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
   </ul>
   <p>
     We aim to respond to all enquiries within <strong>5 business days</strong>.
@@ -304,7 +307,7 @@
 
   <div class="footer">
     <p>
-      &copy; 2026 GME Digital UG (haftungsbeschränkt). All rights reserved. &nbsp;|&nbsp;
+      &copy; 2026 {{ site.data.company.name }}. All rights reserved. &nbsp;|&nbsp;
       <a href="privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp;
       <a href="impressum.html">Impressum</a> &nbsp;|&nbsp;
       <a href="datenschutz.html">Datenschutzerklärung</a>

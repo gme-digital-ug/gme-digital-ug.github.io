@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -351,13 +354,13 @@
     <div class="email-card">
       <h3>📧 Send a deletion request</h3>
       <p>
-        Write an email to <strong><a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a></strong>
+        Write an email to <strong><a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></strong>
         with the subject line <em>"Account Deletion Request"</em> and include the following information:
       </p>
       <ul>
         <li><strong>Email address</strong> linked to your NutriMax account</li>
       </ul>
-      <a href="mailto:main.gme.digital@gmail.com?subject=Account%20Deletion%20Request" class="email-link">
+      <a href="mailto:{{ site.data.company.email }}?subject=Account%20Deletion%20Request" class="email-link">
         ✉️ Send deletion request
       </a>
       <div class="notice">
@@ -383,7 +386,7 @@
       <a href="../index.html">GME Digital</a>
       <a href="../impressum.html">Impressum</a>
     </div>
-    <p>&copy; 2026 NutriMax by GME Digital UG (haftungsbeschränkt). All rights reserved.</p>
+    <p>&copy; 2026 NutriMax by {{ site.data.company.name }}. All rights reserved.</p>
   </footer>
 
   <script>

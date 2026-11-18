@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,17 +35,17 @@
 <div class="container">
 
   <h1>Privacy Policy</h1>
-  <p class="subtitle">NutriMax &nbsp;·&nbsp; Effective date: April 19, 2026 &nbsp;·&nbsp; Published by GME Digital UG (haftungsbeschränkt)</p>
+  <p class="subtitle">NutriMax &nbsp;·&nbsp; Effective date: April 19, 2026 &nbsp;·&nbsp; Published by {{ site.data.company.name }}</p>
 
   <p>
     NutriMax ("we", "us", "our", or "the app") is a personal nutrition and health-tracking
-    mobile application developed by GME Digital UG (haftungsbeschränkt). This Privacy Policy
+    mobile application developed by {{ site.data.company.name }}. This Privacy Policy
     explains what personal information we collect when you use NutriMax, why we collect it,
     how we use and protect it, with whom we share it, and the rights you have over your data.
   </p>
   <p>
     This policy applies to the NutriMax mobile app available on Apple App Store and Google
-    Play Store, and to the website <a href="index.html">https://share.gmedigital.de</a>.
+    Play Store, and to the website <a href="index.html">{{ site.data.company.origin }}</a>.
     By using NutriMax you agree to the practices described here.
   </p>
 
@@ -74,18 +77,18 @@
     The data controller responsible for processing your personal data is:
   </p>
   <ul>
-    <li><strong>Company:</strong> GME Digital UG (haftungsbeschränkt)</li>
-    <li><strong>Registered address:</strong> Kolonnenstraße 8, 10827 Berlin, Germany</li>
-    <li><strong>Managing director:</strong> Grygoriy Garyuk</li>
-    <li><strong>Commercial register:</strong> Amtsgericht Charlottenburg, HRB 278658</li>
-    <li><strong>Email:</strong> <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
+    <li><strong>Company:</strong> {{ site.data.company.name }}</li>
+    <li><strong>Registered address:</strong> {{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
+    <li><strong>Managing director:</strong> {{ site.data.company.managing_director }}</li>
+    <li><strong>Commercial register:</strong> {{ site.data.company.register.court }}, {{ site.data.company.register.number }}</li>
+    <li><strong>Email:</strong> <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
   </ul>
   <p>
     These details match our <a href="impressum.html">Impressum</a> (legal notice) as required by
     the German Telemedia Act (TMG) and the Digital Services Act (DDG).
   </p>
   <p>
-    GME Digital UG is not required to appoint a Data Protection Officer (DPO) under Article 37
+    {{ site.data.company.short_name }} is not required to appoint a Data Protection Officer (DPO) under Article 37
     GDPR. For all privacy-related enquiries, please contact us at the email address above.
   </p>
 
@@ -377,7 +380,7 @@
   <h2 id="international-transfers">8. International Data Transfers</h2>
 
   <p>
-    NutriMax is operated by GME Digital UG, based in Germany. Your data is primarily stored
+    NutriMax is operated by {{ site.data.company.short_name }}, based in Germany. Your data is primarily stored
     within the European Union (EU) on Supabase infrastructure hosted on AWS eu-central-1
     (Frankfurt).
   </p>
@@ -429,7 +432,7 @@
   </p>
   <p>
     You may request further information about international transfer safeguards by contacting
-    us at <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>.
+    us at <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a>.
   </p>
 
   <!-- ─── 9. Data Storage & Security ────────────────────────────────── -->
@@ -471,7 +474,7 @@
     <li><strong>In-app:</strong> Go to <em>Settings → Account → Delete Account</em> and follow
         the confirmation steps.</li>
     <li><strong>By email:</strong> Send a deletion request to
-        <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a> from the
+        <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a> from the
         email address linked to your account. We will confirm deletion within 5 business days
         and complete it within 30 days.</li>
   </ul>
@@ -513,7 +516,7 @@
   </p>
   <p>
     To exercise any of these rights, contact us at
-    <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>. We will
+    <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a>. We will
     respond within 30 days (GDPR) or 45 days (CCPA). We may ask you to verify your identity
     before processing your request.
   </p>
@@ -536,7 +539,7 @@
     <strong>For parents and guardians:</strong> If you believe your child under 13 (or 16 in
     the EU) has created a NutriMax account or provided us with personal data without your
     consent, please contact us immediately at
-    <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>. We will
+    <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a>. We will
     promptly verify and delete the account and all associated data within 5 business days of
     confirmation.
   </p>
@@ -555,7 +558,7 @@
   <ul>
     <li><strong>In the NutriMax app:</strong> Navigate to <em>About → Privacy Policy</em>.</li>
     <li><strong>On the web:</strong>
-        <a href="privacy-policy.html">https://share.gmedigital.de/privacy-policy.html</a>
+        <a href="privacy-policy.html">{{ site.data.company.origin }}/privacy-policy.html</a>
     </li>
     <li><strong>Apple App Store listing:</strong> Linked in the app's App Store product page.</li>
     <li><strong>Google Play listing:</strong> Linked in the app's Google Play product page.</li>
@@ -581,8 +584,8 @@
     please contact us:
   </p>
   <ul>
-    <li>📧 Email: <a href="mailto:main@gmedigital.de">main@gmedigital.de</a></li>
-    <li>🏢 GME Digital UG (haftungsbeschränkt), Kolonnenstraße 8, 10827 Berlin, Germany</li>
+    <li>📧 Email: <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
+    <li>🏢 {{ site.data.company.name }}, {{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
   </ul>
   <p>
     We aim to respond to all privacy-related enquiries within <strong>5 business days</strong>.
@@ -590,7 +593,7 @@
 
   <div class="footer">
     <p>
-      &copy; 2026 GME Digital UG (haftungsbeschränkt). All rights reserved. &nbsp;|&nbsp;
+      &copy; 2026 {{ site.data.company.name }}. All rights reserved. &nbsp;|&nbsp;
       <a href="terms-of-use.html">Terms of Use</a> &nbsp;|&nbsp;
       <a href="impressum.html">Impressum</a> &nbsp;|&nbsp;
       <a href="datenschutz.html">Datenschutzerklärung</a> &nbsp;|&nbsp;

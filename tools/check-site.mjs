@@ -46,11 +46,19 @@ const INTERNAL = [
 
 // Pages already moved to the Company facts source ('*' = every HTML page): their
 // source must not hand-type a Company fact, and every fact they show must match.
-const MIGRATED_PAGES = ['impressum.html'];
+const MIGRATED_PAGES = ['*'];
 
 // Fixes to the pre-migration pages that the migration makes on purpose. Each
 // entry: page, the old text, the new text, and why. Only used with --baseline.
-const AGREED_CORRECTIONS = [];
+const RETIRED_GMAIL = {
+  from: 'main.gme.digital@gmail.com',
+  to: 'main@gmedigital.de',
+  why: 'Retired Gmail address; main@gmedigital.de is the contact email in the Impressum (issue #14).',
+};
+const AGREED_CORRECTIONS = [
+  { page: 'privacy-policy.html', ...RETIRED_GMAIL },
+  { page: 'nutrimax/delete-account.html', ...RETIRED_GMAIL },
+];
 
 // ---------------------------------------------------------------- helpers
 

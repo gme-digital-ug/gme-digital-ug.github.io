@@ -11,7 +11,7 @@ Static GitHub Pages site served at `share.gmedigital.de` (see `CNAME`). Pushing 
 
 ## Company facts
 
-Company name, address, register entry, managing director, contact email, phone, VAT ID and site origin live only in `_data/company.yml`; pages render them as `{{ site.data.company.<key> }}`. Pages still hand-typing them: every page except `impressum.html` (until #14 lands).
+Company name, address, register entry, managing director, contact email, phone, VAT ID and site origin live only in `_data/company.yml`; pages render them as `{{ site.data.company.<key> }}`. Never type one into a page: `tools/check-site.mjs` fails on hand-typed facts.
 
 Check a change with `tools/build-site.sh` (Docker; GitHub's own Pages build + `tools/check-site.mjs`). See `README.md`.
 
