@@ -3,18 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NutriMax – Your Pocket Nutritionist</title>
-  <meta name="description" content="NutriMax empowers you with goal-driven nutrition tracking, AI meal suggestions, and real-world progress tracking. Your evidence-based pocket nutritionist.">
+  <title>NutriMax – Snap your meal, AI does the logging</title>
+  <meta name="description" content="NutriMax is photo-first calorie tracking: snap or describe your meal and AI estimates the calories and macros. No database searching, no weighing — calorie tracking you'll actually stick with.">
+  <meta name="theme-color" content="#0f1012">
+  <meta name="apple-itunes-app" content="app-id=6758057144">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/nutrimax-icon-180.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NutriMax – Snap your meal, AI does the logging">
+  <meta property="og:description" content="Photo-first calorie tracking you'll actually stick with.">
+  <meta property="og:url" content="https://share.gmedigital.de/nutrimax/">
+  <meta property="og:image" content="https://share.gmedigital.de/nutrimax/assets/nutrimax-feature-graphic.jpg">
   <style>
     :root {
-      --green:       #22c55e;
-      --green-dark:  #16a34a;
-      --green-light: #dcfce7;
+      --ink:         #0f1012;   /* app icon background */
+      --leaf:        #82c025;   /* app icon leaf */
+      --leaf-soft:   #c5e79a;
+      --leaf-tint:   #eef7e2;
+      --leaf-dark:   #3f6212;   /* leaf colour dark enough for text on white */
       --text:        #111827;
-      --muted:       #6b7280;
+      --muted:       #4b5563;
       --bg:          #ffffff;
-      --surface:     #f9fafb;
-      --border:      #e5e7eb;
+      --surface:     #f7f9f4;
+      --border:      #e3e8dc;
       --radius:      12px;
     }
 
@@ -26,44 +37,56 @@
       background: var(--bg);
       line-height: 1.6;
     }
+    img { max-width: 100%; display: block; }
+    a { color: var(--leaf-dark); }
 
     /* ── NAV ─────────────────────────────────────────────────────────────── */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.95);
+      background: rgba(15,16,18,0.92);
       backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       z-index: 100;
     }
     .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
       font-weight: 700;
-      font-size: 1.25rem;
-      color: var(--green-dark);
+      font-size: 1.15rem;
+      color: #fff;
       text-decoration: none;
     }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 8px; }
     .nav-home {
       font-size: 0.9rem;
-      color: var(--muted);
+      color: #c9cdd3;
       text-decoration: none;
     }
-    .nav-home:hover { color: var(--green-dark); }
+    .nav-home:hover { color: var(--leaf); }
 
     /* ── HERO ────────────────────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(135deg, #052e16 0%, #14532d 45%, #166534 100%);
+      background: var(--ink);
       color: #fff;
       text-align: center;
-      padding: 6rem 1.5rem 5rem;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .hero-icon {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 0.5rem;
     }
     .hero-badge {
       display: inline-block;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(130,192,37,0.12);
+      border: 1px solid rgba(130,192,37,0.45);
+      color: var(--leaf-soft);
       border-radius: 999px;
       padding: 0.3rem 1rem;
       font-size: 0.8rem;
@@ -72,17 +95,17 @@
       margin-bottom: 1.25rem;
     }
     .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: clamp(2.3rem, 6vw, 4.2rem);
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1.1;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
-    .hero h1 span { color: #86efac; }
+    .hero h1 span { color: var(--leaf); }
     .hero-tagline {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      color: #bbf7d0;
-      max-width: 580px;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: #d1d5db;
+      max-width: 620px;
       margin: 0 auto 2.5rem;
     }
     .hero-cta {
@@ -101,62 +124,17 @@
       font-weight: 600;
       text-decoration: none;
       transition: transform 0.15s, box-shadow 0.15s;
-      cursor: pointer;
-      border: none;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-    .btn-primary   { background: var(--green); color: #fff; }
-    .btn-secondary { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.35); }
-
-    /* ── STORE BUTTONS ───────────────────────────────────────────────────── */
-    .store-section {
-      text-align: center;
-      padding: 4rem 1.5rem;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .store-section h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .store-section p  { color: var(--muted); margin-bottom: 2rem; }
-    .store-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .store-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.9rem 1.6rem;
-      background: var(--text);
-      color: #fff;
-      border-radius: var(--radius);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: background 0.15s, transform 0.15s;
-      opacity: 0.6;
-      cursor: not-allowed;
-      position: relative;
-    }
-    .store-btn .store-icon { font-size: 1.6rem; line-height: 1; }
-    .store-btn .store-label { display: flex; flex-direction: column; text-align: left; }
-    .store-btn .store-label small { font-size: 0.7rem; font-weight: 400; opacity: 0.8; }
-    .store-btn .coming-soon {
-      position: absolute;
-      top: -10px; right: -10px;
-      background: var(--green);
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 999px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
+    .btn-primary   { background: var(--leaf); color: var(--ink); }
+    .btn-secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.35); }
 
     /* ── SECTIONS ────────────────────────────────────────────────────────── */
     section { padding: 5rem 1.5rem; }
     .container { max-width: 1080px; margin: 0 auto; }
     .section-label {
       display: block;
-      color: var(--green-dark);
+      color: var(--leaf-dark);
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -167,11 +145,12 @@
       font-size: clamp(1.6rem, 3.5vw, 2.25rem);
       font-weight: 800;
       letter-spacing: -0.02em;
+      line-height: 1.2;
       margin-bottom: 1rem;
     }
     .section-desc {
       color: var(--muted);
-      max-width: 560px;
+      max-width: 600px;
       margin-bottom: 3rem;
       font-size: 1.05rem;
     }
@@ -179,47 +158,93 @@
     /* ── ABOUT ───────────────────────────────────────────────────────────── */
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 3.5rem;
       align-items: center;
-    }
-    .about-grid .visual {
-      background: var(--green-light);
-      border-radius: 24px;
-      aspect-ratio: 9/16;
-      max-width: 280px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--green-dark);
-      font-size: 1rem;
-      font-weight: 600;
     }
     .about-text p { color: var(--muted); margin-bottom: 1.2rem; font-size: 1.05rem; }
-    @media (max-width: 680px) {
-      .about-grid { grid-template-columns: 1fr; }
-      .about-grid .visual { display: none; }
+    .honest-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+    .honest-card h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+    .honest-card ul { list-style: none; display: grid; gap: 0.85rem; }
+    .honest-card li {
+      display: grid;
+      grid-template-columns: 1.5rem 1fr;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .honest-card li strong { color: var(--text); }
+    @media (max-width: 760px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     }
 
+    /* ── HOW IT WORKS ────────────────────────────────────────────────────── */
+    .how-bg { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      counter-reset: step;
+    }
+    .step {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem; height: 2.25rem;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--leaf);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .step h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+    .step p  { color: var(--muted); font-size: 0.95rem; }
+
+    /* ── SCREENSHOTS ─────────────────────────────────────────────────────── */
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .screenshots figure { text-align: center; }
+    .screenshots img {
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      margin: 0 auto 0.6rem;
+    }
+    .screenshots figcaption { color: var(--muted); font-size: 0.85rem; }
+    .screenshots img { width: 100%; max-width: 260px; height: auto; }
+
     /* ── FEATURES ────────────────────────────────────────────────────────── */
-    .features-bg { background: var(--surface); }
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
     }
     .feature-card {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.75rem;
+      padding: 1.6rem;
       transition: box-shadow 0.2s;
     }
     .feature-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
     .feature-icon {
       width: 48px; height: 48px;
-      background: var(--green-light);
+      background: var(--leaf-tint);
       border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.5rem;
@@ -228,62 +253,77 @@
     .feature-card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
     .feature-card p  { color: var(--muted); font-size: 0.9rem; }
 
-    /* ── SCREENSHOTS ─────────────────────────────────────────────────────── */
-    .screenshots-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1.25rem;
-    }
-    .screenshot-placeholder {
-      background: var(--green-light);
-      border: 2px dashed #86efac;
-      border-radius: 20px;
-      aspect-ratio: 9/19;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      color: var(--green-dark);
-      font-size: 0.8rem;
-      font-weight: 600;
+    /* ── DOWNLOAD ────────────────────────────────────────────────────────── */
+    .store-section {
       text-align: center;
-      padding: 1rem;
+      padding: 5rem 1.5rem;
+      background: var(--ink);
+      color: #fff;
     }
-    .screenshot-placeholder .ph-icon { font-size: 2rem; opacity: 0.6; }
+    .store-section h2 { font-size: clamp(1.6rem, 3.5vw, 2.25rem); margin-bottom: 0.75rem; }
+    .store-section p  { color: #c9cdd3; max-width: 560px; margin: 0 auto 2rem; }
+    .store-section a  { color: var(--leaf); }
+    .store-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.6rem;
+      background: #1f2125;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .store-section a.store-btn { color: #fff; }
+    .store-btn:hover { transform: translateY(-2px); border-color: var(--leaf); }
+    .store-btn .store-icon { font-size: 1.6rem; line-height: 1; }
+    .store-btn .store-label { display: flex; flex-direction: column; text-align: left; }
+    .store-btn .store-label small { font-size: 0.7rem; font-weight: 400; opacity: 0.8; }
+    .store-note { font-size: 0.9rem; }
 
     /* ── FOOTER ──────────────────────────────────────────────────────────── */
     footer {
-      background: var(--text);
+      background: #0a0b0c;
       color: #9ca3af;
       text-align: center;
       padding: 2.5rem 1.5rem;
       font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
-    footer a { color: #86efac; text-decoration: none; }
+    footer a { color: var(--leaf); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
-    footer .footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    footer .footer-links { display: flex; gap: 1.25rem 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    footer p { max-width: 640px; margin: 0 auto 0.5rem; }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
   <nav>
-    <a href="#" class="nav-brand">NutriMax</a>
+    <a href="#" class="nav-brand">
+      <img src="assets/nutrimax-icon-180.png" alt="" width="32" height="32">
+      NutriMax
+    </a>
     <a href="../index.html" class="nav-home">← GME Digital</a>
   </nav>
 
   <!-- HERO -->
   <header class="hero">
-    <span class="hero-badge">🌿 Evidence-Based Nutrition</span>
-    <h1>Meet <span>NutriMax</span></h1>
+    <img class="hero-icon" src="assets/nutrimax-icon.png" alt="NutriMax app icon: two green leaves" width="200" height="200">
+    <span class="hero-badge">Photo-first calorie tracking</span>
+    <h1>Snap your meal.<br><span>AI does the logging.</span></h1>
     <p class="hero-tagline">
-      Goal-driven nutrition tracking, AI-powered meal suggestions, and real-world
-      progress visualisation — all in one pocket nutritionist.
+      Calorie tracking you'll actually stick with. Take a photo or type what you ate,
+      and NutriMax estimates the calories, protein, carbs and fat for you —
+      no database searching, no weighing.
     </p>
     <div class="hero-cta">
-      <a href="#download" class="btn btn-primary">📲 Download the App</a>
-      <a href="#features" class="btn btn-secondary">Explore Features</a>
+      <a href="#download" class="btn btn-primary">Get the app</a>
+      <a href="#how" class="btn btn-secondary">See how it works</a>
     </div>
   </header>
 
@@ -292,138 +332,166 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-text">
-          <span class="section-label">What is NutriMax?</span>
-          <h2 class="section-title">Your evidence-based path to smarter nutrition</h2>
+          <span class="section-label">Who it's for</span>
+          <h2 class="section-title">For people who quit calorie trackers</h2>
           <p>
-            NutriMax empowers you with goal-driven nutrition tracking, AI meal suggestions,
-            and real-world progress tracking. Engineered for the health-conscious and
-            evidence-based nutrition enthusiasts.
+            You had a weight goal. You installed a tracker, and gave up — not because you
+            stopped caring, but because searching a database, scanning and weighing turned
+            every meal into a chore.
           </p>
           <p>
-            Log meals effortlessly, track macros <em>and</em> micro-nutrients, visualise
-            your journey with beautiful charts, and receive intelligent recommendations
-            tailored to your daily routines — all backed by trusted nutritional science.
+            NutriMax drives the effort of logging close to zero. A photo or a few words is
+            enough for an estimate, so tracking survives busy days, restaurant meals and
+            home cooking alike.
           </p>
           <p>
-            Whether you're managing weight, building muscle, or simply eating better,
-            NutriMax gives you the clarity and confidence to make food choices that
-            actually work for <em>you</em>.
+            Around that sits everything that keeps you going: a plan built from your goal,
+            a wall of the meals you've logged, a streak, reminders, and a short review of
+            each finished day.
           </p>
         </div>
-        <div class="visual">
-          <!-- Swap with <img src="..." alt="NutriMax app preview"> -->
-          📱 App preview<br>coming soon
+        <aside class="honest-card">
+          <h3>Honest by design</h3>
+          <ul>
+            <li><span>📷</span><span><strong>Estimates, not lab values.</strong> Every number is an AI estimate you can check and correct — nothing you type is ever changed for you.</span></li>
+            <li><span>🔍</span><span><strong>See what it saw.</strong> Each estimate lists the ingredients it is based on.</span></li>
+            <li><span>🍽️</span><span><strong>What you eat, nothing else.</strong> NutriMax tracks food and weight. It is not a fitness suite.</span></li>
+            <li><span>🩺</span><span><strong>Not medical advice.</strong> NutriMax helps with everyday tracking; it doesn't diagnose or treat anything.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-bg" id="how">
+    <div class="container">
+      <span class="section-label">How it works</span>
+      <h2 class="section-title">From plate to logged in three steps</h2>
+      <p class="section-desc">
+        Tap the plus button on your day, and pick how you want to add the meal.
+      </p>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Snap or describe</h3>
+          <p>Take a photo, choose one from your gallery, or simply type what you ate. Details like “cooked in olive oil” sharpen the estimate. English and German both work.</p>
         </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Estimate</h3>
+          <p>Tap <em>Estimate Nutrition</em>. NutriMax reads your photo and text and fills in calories and macros, along with the ingredients it recognised.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Adjust and keep</h3>
+          <p>Ate more or less? Slide the portion and the numbers rescale. Want detail? Edit the meal ingredient by ingredient in Pro Mode, free for everyone.</p>
+        </div>
+      </div>
+
+      <!-- Real NutriMax screens, English UI; status bar cropped off. 720x1503 WebP. -->
+      <div class="screenshots">
+        <figure>
+          <img src="assets/screenshot-meal-board.webp" alt="The Meal Board: a wall of meal photos (dumplings, ramen, a bagel, curry, rice with salad) with a card reading 'Every meal is a fresh start.'" width="720" height="1503" loading="lazy">
+          <figcaption>Your meals, as a wall of photos</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/screenshot-day-review.webp" alt="A tracked day: 1104 kcal left, protein, carbs and fat bars, an AI day review of calories and macros, and two meals with photos" width="720" height="1503" loading="lazy">
+          <figcaption>Your day, with an AI review</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/screenshot-meal-detail.webp" alt="A logged meal: chicken curry with rice, 400 g, 400 kcal, with protein, fat, carbs, salt, fibre and sugar" width="720" height="1503" loading="lazy">
+          <figcaption>Every estimate, broken down</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/screenshot-barcode.webp" alt="A scanned packaged product, organic olives: 144 kcal per 100 g with values from Open Food Facts, using none of your AI scans" width="720" height="1503" loading="lazy">
+          <figcaption>Packaged food by barcode</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- FEATURES -->
-  <section class="features-bg" id="features">
+  <section id="features">
     <div class="container">
       <span class="section-label">Features</span>
-      <h2 class="section-title">Everything you need, nothing you don't</h2>
+      <h2 class="section-title">Built to keep you tracking</h2>
       <p class="section-desc">
-        Built on real nutritional science and designed for everyday people —
-        not just fitness professionals.
+        The photo gets a meal logged. Everything else is there so you're still logging next month.
       </p>
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon">🎯</div>
-          <h3>Goal-Driven Tracking</h3>
-          <p>Set personalised calorie, macro, and micro-nutrient targets. NutriMax adapts as your goals evolve.</p>
+          <h3>A plan built from your goal</h3>
+          <p>The plan wizard works out your calorie and macro goals from your body, activity level and target weight.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🤖</div>
-          <h3>AI Meal Suggestions</h3>
-          <p>Receive intelligent meal ideas based on your preferences, nutritional gaps, and daily routine.</p>
+          <div class="feature-icon">🖼️</div>
+          <h3>Meal Board</h3>
+          <p>A wall of your meal photos, mixed with motivational phrases and good-news facts counted from your own log — your streak, this week's protein, your most consistent weekday.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3>Progress Visualisation</h3>
-          <p>Beautiful charts and weekly reports help you understand trends and celebrate real progress.</p>
+          <div class="feature-icon">🔥</div>
+          <h3>Streaks and reminders</h3>
+          <p>Count the days in a row you've logged, mark complete days for a medal, and get meal reminders that skip any meal you've already logged.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🔍</div>
-          <h3>Deep Nutritional Insights</h3>
-          <p>Go beyond calories — track vitamins, minerals, fibre, and more to ensure complete nourishment.</p>
+          <div class="feature-icon">📝</div>
+          <h3>AI day review</h3>
+          <p>A short write-up of a finished day: what you ate, how it landed against your goals, and one thing to try next.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">💧</div>
-          <h3>Hydration Tracking</h3>
-          <p>Log water intake alongside meals to maintain optimal hydration throughout your day.</p>
+          <div class="feature-icon">🏷️</div>
+          <h3>Barcodes for packaged food</h3>
+          <p>Scan a product to use the values on its label, from the community database <a href="https://world.openfoodfacts.org/" rel="noopener">Open Food Facts</a>. Scans don't use up your AI estimates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>Share a meal</h3>
+          <p>Send a picture card of a meal to anyone, or a link another NutriMax user can import into their own log. Links expire after 7 days.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3>Analytics</h3>
+          <p>See your intake and your weight over time, and log your weight in two taps from the plus button.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🔒</div>
-          <h3>Privacy First</h3>
-          <p>Your health data stays yours. No ads, no data selling — secured with row-level security and data isolation.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCREENSHOTS -->
-  <section>
-    <div class="container">
-      <span class="section-label">Screenshots</span>
-      <h2 class="section-title">Beautifully designed for daily use</h2>
-      <p class="section-desc">
-        A clean, intuitive interface that makes logging meals faster and tracking progress more motivating.
-      </p>
-      <div class="screenshots-grid">
-        <div class="screenshot-placeholder">
-          <span class="ph-icon">🖼️</span>
-          <!-- Replace with: <img src="screenshot-dashboard.png" alt="NutriMax dashboard"> -->
-          Dashboard
-        </div>
-        <div class="screenshot-placeholder">
-          <span class="ph-icon">🖼️</span>
-          <!-- Replace with: <img src="screenshot-meal-log.png" alt="NutriMax meal log"> -->
-          Meal Log
-        </div>
-        <div class="screenshot-placeholder">
-          <span class="ph-icon">🖼️</span>
-          <!-- Replace with: <img src="screenshot-progress.png" alt="NutriMax progress charts"> -->
-          Progress Charts
-        </div>
-        <div class="screenshot-placeholder">
-          <span class="ph-icon">🖼️</span>
-          <!-- Replace with: <img src="screenshot-ai-suggestions.png" alt="NutriMax AI meal suggestions"> -->
-          AI Suggestions
-        </div>
-        <div class="screenshot-placeholder">
-          <span class="ph-icon">🖼️</span>
-          <!-- Replace with: <img src="screenshot-nutrients.png" alt="NutriMax nutrient breakdown"> -->
-          Nutrient Breakdown
+          <h3>Your data, your call</h3>
+          <p>NutriMax asks before it sends anything to the AI, and sends only the photo and text you entered. Delete your account and data from inside the app.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- DOWNLOAD / STORE BUTTONS -->
+  <!-- id="download" is linked from the Shared Meal page (m/index.html); keep it. -->
   <div class="store-section" id="download">
-    <h2>Download NutriMax</h2>
-    <p>Available soon on iOS and Android. Join the waitlist!</p>
+    <h2>Get NutriMax</h2>
+    <p>
+      Free to download for Android and iPhone, with optional in-app purchases.
+      Available in Germany and Austria. The app speaks German and English.
+    </p>
     <div class="store-buttons">
-      <!-- Replace href="#" with the actual App Store URL when available -->
-      <a href="#" class="store-btn" aria-label="Download on the App Store (coming soon)">
-        <span class="store-icon">🍎</span>
-        <span class="store-label">
-          <small>Download on the</small>
-          App Store
-        </span>
-        <span class="coming-soon">Soon</span>
-      </a>
-      <!-- Replace href="#" with the actual Google Play URL when available -->
-      <a href="#" class="store-btn" aria-label="Get it on Google Play (coming soon)">
-        <span class="store-icon">▶️</span>
+      <!-- Play package id is the permanent pre-rebrand id; the App Store listing is named "NutriMaxx". -->
+      <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.gmedigital.nutriflow" rel="noopener">
+        <span class="store-icon" aria-hidden="true">▶️</span>
         <span class="store-label">
           <small>Get it on</small>
           Google Play
         </span>
-        <span class="coming-soon">Soon</span>
+      </a>
+      <a class="store-btn" href="https://apps.apple.com/de/app/nutrimaxx/id6758057144" rel="noopener">
+        <span class="store-icon" aria-hidden="true">🍎</span>
+        <span class="store-label">
+          <small>Download on the</small>
+          App Store
+        </span>
       </a>
     </div>
+    <p class="store-note">
+      Questions or feedback? Write to <a href="mailto:main@gmedigital.de">main@gmedigital.de</a>.
+    </p>
   </div>
 
   <!-- FOOTER -->
@@ -432,9 +500,12 @@
       <a href="../privacy-policy.html">Privacy Policy</a>
       <a href="../terms-of-use.html">Terms of Use</a>
       <a href="delete-account.html">Delete Account</a>
-      <a href="../index.html">GME Digital</a>
       <a href="../impressum.html">Impressum</a>
+      <a href="../datenschutz.html">Datenschutz</a>
+      <a href="../index.html">GME Digital</a>
     </div>
+    <p>NutriMax gives estimates for everyday nutrition tracking. It is not a medical device and not medical advice.</p>
+    <p>Barcode product data from <a href="https://world.openfoodfacts.org/" rel="noopener">Open Food Facts</a>, available under the Open Database License.</p>
     <p>&copy; 2026 NutriMax by GME Digital UG (haftungsbeschränkt). All rights reserved.</p>
   </footer>
 

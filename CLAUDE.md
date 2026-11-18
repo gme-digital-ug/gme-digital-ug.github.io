@@ -5,7 +5,7 @@ Static GitHub Pages site served at `share.gmedigital.de` (see `CNAME`). There's 
 ## Load-bearing files and URLs
 
 - `.nojekyll` keeps `.well-known/` published. `.well-known/assetlinks.json` verifies Android App Links for the Shared Meal landing page (`/m/`). Its package name `com.gmedigital.nutriflow` is NutriMax's permanent pre-rebrand ID, so leave it as is.
-- These URLs are registered with the app stores and must keep resolving: `/privacy-policy.html` and `/terms-of-use.html` (NutriMax, at the root), `/nutrimax/delete-account.html`, and `/minesweeper/privacy-policy.html` and `/minesweeper/terms-of-use.html`.
+- These URLs are registered with the app stores and must keep resolving: `/privacy-policy.html` and `/terms-of-use.html` (NutriMax, at the root) and `/nutrimax/delete-account.html`.
 - `m/index.html` has a strict CSP: inline styles and scripts only.
 - `impressum.html` and `datenschutz.html` are the German legal pages. Every page should link to both.
 
