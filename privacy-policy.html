@@ -35,7 +35,7 @@ layout: null
 <div class="container">
 
   <h1>Privacy Policy</h1>
-  <p class="subtitle">NutriMax &nbsp;·&nbsp; Effective date: April 19, 2026 &nbsp;·&nbsp; Published by {{ site.data.company.name }}</p>
+  <p class="subtitle">NutriMax &nbsp;·&nbsp; Effective date: November 18, 2026 &nbsp;·&nbsp; Published by {{ site.data.company.name }}</p>
 
   <p>
     NutriMax ("we", "us", "our", or "the app") is a personal nutrition and health-tracking
@@ -133,7 +133,9 @@ layout: null
     <li>Meal images you choose to capture with the camera or select from your photo library.
           Photos are stored <strong>locally on your device</strong>. If you use the optional
           AI-based nutrition estimation feature, the selected meal photo is transmitted to our
-          third-party AI service provider for processing as described in <a href="#third-party-services">Section 7</a>.</li>
+          third-party AI service provider for processing as described in <a href="#third-party-services">Section 7</a>.
+          If you share a meal with another NutriMax user, its photo is stored on our servers
+          together with the shared copy and deleted with it (see <a href="#shared-meals">Shared Meals</a>).</li>
   </ul>
 
     <h3>AI Meal Estimation Inputs (optional)</h3>
@@ -142,6 +144,40 @@ layout: null
           send the meal photo you selected and any meal description or other text you enter for
           that feature to our third-party AI service provider to generate nutrition estimates.</li>
     </ul>
+
+  <h3 id="shared-meals">Shared Meals (optional)</h3>
+  <p>
+    You can share a meal with another NutriMax user by link. When you choose
+    <em>Share with a NutriMax user</em>, the app stores a copy of that meal on our servers
+    (Supabase, in the EU: AWS eu-central-1, Frankfurt) together with your user ID. The copy
+    contains:
+  </p>
+  <ul>
+    <li>the meal's name, description, diet label, and portion size</li>
+    <li>its nutritional values</li>
+    <li>its ingredients, including the barcode of any product you scanned</li>
+    <li>the meal photo, if the meal has one</li>
+  </ul>
+  <p>
+    The copy does <strong>not</strong> include when you ate the meal or your name. Sharing a
+    meal is the only feature that stores a meal photo on our servers. We use your user ID only
+    to limit how many share links you can create (20 per day) and to delete your shared meals
+    when you delete your account.
+  </p>
+  <p>
+    For 7 days, anyone who has the link and a NutriMax account can view the shared meal and
+    import a copy of it; guest users cannot open it. We do not record who imports a shared
+    meal, and you are not notified when someone does. After 7 days the link stops working,
+    and the shared copy and its photo are deleted from our servers within a day. If you
+    delete your account, your shared meals and their photos are deleted immediately.
+  </p>
+  <p>
+    Shared meals are used only to provide this feature. They are not used for any other
+    purpose and are not passed on to third parties. We process them to provide the sharing
+    feature you request (Art. 6(1)(b) GDPR). Because a shared meal may reveal information
+    about your health or diet, we also rely on your explicit consent (Art. 9(2)(a) GDPR),
+    which you give by choosing to share a meal after a one-time notice in the app.
+  </p>
 
   <h3>Location Data (opt-in)</h3>
   <ul>
@@ -187,7 +223,8 @@ layout: null
     <li><strong>Dietary preferences / restrictions</strong> – health data (Art. 9)</li>
     <li><strong>Location data</strong> – opt-in only; used for meal location tagging</li>
     <li><strong>Meal photos</strong> – opt-in only; stored locally on device unless you submit
-        them for optional AI-based nutrition estimation</li>
+        them for optional AI-based nutrition estimation or share the meal with another
+        NutriMax user (see <a href="#shared-meals">Shared Meals</a>)</li>
     <li><strong>AI meal estimation inputs</strong> – optional meal photos and text you submit
         for AI-based nutrition estimation</li>
   </ul>
@@ -204,6 +241,10 @@ layout: null
     <li><strong>Water intake records</strong> – core service feature</li>
     <li><strong>Daily / weekly weight entries</strong> – core service feature</li>
     <li><strong>Wellness goals &amp; personal motivators</strong> – core service feature</li>
+    <li><strong>Shared meals</strong> (the meal copy, its photo, and your user ID) – stored when
+        you share a meal by link; because a shared meal may reveal health or diet information,
+        also based on your explicit consent (Art. 9(2)(a) GDPR, see
+        <a href="#shared-meals">Shared Meals</a>)</li>
   </ul>
 
   <h3>Legitimate interest — Art. 6(1)(f) GDPR</h3>
@@ -235,7 +276,10 @@ layout: null
         and macronutrient ranges based on your body measurements, activity level, and goals.</li>
     <li><strong>Meal photo storage</strong> – to let you attach images to meal entries. Photos
       are stored on-device unless you choose to submit them for optional AI-based nutrition
-      estimation.</li>
+      estimation or share the meal with another NutriMax user.</li>
+    <li><strong>Shared meals</strong> – to store a copy of a meal you choose to share so that
+      NutriMax users who have the link can view and import it for 7 days, and to limit link
+      creation to 20 per day (see <a href="#shared-meals">Shared Meals</a>).</li>
     <li><strong>AI-based nutrition estimation</strong> – to analyze a meal photo and/or meal
       description that you choose to submit and return estimated nutrition data.</li>
     <li><strong>Location tagging (opt-in)</strong> – to associate meal entries with a location
@@ -259,6 +303,8 @@ layout: null
         grant the corresponding device permission.</li>
     <li>When you intentionally submit a meal photo and/or meal description for the optional
       AI-based nutrition estimation feature.</li>
+    <li>Each time you share a meal with another NutriMax user by link, after a one-time notice
+      in the app (see <a href="#shared-meals">Shared Meals</a>).</li>
   </ul>
   <p><strong>How to withdraw consent:</strong></p>
   <ul>
@@ -268,6 +314,9 @@ layout: null
     <li><strong>AI-based nutrition estimation</strong> – stop using the optional AI estimation
       feature. If you do not submit a meal photo or meal description for estimation, that
       data will not be sent to the third-party AI service.</li>
+    <li><strong>Shared meals</strong> – stop sharing meals. Each share is a separate consent:
+      the link stops working after 7 days and the shared copy is then deleted automatically
+      within a day, or immediately when you delete your account.</li>
     <li><strong>Health / body data</strong> – delete individual data points in the app's
         profile or settings screens, or delete your entire account to remove all data (see
         <a href="#data-retention">Section 10</a>).</li>
@@ -287,17 +336,22 @@ layout: null
 
   <h3>Camera</h3>
   <p>
-    Used <em>only</em> when you choose to photograph a meal. Images are saved locally on your
-    device. If you use the optional AI-based nutrition estimation feature, the selected image
-    may also be transmitted to our third-party AI service provider for processing. You can deny
-    camera permission without affecting any other feature of the app.
+    Used <em>only</em> when you choose to photograph a meal or to scan a product barcode.
+    Barcodes are decoded on your device; only the barcode number is used for the product
+    lookup (see <a href="#third-party-services">Section 7</a>). Meal photos are saved locally
+    on your device. If you use the optional AI-based nutrition estimation feature, the selected
+    image may also be transmitted to our third-party AI service provider for processing. If you
+    share a meal with another NutriMax user, its photo is stored with the shared copy (see
+    <a href="#shared-meals">Shared Meals</a>). You can deny camera permission without affecting
+    any other feature of the app.
   </p>
 
   <h3>Photo Library / Storage</h3>
   <p>
     Used <em>only</em> when you choose to attach an existing photo to a meal entry. Access is
     limited to photos you explicitly select. Images remain on your device unless you submit a
-    selected image for optional AI-based nutrition estimation.
+    selected image for optional AI-based nutrition estimation or share the meal with another
+    NutriMax user (see <a href="#shared-meals">Shared Meals</a>).
   </p>
 
   <h3>Location (optional)</h3>
@@ -335,8 +389,9 @@ layout: null
     <a href="https://supabase.com" target="_blank" rel="noopener noreferrer">Supabase</a>
     powers our cloud authentication and database backend. Account credentials, health/body
     data, and nutrition logs are stored in Supabase-managed PostgreSQL databases protected by
-    row-level security (RLS). Supabase processes data on infrastructure hosted in the EU (AWS
-    eu-central-1) or another region we configure.
+    row-level security (RLS). Shared meals and their photos (see
+    <a href="#shared-meals">Shared Meals</a>) are also stored with Supabase. Supabase
+    processes data on infrastructure hosted in the EU (AWS eu-central-1, Frankfurt).
     <br>
     <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Supabase Privacy Policy →</a>
   </p>
@@ -350,6 +405,18 @@ layout: null
     advertising, profiling, or unrelated analytics.
     <br>
     <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">OpenAI Privacy Policy →</a>
+  </p>
+
+  <h3>Open Food Facts (Product Barcode Lookup)</h3>
+  <p>
+    When you scan or type a product barcode, NutriMax looks up the product in
+    <a href="https://world.openfoodfacts.org" target="_blank" rel="noopener noreferrer">Open Food Facts</a>,
+    an open database of food products. Barcodes are decoded on your device. The lookup is made
+    by our server, not by your phone: only the barcode number and the app's language are sent
+    to Open Food Facts, never your user ID, your account data, or your IP address. Our server
+    caches the answers by barcode and language only. Product data &copy; Open Food Facts
+    contributors, available under the
+    <a href="https://opendatacommons.org/licenses/odbl/" target="_blank" rel="noopener noreferrer">Open Database License (ODbL)</a>.
   </p>
 
   <h3>Apple (App Store / iOS platform)</h3>
@@ -389,9 +456,9 @@ layout: null
     third-party services:
   </p>
   <ul>
-    <li><strong>Supabase</strong> – account credentials, health/body data, and nutrition logs
-        are stored on EU infrastructure (AWS eu-central-1). Supabase's US-based support and
-        engineering teams may access data for maintenance. Supabase participates in the
+    <li><strong>Supabase</strong> – account credentials, health/body data, nutrition logs, and
+        shared meals are stored on EU infrastructure (AWS eu-central-1, Frankfurt).
+        Supabase's US-based support and engineering teams may access data for maintenance. Supabase participates in the
         <strong>EU–US Data Privacy Framework</strong> and has <strong>Standard Contractual
         Clauses (SCCs)</strong> in place.
         <br>
@@ -444,12 +511,15 @@ layout: null
     <li><strong>Encryption at rest</strong> – Supabase encrypts data at rest using AES-256
         on managed cloud infrastructure.</li>
     <li><strong>Row-Level Security (RLS)</strong> – database access policies ensure that each
-        user can only read and write their own data; no cross-user data access is possible.</li>
+        user can only read and write their own data. The only exception is a meal you choose
+        to share: for 7 days, NutriMax users who have its link can view it and import a copy
+        (see <a href="#shared-meals">Shared Meals</a>).</li>
     <li><strong>Access controls</strong> – only authorised GME Digital personnel have access to
         production infrastructure, and access is protected by multi-factor authentication.</li>
-    <li><strong>Meal photos</strong> – stored on your device. If you use the optional AI-based
-      nutrition estimation feature, the selected photo is also transmitted securely to OpenAI
-      for processing.</li>
+    <li><strong>Meal photos</strong> – stored on your device. If you share a meal with another
+      NutriMax user, its photo is stored on our servers with the shared copy and deleted with
+      it. If you use the optional AI-based nutrition estimation feature, the selected photo is
+      also transmitted securely to OpenAI for processing.</li>
     <li><strong>No plain-text passwords</strong> – passwords are hashed by Supabase Auth before
         storage.</li>
   </ul>
@@ -467,6 +537,12 @@ layout: null
     delete your account, all associated personal data (account info, health data, nutrition
     logs) will be permanently and irreversibly deleted from our servers <strong>within 30
     days</strong>.
+  </p>
+  <p>
+    <strong>Shared meals</strong> are kept for a shorter time: a share link works for 7 days,
+    after which the shared copy and its photo are deleted from our servers within a day. If
+    you delete your account, your shared meals and their photos are deleted immediately (see
+    <a href="#shared-meals">Shared Meals</a>).
   </p>
 
   <h3>How to delete your account</h3>
