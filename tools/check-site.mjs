@@ -237,6 +237,18 @@ if (baseline) {
   }
 }
 
+// 9. An app's privacy policy and terms of use state one minimum age: every
+//    "aged N", "under N", "at least N", "between N" in them names the same N.
+const SAME_MIN_AGE = [['privacy-policy.html', 'terms-of-use.html']];
+const AGE = /\b(?:aged|under|at least|between)\s+(?:<strong>)?(\d{1,2})\b/g;
+for (const pages of SAME_MIN_AGE) {
+  const ages = new Set();
+  for (const p of pages.filter((p) => existsSync(join(site, p)))) {
+    for (const [, n] of text(site, p).matchAll(AGE)) ages.add(n);
+  }
+  check(ages.size === 1, `${pages.join(' + ')} state more than one minimum age: ${[...ages].join(', ')}`);
+}
+
 // ---------------------------------------------------------------- report
 
 if (failures.length) {
