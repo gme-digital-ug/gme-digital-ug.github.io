@@ -10,3 +10,5 @@
 .history
 .svn/
 .vscode/
+# Local Jekyll output
+_site/

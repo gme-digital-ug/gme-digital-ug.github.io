@@ -1,17 +1,19 @@
 # GME Digital UG website
 
-Static GitHub Pages site served at `share.gmedigital.de` (see `CNAME`). There's no build step: every file in the repo is published exactly as committed, this one included. Pushing to `main` deploys.
+Static GitHub Pages site served at `share.gmedigital.de` (see `CNAME`). Pushing to `main` deploys: GitHub Pages builds it with its built-in Jekyll (ADR 0001). Pages without front matter are published as committed; pages with front matter (always `layout: null`) are rendered with Liquid first, so a literal `{{`/`{%` in them needs `{% raw %}`. Repo-only files are listed under `exclude` in `_config.yml` and are not published; add new ones there.
 
 ## Load-bearing files and URLs
 
-- `.nojekyll` keeps `.well-known/` published. `.well-known/assetlinks.json` verifies Android App Links for the Shared Meal landing page (`/m/`). Its package name `com.gmedigital.nutriflow` is NutriMax's permanent pre-rebrand ID, so leave it as is.
+- `_config.yml` keeps `.well-known/` published (`include`). `.well-known/assetlinks.json` verifies Android App Links for the Shared Meal landing page (`/m/`). Its package name `com.gmedigital.nutriflow` is NutriMax's permanent pre-rebrand ID, so leave it as is.
 - These URLs are registered with the app stores and must keep resolving: `/privacy-policy.html` and `/terms-of-use.html` (NutriMax, at the root), `/nutrimax/delete-account.html`, and `/minesweeper/privacy-policy.html` and `/minesweeper/terms-of-use.html`.
 - `m/index.html` has a strict CSP: inline styles and scripts only.
 - `impressum.html` and `datenschutz.html` are the German legal pages. Every page should link to both.
 
 ## Company facts
 
-Company name, address, HRB, managing director, contact email (`main@gmedigital.de`) and site origin are hand-copied across pages until issues #13/#14 land. When changing one, search every `*.html` and update every copy.
+Company name, address, register entry, managing director, contact email, phone, VAT ID and site origin live only in `_data/company.yml`; pages render them as `{{ site.data.company.<key> }}`. Pages still hand-typing them: every page except `impressum.html` (until #14 lands).
+
+Check a change with `tools/build-site.sh` (Docker; GitHub's own Pages build + `tools/check-site.mjs`). See `README.md`.
 
 ## Agent skills
 

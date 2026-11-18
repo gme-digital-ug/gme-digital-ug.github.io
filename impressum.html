@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -11,30 +14,30 @@
 <body>
   <h1>Impressum</h1>
 
-  <p><strong>GME Digital UG (haftungsbeschränkt)</strong><br>
-  Kolonnenstraße 8<br>
-  10827 Berlin<br>
-  Deutschland</p>
+  <p><strong>{{ site.data.company.name }}</strong><br>
+  {{ site.data.company.address.street }}<br>
+  {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}<br>
+  {{ site.data.company.address.country_de }}</p>
 
   <h2>Vertreten durch:</h2>
-  <p>Grygoriy Garyuk, Geschäftsführer</p>
+  <p>{{ site.data.company.managing_director }}, Geschäftsführer</p>
 
   <h2>Kontakt:</h2>
-  <p>E-Mail: main@gmedigital.de<br>
-  Telefon: +49 1523 6181017</p>
+  <p>E-Mail: {{ site.data.company.email }}<br>
+  Telefon: {{ site.data.company.phone }}</p>
 
   <h2>Registereintrag:</h2>
   <p>Eintragung im Handelsregister.<br>
-  Registergericht: Amtsgericht Charlottenburg<br>
-  Registernummer: HRB 278658</p>
+  Registergericht: {{ site.data.company.register.court }}<br>
+  Registernummer: {{ site.data.company.register.number }}</p>
 
   <h2>Umsatzsteuer-ID:</h2>
-  <p>Umsatzsteuer-Identifikationsnummer gemäß §27a Umsatzsteuergesetz: tbd</p>
+  <p>Umsatzsteuer-Identifikationsnummer gemäß §27a Umsatzsteuergesetz: {{ site.data.company.vat_id }}</p>
 
   <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</h2>
-  <p>Grygoriy Garyuk<br>
-  Kolonnenstraße 8<br>
-  10827 Berlin</p>
+  <p>{{ site.data.company.managing_director }}<br>
+  {{ site.data.company.address.street }}<br>
+  {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}</p>
 
   <p><a href="index.html">Zurück zur Startseite</a></p>
 </body>
