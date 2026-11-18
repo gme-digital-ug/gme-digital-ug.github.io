@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["GSCC68JAJA.com.gmedigital.nutriflow"],
+        "components": [
+          { "/": "/m/" },
+          { "/": "/m" }
+        ]
+      }
+    ]
+  }
+}
