@@ -29,9 +29,6 @@ const REQUIRED_PATHS = [
   'nutrimax/assets/delete_2.png',
   'nutrimax/assets/delete_3.png',
   'nutrimax/assets/delete_4.png',
-  'minesweeper/index.html',
-  'minesweeper/privacy-policy.html',
-  'minesweeper/terms-of-use.html',
   'm/index.html',
   'assets/css/site.css',
   'google4b2bd9d1f918206f.html',
@@ -73,7 +70,7 @@ const SHELL = {
   // Whose legal documents a page's footer links, by path prefix (legal documents:
   // the app in their front matter). Every other page is the company's own; its
   // footer links every app's documents.
-  appOf: [['nutrimax/', 'nutrimax'], ['m/', 'nutrimax'], ['minesweeper/', 'minesweeper']],
+  appOf: [['nutrimax/', 'nutrimax'], ['m/', 'nutrimax']],
 };
 
 // The Shared Meal page's Content-Security-Policy, exactly as the owner decided
@@ -280,8 +277,7 @@ if (baseline) {
 // 9. Legal documents (pages with `app: <name>` in their front matter, see
 //    docs/adr/0002): every app has a privacy policy and terms of use, and both
 //    state the minimum age from its app facts (_data/apps/<name>.yml). Every
-//    "aged N", "under N", "at least N", "between N" in them must be that age; an
-//    app without min_age must say it is for all ages.
+//    "aged N", "under N", "at least N", "between N" in them must be that age.
 const AGE = /\b(?:aged|under|at least|between)\s+(?:<strong>)?(\d{1,2})\b/g;
 const legalPages = {}; // app -> { privacy, terms }
 for (const p of srcFiles.filter((p) => p.endsWith('.html') && isPublic(p))) {
@@ -293,7 +289,7 @@ for (const p of srcFiles.filter((p) => p.endsWith('.html') && isPublic(p))) {
   check(!legalPages[app]?.[doc], `${app} has two ${doc} pages: ${legalPages[app]?.[doc]} and ${p}`);
   (legalPages[app] ??= {})[doc] = p;
 }
-check(Object.keys(legalPages).length >= 2, 'expected the legal documents of at least NutriMax and Minesweeper');
+check(legalPages.nutrimax, 'expected the legal documents of NutriMax');
 for (const [app, docs] of Object.entries(legalPages)) {
   const factsFile = `_data/apps/${app}.yml`;
   if (!check(existsSync(join(source, factsFile)), `app ${app} has no app facts ${factsFile}`)) continue;
@@ -303,13 +299,10 @@ for (const [app, docs] of Object.entries(legalPages)) {
     if (!check(p, `app ${app} has no ${doc} page`) || !existsSync(join(site, p))) continue;
     const out = text(site, p);
     check(out.includes(`<p class="subtitle">${appFacts.name} `), `/${p} is not titled for ${appFacts.name}`);
-    if (appFacts.min_age) {
-      const ages = [...out.matchAll(AGE)].map(([, n]) => n);
-      check(ages.length > 0, `/${p} does not state the minimum age ${appFacts.min_age}`);
-      for (const n of ages) check(n === appFacts.min_age, `/${p} names age ${n}; ${factsFile} says min_age ${appFacts.min_age}`);
-    } else {
-      check(/all ages/.test(out), `/${p}: ${factsFile} has no min_age, but the page doesn't say "all ages"`);
-    }
+    if (!check(appFacts.min_age, `${factsFile} has no min_age`)) continue;
+    const ages = [...out.matchAll(AGE)].map(([, n]) => n);
+    check(ages.length > 0, `/${p} does not state the minimum age ${appFacts.min_age}`);
+    for (const n of ages) check(n === appFacts.min_age, `/${p} names age ${n}; ${factsFile} says min_age ${appFacts.min_age}`);
   }
 }
 
@@ -342,8 +335,7 @@ if (existsSync(join(site, DELETION.summary.page))) {
 }
 
 // 11. Shared legal wording is written once (docs/adr/0002): each of these phrases
-//     occurs in exactly one source file, and in every built legal page of its kind
-//     (except the "ifFacts" ones, which only apps with those app facts get).
+//     occurs in exactly one source file, and in every built legal page of its kind.
 const SHARED_WORDING = {
   privacy: [
     'The data controller responsible for processing your personal data',
@@ -353,6 +345,7 @@ const SHARED_WORDING = {
     'lodge a complaint with your local data protection authority',
     'We may update this Privacy Policy from time to time',
     'collects data as part of the download',
+    'Where personal data is transferred outside the EU/EEA',
   ],
   terms: [
     'Please read these Terms of Use carefully',
@@ -367,7 +360,6 @@ const SHARED_WORDING = {
     'We may update these Terms of Use from time to time',
   ],
   both: ['We aim to respond to all'],
-  ifFacts: ['Where personal data is transferred outside the EU/EEA'],
 };
 const flat = (s) => s.replace(/\s+/g, ' ');
 const sources = srcFiles.filter((p) => /\.(html|ya?ml)$/.test(p) && !isInternal(p))

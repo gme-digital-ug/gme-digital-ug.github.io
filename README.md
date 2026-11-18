@@ -58,7 +58,7 @@ Every page shares one stylesheet and one legal footer
 ```
 
 - **Accent:** a page picks its product's accent with `data-accent` on `<html>`
-  (`gme`, `nutrimax` or `minesweeper`) and uses the accent variables; it never
+  (`gme` or `nutrimax`) and uses the accent variables; it never
   defines a CSS variable itself. To change a product's colour, edit its block in
   `site.css`. A new product gets a new block there.
 - **Footer:** `app=` names the page's app (a legal document passes `app=page.app`);
@@ -90,9 +90,9 @@ Each app's privacy policy and terms of use are built from one legal-document mod
 | --- | --- |
 | Wording shared by every app (controller, rights, transfers, contact, most clauses of the terms) | `_includes/legal/privacy/`, `_includes/legal/terms/`, `_includes/legal/snippets/` |
 | Headings of the shared sections | `_data/legal.yml` |
-| App facts: name, minimum age, accounts, effective dates, ... | `_data/apps/<app>.yml` |
+| App facts: name, minimum age, Delete account page, effective dates, ... | `_data/apps/<app>.yml` |
 | An app's own sections (what it collects, its third parties, ...) | `_includes/legal/<app>/privacy/`, `_includes/legal/<app>/terms/` |
-| Which sections a document has, in which order; head and footer | the page itself (`privacy-policy.html`, `minesweeper/terms-of-use.html`, ...) |
+| Which sections a document has, in which order; head and footer | the page itself (`privacy-policy.html`, `terms-of-use.html`) |
 
 A page lists its sections in its front matter, in order: a shared section by its id,
 the app's own as `{id, title}`. Sections are numbered and listed in the table of
@@ -100,24 +100,33 @@ contents automatically; refer to one with `{% include legal/ref.html id="consent
 ("Section 5", linked) rather than typing its number. When you change a document,
 update its effective date in the app facts.
 
-### Adding a third app
+### Adding another app
 
-1. **App facts:** copy `_data/apps/minesweeper.yml` to `_data/apps/<app>.yml` and fill
-   it in. Set `min_age` if the app has one (the shared Eligibility and Children's
-   Privacy sections then state it); leave it out for an all-ages app. An app with
-   `accounts: true` also needs `delete_account` and its own `data-retention` section.
-2. **The app's own sections:** create `_includes/legal/<app>/privacy/` and
+NutriMax is the only app today; the module is kept so that another app costs an
+app-facts file, its own sections and two thin pages.
+
+1. **App facts:** copy `_data/apps/nutrimax.yml` to `_data/apps/<app>.yml` and fill
+   it in. `min_age` is required (the shared Eligibility and Children's Privacy
+   sections state it).
+2. **Shared wording that doesn't fit:** the shared sections are written for an app
+   like NutriMax: users have accounts (Your Rights and Changes talk about deleting
+   your account and link the app's own `data-retention` section), it processes
+   personal data and it isn't free (the liability cap). Where the new app differs,
+   add an app fact for the difference and an `{% if %}` on it in the shared section,
+   so NutriMax's text stays as it is; where a whole section differs, give the app its
+   own section instead.
+3. **The app's own sections:** create `_includes/legal/<app>/privacy/` and
    `_includes/legal/<app>/terms/`. Every app needs `privacy/intro.html` (the opening
    paragraphs), `privacy/international-transfers.html` (its part of that section)
    and `terms/third-party.html` (one sentence naming its third parties), plus a file
    for each of its own sections. Use the shared snippets in `_includes/legal/snippets/`
    where they fit (app stores, licence, survival clause, personal use).
-3. **Page URLs:** copy `minesweeper/privacy-policy.html` and
-   `minesweeper/terms-of-use.html` to `<app>/`, set `app: <app>`, the section list and
-   `data-accent`, and adjust the title and description. List the app's pages under
+4. **Page URLs:** copy `privacy-policy.html` and `terms-of-use.html` to `<app>/`, set
+   `app: <app>`, the section list and `data-accent`, and adjust the title and
+   description. List the app's pages under
    `pages:` in its app facts (the footer links them) and give it an accent block in
    `_includes/shell/site.css`.
-4. **Check:** add both URLs to `REQUIRED_PATHS` in `tools/check-site.mjs` once they are
+5. **Check:** add both URLs to `REQUIRED_PATHS` in `tools/check-site.mjs` once they are
    registered with the stores, then run `tools/build-site.sh`. It checks that both
    documents exist, state the minimum age from the app facts and contain the shared
    wording.

@@ -3,7 +3,7 @@
    as /assets/css/site.css for every page, and inlined into the Shared Meal page
    (/m/), whose Content-Security-Policy allows no request.
 
-   A page picks its accent with <html data-accent="gme|nutrimax|minesweeper">.
+   A page picks its accent with <html data-accent="gme|nutrimax">.
    Pages only use these tokens; they never define them (tools/check-site.mjs).
    Beyond the base rules, style classes only, never bare elements (nav, section,
    footer): this file reaches every page, the Shared Meal page included. */
@@ -36,13 +36,6 @@
   --accent-soft:     #dcfce7;
   --accent-bright:   #86efac;
   --accent-gradient: linear-gradient(135deg, #052e16 0%, #14532d 45%, #166534 100%);
-}
-[data-accent="minesweeper"] {
-  --accent:          #2563eb;
-  --accent-strong:   #1d4ed8;
-  --accent-soft:     #dbeafe;
-  --accent-bright:   #93c5fd;
-  --accent-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 45%, #1e3a8a 100%);
 }
 
 /* Dark scheme, for pages that opt in with <html data-color-scheme="auto">

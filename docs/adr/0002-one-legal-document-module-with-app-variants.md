@@ -1,7 +1,7 @@
 # 2. One legal-document module, with each app as a variant
 
 Date: 2026-11-18
-Status: Accepted (issue #16)
+Status: Accepted (issue #16); amended 2026-11-18 (Minesweeper removed, see the end)
 
 ## Context
 
@@ -75,3 +75,16 @@ Build the four pages from shared Jekyll includes plus per-app facts and sections
   wording occurs in exactly one source file and in every page that should have
   it, and that every page is well-formed, has unique ids and has no broken
   internal links or anchors.
+
+## Update 2026-11-18: Minesweeper removed
+
+Minesweeper was delisted from the app stores and removed from the site on 2026-11-18:
+its pages (`/minesweeper/`), app facts and own sections are gone, and NutriMax is the
+module's only variant. The module stays, so that a future app still costs one
+app-facts file, its own sections and two thin pages.
+
+The app facts and branches that only Minesweeper used were removed with it, since no
+app could exercise them any more: `accounts`, `personal_data` and `free`, and the
+all-ages variant (an app without `min_age`; `min_age` is now required). The shared
+sections now read as written for NutriMax. A future app that differs adds an app fact
+and a branch for the difference (README, "Adding another app").

@@ -1,7 +1,7 @@
 # 3. One page shell: a shared stylesheet and legal footer, inlined into the Shared Meal page
 
 Date: 2026-11-18
-Status: Accepted (issue #15)
+Status: Accepted (issue #15); amended 2026-11-18 (Minesweeper removed, see the end)
 
 ## Context
 
@@ -81,3 +81,10 @@ address (the share token is in the fragment).
 - The Impressum and the Datenschutzerklärung now look like the legal documents
   (document styles, GME accent) and have a mobile viewport.
 - The copyright year in the footer is the build year.
+
+## Update 2026-11-18: Minesweeper removed
+
+Minesweeper was delisted from the app stores and removed from the site on 2026-11-18,
+with its accent block in the shared CSS. The company's own pages now link only
+NutriMax's documents in their footer, and only the NutriMax landing page carries the
+landing-page component CSS mentioned above.

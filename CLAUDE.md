@@ -5,9 +5,9 @@ Static GitHub Pages site served at `share.gmedigital.de` (see `CNAME`). Pushing 
 ## Load-bearing files and URLs
 
 - `_config.yml` keeps `.well-known/` published (`include`). `.well-known/assetlinks.json` verifies Android App Links for the Shared Meal landing page (`/m/`). Its package name `com.gmedigital.nutriflow` is NutriMax's permanent pre-rebrand ID, so leave it as is.
-- These URLs are registered with the app stores and must keep resolving: `/privacy-policy.html` and `/terms-of-use.html` (NutriMax, at the root), `/nutrimax/delete-account.html`, and `/minesweeper/privacy-policy.html` and `/minesweeper/terms-of-use.html`.
+- These URLs are registered with the app stores and must keep resolving: `/privacy-policy.html` and `/terms-of-use.html` (NutriMax, at the root), and `/nutrimax/delete-account.html`.
 - `m/index.html` has a strict CSP (inline styles and scripts only, no requests): it inlines the shared CSS instead of linking it. Don't widen the CSP; `tools/check-site.mjs` pins it.
-- The four app legal pages above are assembled from `_includes/legal/` and `_data/apps/` (ADR 0002, README): edit wording there, not in the pages.
+- The two legal documents above (`/privacy-policy.html`, `/terms-of-use.html`) are assembled from `_includes/legal/` and `_data/apps/` (ADR 0002, README): edit wording there, not in the pages.
 - `impressum.html` and `datenschutz.html` are the German legal pages. Every page links to both through the shared footer; `tools/check-site.mjs` enforces it.
 - Page shell (ADR 0003, README): tokens, accents, base and footer styles live only in `_includes/shell/site.css`; every page uses `_includes/shell/footer.html` and picks its accent with `<html data-accent="...">`. Don't define CSS variables or footer styles in a page.
 

@@ -1,10 +1,6 @@
-{%- comment -%}
-  For an app with a minimum age (min_age in its app facts). An all-ages app lists
-  its own eligibility section instead.
-{%- endcomment %}
   <p>
     You must be at least <strong>{{ legal_app.min_age }} years old</strong> (or the minimum age required by the laws
-    of your country of residence, if higher) to {% if legal_app.accounts %}create an account and {% endif %}use {{ legal_app.name }}. By accepting
+    of your country of residence, if higher) to create an account and use {{ legal_app.name }}. By accepting
     these Terms you confirm that you meet this age requirement.
   </p>
 {%- if legal_app.min_age < 18 %}

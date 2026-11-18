@@ -15,8 +15,8 @@ legal documents in this sense; they cover the company and the website.
 
 **App facts**
 What an app's legal documents say that differs between apps: name, minimum age,
-whether it has accounts or processes personal data, whether it is free, its website
-path and the documents' effective dates. One file per app, `_data/apps/<app>.yml`.
+its website path, its Delete account page and the documents' effective dates. One file
+per app, `_data/apps/<app>.yml`.
 
 **Page shell**
 What every page shares: the design tokens, base styles and document styles in
@@ -24,5 +24,5 @@ What every page shares: the design tokens, base styles and document styles in
 Shared Meal page) and the legal footer `_includes/shell/footer.html` (docs/adr/0003).
 
 **Accent**
-A product's colour set (GME, NutriMax, Minesweeper), defined once in the page shell.
+A product's colour set (GME, NutriMax), defined once in the page shell.
 A page picks one with `<html data-accent="...">` and never defines colours itself.
