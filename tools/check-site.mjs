@@ -249,6 +249,34 @@ for (const pages of SAME_MIN_AGE) {
   check(ages.size === 1, `${pages.join(' + ')} state more than one minimum age: ${[...ages].join(', ')}`);
 }
 
+// 10. The NutriMax account-deletion contract (email, response time, in-app path and
+//     timing) is stated only on the Delete account page; the privacy policy's
+//     deletion section links there instead of repeating timings or the in-app path.
+const DELETION = {
+  page: 'nutrimax/delete-account.html',
+  states: ['within 5 business days', 'within 30 days', 'takes effect immediately',
+    'User Settings', `mailto:${facts.email}`],
+  summary: { page: 'privacy-policy.html', section: 'data-retention' },
+  notInSummary: [/business days/, /within 30 days/, /Settings/, /→/],
+};
+const sectionOf = (html, id) => {
+  const m = html.match(new RegExp(`<h2 id="${id}">[\\s\\S]*?(?=<h2[ >]|<div class="footer">)`));
+  return m ? m[0] : '';
+};
+if (existsSync(join(site, DELETION.page))) {
+  const page = text(site, DELETION.page);
+  for (const s of DELETION.states) check(page.includes(s), `/${DELETION.page} does not state "${s}"`);
+}
+if (existsSync(join(site, DELETION.summary.page))) {
+  const sec = sectionOf(text(site, DELETION.summary.page), DELETION.summary.section);
+  check(sec !== '', `/${DELETION.summary.page} has no #${DELETION.summary.section} section`);
+  check(sec.includes(`href="${DELETION.page}"`) || sec.includes(`href="./${DELETION.page}"`),
+    `/${DELETION.summary.page}#${DELETION.summary.section} does not link to /${DELETION.page}`);
+  for (const re of DELETION.notInSummary) {
+    check(!re.test(sec), `/${DELETION.summary.page}#${DELETION.summary.section} restates the deletion contract (${re})`);
+  }
+}
+
 // ---------------------------------------------------------------- report
 
 if (failures.length) {
