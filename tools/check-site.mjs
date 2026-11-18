@@ -168,6 +168,9 @@ for (const p of [...expected].filter((p) => siteFiles.includes(p))) {
     continue;
   }
   check(/^layout:\s*null\s*$/m.test(fm.yaml), `/${p} has front matter without "layout: null"`);
+  // Pages assembled from _includes (the legal documents) can't be matched against
+  // their own source; checks 9-14 cover them.
+  if (/\{%-?\s*include\s/.test(fm.body)) continue;
   const out = text(site, p);
   const pattern = new RegExp(`^${fm.body.split(LIQUID).map(escapeRe).join('[^<>]*?')}$`);
   check(pattern.test(out), `/${p} output differs from its source outside the Liquid tags`);
@@ -215,7 +218,10 @@ const handTyped = [
   ['an email address', /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/],
   ['a github.io address', /github\.io/],
 ];
-for (const p of migrated) {
+// Includes and app facts end up in pages too, so they are held to the same rule.
+const partials = srcFiles.filter((p) =>
+  (p.startsWith('_includes/') && p.endsWith('.html')) || (p.startsWith('_data/') && p !== '_data/company.yml'));
+for (const p of [...migrated, ...partials]) {
   const src = text(source, p);
   for (const [fact, value] of handTyped) {
     if (value === 'tbd') continue; // placeholders are not facts yet
@@ -237,16 +243,40 @@ if (baseline) {
   }
 }
 
-// 9. An app's privacy policy and terms of use state one minimum age: every
-//    "aged N", "under N", "at least N", "between N" in them names the same N.
-const SAME_MIN_AGE = [['privacy-policy.html', 'terms-of-use.html']];
+// 9. Legal documents (pages with `app: <name>` in their front matter, see
+//    docs/adr/0002): every app has a privacy policy and terms of use, and both
+//    state the minimum age from its app facts (_data/apps/<name>.yml). Every
+//    "aged N", "under N", "at least N", "between N" in them must be that age; an
+//    app without min_age must say it is for all ages.
 const AGE = /\b(?:aged|under|at least|between)\s+(?:<strong>)?(\d{1,2})\b/g;
-for (const pages of SAME_MIN_AGE) {
-  const ages = new Set();
-  for (const p of pages.filter((p) => existsSync(join(site, p)))) {
-    for (const [, n] of text(site, p).matchAll(AGE)) ages.add(n);
+const legalPages = {}; // app -> { privacy, terms }
+for (const p of srcFiles.filter((p) => p.endsWith('.html') && isPublic(p))) {
+  const app = frontMatter(read(source, p))?.yaml.match(/^app:\s*([\w-]+)/m)?.[1];
+  if (!app) continue;
+  const doc = text(source, p).includes('{% include legal/privacy-policy.html %}') ? 'privacy'
+    : text(source, p).includes('{% include legal/terms-of-use.html %}') ? 'terms' : null;
+  if (!check(doc, `${p} names an app but includes neither legal document`)) continue;
+  check(!legalPages[app]?.[doc], `${app} has two ${doc} pages: ${legalPages[app]?.[doc]} and ${p}`);
+  (legalPages[app] ??= {})[doc] = p;
+}
+check(Object.keys(legalPages).length >= 2, 'expected the legal documents of at least NutriMax and Minesweeper');
+for (const [app, docs] of Object.entries(legalPages)) {
+  const factsFile = `_data/apps/${app}.yml`;
+  if (!check(existsSync(join(source, factsFile)), `app ${app} has no app facts ${factsFile}`)) continue;
+  const appFacts = parseYaml(text(source, factsFile));
+  for (const doc of ['privacy', 'terms']) {
+    const p = docs[doc];
+    if (!check(p, `app ${app} has no ${doc} page`) || !existsSync(join(site, p))) continue;
+    const out = text(site, p);
+    check(out.includes(`<p class="subtitle">${appFacts.name} `), `/${p} is not titled for ${appFacts.name}`);
+    if (appFacts.min_age) {
+      const ages = [...out.matchAll(AGE)].map(([, n]) => n);
+      check(ages.length > 0, `/${p} does not state the minimum age ${appFacts.min_age}`);
+      for (const n of ages) check(n === appFacts.min_age, `/${p} names age ${n}; ${factsFile} says min_age ${appFacts.min_age}`);
+    } else {
+      check(/all ages/.test(out), `/${p}: ${factsFile} has no min_age, but the page doesn't say "all ages"`);
+    }
   }
-  check(ages.size === 1, `${pages.join(' + ')} state more than one minimum age: ${[...ages].join(', ')}`);
 }
 
 // 10. The NutriMax account-deletion contract (email, response time, in-app path and
@@ -274,6 +304,93 @@ if (existsSync(join(site, DELETION.summary.page))) {
     `/${DELETION.summary.page}#${DELETION.summary.section} does not link to /${DELETION.page}`);
   for (const re of DELETION.notInSummary) {
     check(!re.test(sec), `/${DELETION.summary.page}#${DELETION.summary.section} restates the deletion contract (${re})`);
+  }
+}
+
+// 11. Shared legal wording is written once (docs/adr/0002): each of these phrases
+//     occurs in exactly one source file, and in every built legal page of its kind
+//     (except the "ifFacts" ones, which only apps with those app facts get).
+const SHARED_WORDING = {
+  privacy: [
+    'The data controller responsible for processing your personal data',
+    'is not required to appoint a Data Protection Officer',
+    'Depending on your country of residence, you may have the following rights',
+    'We will respond within 30 days (GDPR) or 45 days (CCPA)',
+    'lodge a complaint with your local data protection authority',
+    'We may update this Privacy Policy from time to time',
+    'collects data as part of the download',
+  ],
+  terms: [
+    'Please read these Terms of Use carefully',
+    'These Terms of Use govern your access to and use of',
+    'Reverse-engineer, decompile, or disassemble',
+    'We grant you a limited, non-exclusive, non-transferable, revocable licence',
+    'These third parties have their own terms and privacy policies',
+    'disclaims all warranties',
+    'shall not be liable for any indirect, incidental',
+    'Sections that by their nature should survive termination',
+    'governed by the laws of the Federal Republic of Germany',
+    'We may update these Terms of Use from time to time',
+  ],
+  both: ['We aim to respond to all'],
+  ifFacts: ['Where personal data is transferred outside the EU/EEA'],
+};
+const flat = (s) => s.replace(/\s+/g, ' ');
+const sources = srcFiles.filter((p) => /\.(html|ya?ml)$/.test(p) && !isInternal(p))
+  .map((p) => [p, flat(text(source, p))]);
+for (const [kind, phrases] of Object.entries(SHARED_WORDING)) {
+  const pages = Object.values(legalPages).flatMap((d) => (kind === 'both' ? [d.privacy, d.terms] : [d[kind]]))
+    .filter((p) => p && existsSync(join(site, p)));
+  for (const phrase of phrases) {
+    const inSource = sources.filter(([, t]) => t.includes(phrase)).map(([p]) => p);
+    check(inSource.length === 1, `"${phrase}" should be written once, found in: ${inSource.join(', ') || 'no source file'}`);
+    for (const p of pages) check(flat(text(site, p)).includes(phrase), `/${p} lacks the shared wording "${phrase}"`);
+  }
+}
+
+// 12-14. Every built HTML page is well-formed (each non-void element closed, in
+//     order), has unique ids, and every link to a fragment or a site file resolves.
+const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta',
+  'source', 'track', 'wbr']);
+const idsOf = (html) => [...html.matchAll(/\sid="([^"]*)"/g)].map(([, id]) => id);
+for (const p of htmlOut) {
+  const html = text(site, p);
+  const markup = html.replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '<$1></$1>');
+  const stack = [];
+  let wellFormed = true;
+  for (const [, close, name, selfClosing] of markup.matchAll(/<(\/?)([a-zA-Z][\w-]*)\b[^>]*?(\/?)>/g)) {
+    const tag = name.toLowerCase();
+    if (VOID.has(tag) || selfClosing) continue;
+    if (!close) { stack.push(tag); continue; }
+    if (stack.at(-1) === tag) { stack.pop(); continue; }
+    wellFormed = false;
+    fail(`/${p}: </${tag}> closes <${stack.at(-1) ?? 'nothing'}>`);
+    break;
+  }
+  check(wellFormed && stack.length === 0, `/${p} is not well-formed (unclosed: ${stack.join(' > ')})`);
+
+  const ids = idsOf(html);
+  const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
+  check(dupes.length === 0, `/${p} has duplicate ids: ${[...new Set(dupes)].join(', ')}`);
+
+  const dir = p.includes('/') ? p.slice(0, p.lastIndexOf('/') + 1) : '';
+  for (const [, href] of html.matchAll(/\shref="([^"]*)"/g)) {
+    if (/^(?:[a-z]+:|\/\/)/i.test(href)) continue; // mailto:, https:, intent:, ...
+    const [path, frag] = href.split('#');
+    let target = p;
+    if (path) {
+      const parts = (dir + path).split('/');
+      const resolved = [];
+      for (const s of parts) {
+        if (s === '..') resolved.pop(); else if (s !== '.' && s !== '') resolved.push(s);
+      }
+      target = resolved.join('/') + (path.endsWith('/') ? 'index.html' : '');
+      if (!check(siteFiles.includes(target), `/${p} links to ${href}, which is not in the site`)) continue;
+    }
+    if (frag && target.endsWith('.html')) {
+      check(idsOf(text(site, target)).includes(frag), `/${p} links to ${href}, but /${target} has no id "${frag}"`);
+    }
   }
 }
 

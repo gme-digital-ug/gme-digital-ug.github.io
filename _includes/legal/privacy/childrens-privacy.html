@@ -1,0 +1,23 @@
+{%- comment -%}
+  For an app with a minimum age (min_age in its app facts). An all-ages app lists
+  its own childrens-privacy section instead.
+{%- endcomment %}
+  <p>
+    {{ legal_app.name }} is intended for users aged <strong>{{ legal_app.min_age }} and older</strong> (or older, if the laws of
+    your country of residence set a higher minimum age). We do not knowingly collect personal
+    information from children under {{ legal_app.min_age }}. If we become aware that we have inadvertently collected
+    data from a child under {{ legal_app.min_age }}, we will delete that information as quickly as possible.
+  </p>
+  <p>
+    <strong>For parents and guardians:</strong> If you believe your child under {{ legal_app.min_age }} has created a
+    {{ legal_app.name }} account or provided us with personal data, please contact us immediately at
+    <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a>. We will
+    promptly verify and delete the account and all associated data within 5 business days of
+    confirmation.
+  </p>
+{%- if legal_app.min_age < 18 %}
+  <p>
+    If you are between {{ legal_app.min_age }} and 17, please review this Privacy Policy with a parent or legal guardian
+    before using {{ legal_app.name }}.
+  </p>
+{%- endif %}

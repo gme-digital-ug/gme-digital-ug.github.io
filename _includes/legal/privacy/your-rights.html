@@ -1,0 +1,42 @@
+  <p>
+    Depending on your country of residence, you may have the following rights regarding your
+    personal data:
+  </p>
+  <ul>
+    <li><strong>Access</strong> – request a copy of the personal data we hold about you.</li>
+    <li><strong>Rectification / Correction</strong> – update or correct inaccurate information
+        {% if legal_app.accounts %}via the app's profile and settings screens, or {% endif %}by contacting us.</li>
+    <li><strong>Erasure / Deletion</strong> – request deletion of {% if legal_app.accounts -%}
+        your account and all associated data (see {% include legal/ref.html id="data-retention" %})
+        {%- else -%} your personal data {%- endif %}.</li>
+    <li><strong>Data Portability</strong> – request your personal data in a structured,
+        machine-readable format (JSON or CSV).</li>
+    <li><strong>Restriction of Processing</strong> – request that we limit how we use your
+        data while a dispute is resolved.</li>
+    <li><strong>Objection</strong> – object to certain types of data processing.</li>
+    <li><strong>Withdraw Consent</strong> – where processing is based on consent, you may
+        withdraw it at any time without affecting lawfulness of prior processing.</li>
+  </ul>
+  <p>
+    <strong>CCPA (California Residents):</strong> You have the right to know what personal
+    information we collect and share, the right to delete your personal information, and the
+    right not to be discriminated against for exercising your privacy rights. We do not sell or
+    share personal information.
+  </p>
+{%- unless legal_app.personal_data %}
+  <p>
+    Since we do not hold any personal data about you, there is generally nothing for us to access,
+    correct, export, or delete. You remain in full control of the data {{ legal_app.name }} stores on
+    your device, which you can clear at any time by clearing the app's data or uninstalling it.
+  </p>
+{%- endunless %}
+  <p>
+    To exercise any of these rights, contact us at
+    <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a>. We will
+    respond within 30 days (GDPR) or 45 days (CCPA). We may ask you to verify your identity
+    before processing your request.
+  </p>
+  <p>
+    If you are located in the EU/EEA and believe your data rights are being infringed, you
+    have the right to lodge a complaint with your local data protection authority.
+  </p>

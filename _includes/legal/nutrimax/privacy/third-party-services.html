@@ -1,0 +1,48 @@
+  <p>
+    NutriMax uses a small number of carefully selected third-party services. Each service
+    operates under its own privacy policy and security controls:
+  </p>
+
+  <h3>Supabase (Authentication &amp; Database)</h3>
+  <p>
+    <a href="https://supabase.com" target="_blank" rel="noopener noreferrer">Supabase</a>
+    powers our cloud authentication and database backend. Account credentials, health/body
+    data, and nutrition logs are stored in Supabase-managed PostgreSQL databases protected by
+    row-level security (RLS). Shared meals and their photos (see
+    <a href="#shared-meals">Shared Meals</a>) are also stored with Supabase. Supabase
+    processes data on infrastructure hosted in the EU (AWS eu-central-1, Frankfurt).
+    <br>
+    <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Supabase Privacy Policy →</a>
+  </p>
+
+  <h3>OpenAI (AI-based Nutrition Estimation)</h3>
+  <p>
+    NutriMax uses <a href="https://openai.com" target="_blank" rel="noopener noreferrer">OpenAI</a>
+    to provide an optional AI-based nutrition estimation feature. When you choose to use this
+    feature, the meal photo you submit and any related text you enter are transmitted to OpenAI
+    for processing to generate estimated nutrition information. We do not use OpenAI for
+    advertising, profiling, or unrelated analytics.
+    <br>
+    <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">OpenAI Privacy Policy →</a>
+  </p>
+
+  <h3>Open Food Facts (Product Barcode Lookup)</h3>
+  <p>
+    When you scan or type a product barcode, NutriMax looks up the product in
+    <a href="https://world.openfoodfacts.org" target="_blank" rel="noopener noreferrer">Open Food Facts</a>,
+    an open database of food products. Barcodes are decoded on your device. The lookup is made
+    by our server, not by your phone: only the barcode number and the app's language are sent
+    to Open Food Facts, never your user ID, your account data, or your IP address. Our server
+    caches the answers by barcode and language only. Product data &copy; Open Food Facts
+    contributors, available under the
+    <a href="https://opendatacommons.org/licenses/odbl/" target="_blank" rel="noopener noreferrer">Open Database License (ODbL)</a>.
+  </p>
+
+{% include legal/snippets/app-stores.html %}
+
+  <h3>No advertising or analytics SDKs</h3>
+  <p>
+    NutriMax does <strong>not</strong> integrate any advertising networks, cross-app tracking
+    SDKs, social-media SDKs, or third-party analytics services. We do not sell or share your
+    data with data brokers or marketing companies.
+  </p>

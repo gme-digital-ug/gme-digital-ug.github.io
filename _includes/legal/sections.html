@@ -1,0 +1,29 @@
+{%- comment -%}
+  Table of contents and numbered sections of a legal document (docs/adr/0002).
+  Needs legal_doc ("privacy" or "terms"). The page lists its sections in order:
+  a shared section by its id (its heading is in _data/legal.yml, its text in
+  _includes/legal/<doc>/<id>.html), the app's own as {id, title} (its text in
+  _includes/legal/<app>/<doc>/<id>.html).
+{%- endcomment -%}
+{%- assign legal_shared = site.data.legal[legal_doc] %}
+  <nav class="toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ol>
+{%- for legal_s in page.sections -%}
+  {%- if legal_shared[legal_s] %}
+      <li><a href="#{{ legal_s }}">{{ legal_shared[legal_s] }}</a></li>
+  {%- else %}
+      <li><a href="#{{ legal_s.id }}">{{ legal_s.title }}</a></li>
+  {%- endif -%}
+{%- endfor %}
+    </ol>
+  </nav>
+{% for legal_s in page.sections -%}
+  {%- if legal_shared[legal_s] %}
+  <h2 id="{{ legal_s }}">{{ forloop.index }}. {{ legal_shared[legal_s] }}</h2>
+{% include legal/{{ legal_doc }}/{{ legal_s }}.html -%}
+  {%- else %}
+  <h2 id="{{ legal_s.id }}">{{ forloop.index }}. {{ legal_s.title }}</h2>
+{% include legal/{{ page.app }}/{{ legal_doc }}/{{ legal_s.id }}.html -%}
+  {%- endif %}
+{% endfor -%}

@@ -1,0 +1,13 @@
+# App facts for NutriMax: what its privacy policy and terms of use say that differs
+# from other apps. The shared legal wording is in _includes/legal/; NutriMax's own
+# sections are in _includes/legal/nutrimax/. See docs/adr/0002 and the README.
+name: "NutriMax"
+min_age: 16              # minimum age to use the app; leave out for an all-ages app
+accounts: true           # users sign in to an account (rights, terms wording)
+personal_data: true      # we process users' personal data (rights, international transfers)
+free: false              # free of charge: no liability cap, statutory-warranty note instead
+web_path: ""             # the app's website, shown after the Company origin
+delete_account: "nutrimax/delete-account.html"   # from the site root
+effective:
+  privacy: "November 18, 2026"
+  terms: "November 18, 2026"

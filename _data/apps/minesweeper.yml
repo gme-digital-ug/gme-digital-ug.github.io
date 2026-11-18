@@ -1,0 +1,12 @@
+# App facts for Minesweeper: what its privacy policy and terms of use say that differs
+# from other apps. The shared legal wording is in _includes/legal/; Minesweeper's own
+# sections are in _includes/legal/minesweeper/. See docs/adr/0002 and the README.
+name: "Minesweeper"
+# no min_age: Minesweeper is for all ages (its own Eligibility and Children's Privacy)
+accounts: false          # no sign-up, no accounts
+personal_data: false     # collects no personal data; everything stays on the device
+free: true               # free of charge, optional tips only
+web_path: "/minesweeper/"
+effective:
+  privacy: "November 18, 2026"
+  terms: "November 18, 2026"

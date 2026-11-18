@@ -1,0 +1,10 @@
+{%- comment -%}
+  Shared by both legal documents (docs/adr/0002). Sets, for the page's app:
+    legal_app   its app facts, _data/apps/<page.app>.yml (the build fails if missing)
+    legal_root  the way from this page to the site root ("" or "../")
+{%- endcomment -%}
+{%- assign legal_app = site.data.apps[page.app] -%}
+{%- unless legal_app -%}{%- include legal/no-app-facts-for/{{ page.app }}.html -%}{%- endunless -%}
+{%- assign legal_depth = page.url | split: "/" | size | minus: 2 -%}
+{%- assign legal_root = "" -%}
+{%- for legal_i in (1..legal_depth) -%}{%- assign legal_root = legal_root | append: "../" -%}{%- endfor -%}

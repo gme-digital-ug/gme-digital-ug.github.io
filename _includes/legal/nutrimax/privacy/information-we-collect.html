@@ -1,0 +1,106 @@
+  <h3>Account Information</h3>
+  <ul>
+    <li><strong>Email address</strong> – required to create and secure your account.</li>
+    <li><strong>Username / display name</strong> – used to personalise your in-app experience.</li>
+    <li><strong>Password</strong> – hashed and stored securely by our authentication provider (Supabase Auth); we never store passwords in plain text.</li>
+  </ul>
+
+  <h3>Health &amp; Body Data</h3>
+  <p>
+    NutriMax is a nutrition and health-tracking app. To provide its core features we collect
+    the following health-related information that you enter voluntarily:
+  </p>
+  <ul>
+    <li>Height and current weight</li>
+    <li>Birth year (used to calculate age-appropriate nutritional recommendations)</li>
+    <li>Biological sex / gender</li>
+    <li>Goal weight and target macronutrient splits (calories, protein, carbohydrates, fat)</li>
+    <li>Diet type (e.g. vegan, vegetarian, omnivore) and dietary preferences or restrictions</li>
+    <li>Fitness / activity level</li>
+  </ul>
+  <p>
+    This data falls within the category of health data under GDPR Article 9. We process it
+    exclusively on the basis of your explicit consent (Art. 9(2)(a) GDPR) to deliver the
+    nutrition-tracking features you have requested.
+  </p>
+
+  <h3>Nutrition &amp; Meal Tracking Data</h3>
+  <ul>
+    <li>Meals you log: name, meal time, food items, portion sizes, and nutritional values</li>
+    <li>Water intake records</li>
+    <li>Daily / weekly / monthly weight entries</li>
+  </ul>
+
+  <h3>Photos (Camera &amp; Photo Library)</h3>
+  <ul>
+    <li>Meal images you choose to capture with the camera or select from your photo library.
+          Photos are stored <strong>locally on your device</strong>. If you use the optional
+          AI-based nutrition estimation feature, the selected meal photo is transmitted to our
+          third-party AI service provider for processing as described in {% include legal/ref.html id="third-party-services" %}.
+          If you share a meal with another NutriMax user, its photo is stored on our servers
+          together with the shared copy and deleted with it (see <a href="#shared-meals">Shared Meals</a>).</li>
+  </ul>
+
+    <h3>AI Meal Estimation Inputs (optional)</h3>
+    <ul>
+      <li>If you choose to use the optional AI-based nutrition estimation feature, NutriMax may
+          send the meal photo you selected and any meal description or other text you enter for
+          that feature to our third-party AI service provider to generate nutrition estimates.</li>
+    </ul>
+
+  <h3 id="shared-meals">Shared Meals (optional)</h3>
+  <p>
+    You can share a meal with another NutriMax user by link. When you choose
+    <em>Share with a NutriMax user</em>, the app stores a copy of that meal on our servers
+    (Supabase, in the EU: AWS eu-central-1, Frankfurt) together with your user ID. The copy
+    contains:
+  </p>
+  <ul>
+    <li>the meal's name, description, diet label, and portion size</li>
+    <li>its nutritional values</li>
+    <li>its ingredients, including the barcode of any product you scanned</li>
+    <li>the meal photo, if the meal has one</li>
+  </ul>
+  <p>
+    The copy does <strong>not</strong> include when you ate the meal or your name. Sharing a
+    meal is the only feature that stores a meal photo on our servers. We use your user ID only
+    to limit how many share links you can create (20 per day) and to delete your shared meals
+    when you delete your account.
+  </p>
+  <p>
+    For 7 days, anyone who has the link and a NutriMax account can view the shared meal and
+    import a copy of it; guest users cannot open it. We do not record who imports a shared
+    meal, and you are not notified when someone does. After 7 days the link stops working,
+    and the shared copy and its photo are deleted from our servers within a day. If you
+    delete your account, your shared meals and their photos are deleted immediately.
+  </p>
+  <p>
+    Shared meals are used only to provide this feature. They are not used for any other
+    purpose and are not passed on to third parties. We process them to provide the sharing
+    feature you request (Art. 6(1)(b) GDPR). Because a shared meal may reveal information
+    about your health or diet, we also rely on your explicit consent (Art. 9(2)(a) GDPR),
+    which you give by choosing to share a meal after a one-time notice in the app.
+  </p>
+
+  <h3>Location Data (opt-in)</h3>
+  <ul>
+    <li>If you choose to enable it, NutriMax may record your approximate device location when
+        you log a meal (e.g., to tag "lunch at home" vs. "dinner at a restaurant"). Location
+        access is entirely optional, requires your explicit permission, and is never shared with
+        third parties or used for advertising.</li>
+    <li>You can grant or revoke location permission at any time in your device settings.</li>
+  </ul>
+
+  <h3>Preferences &amp; Goals</h3>
+  <ul>
+    <li>Your main wellness goals, eating-habit targets, and personal motivators entered during
+        onboarding or updated in app settings.</li>
+  </ul>
+
+  <h3>Automatically Collected Technical Data</h3>
+  <ul>
+    <li>We do <em>not</em> collect persistent device identifiers (IDFA, Android Advertising ID),
+        IP addresses, or behavioural analytics/tracking data.</li>
+    <li>Supabase may temporarily process your IP address as part of secure session management
+        (see {% include legal/ref.html id="third-party-services" %}).</li>
+  </ul>

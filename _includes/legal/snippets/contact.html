@@ -1,0 +1,14 @@
+{%- comment -%}
+  The contact paragraph that ends every legal document.
+  Parameters: about (what the questions are about), enquiries (which ones we answer).
+{%- endcomment %}
+  <p>
+    If you have questions or concerns about {{ include.about }}, please contact us:
+  </p>
+  <ul>
+    <li>📧 Email: <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
+    <li>🏢 {{ site.data.company.name }}, {{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
+  </ul>
+  <p>
+    We aim to respond to all {{ include.enquiries }} within <strong>5 business days</strong>.
+  </p>

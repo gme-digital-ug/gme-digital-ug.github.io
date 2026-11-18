@@ -1,0 +1,9 @@
+  <p>
+    {{ legal_app.name }} is operated by:
+  </p>
+  <ul>
+    <li><strong>{{ site.data.company.name }}</strong></li>
+    <li>{{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
+    <li>📧 <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
+    <li>Registered at {{ site.data.company.register.court }}, {{ site.data.company.register.number }}</li>
+  </ul>

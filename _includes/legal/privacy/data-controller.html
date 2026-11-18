@@ -1,0 +1,18 @@
+  <p>
+    The data controller responsible for processing your personal data is:
+  </p>
+  <ul>
+    <li><strong>Company:</strong> {{ site.data.company.name }}</li>
+    <li><strong>Registered address:</strong> {{ site.data.company.address.street }}, {{ site.data.company.address.postcode }} {{ site.data.company.address.city }}, {{ site.data.company.address.country_en }}</li>
+    <li><strong>Managing director:</strong> {{ site.data.company.managing_director }}</li>
+    <li><strong>Commercial register:</strong> {{ site.data.company.register.court }}, {{ site.data.company.register.number }}</li>
+    <li><strong>Email:</strong> <a href="mailto:{{ site.data.company.email }}">{{ site.data.company.email }}</a></li>
+  </ul>
+  <p>
+    These details match our <a href="{{ legal_root }}impressum.html">Impressum</a> (legal notice) as required by
+    the German Telemedia Act (TMG) and the Digital Services Act (DDG).
+  </p>
+  <p>
+    {{ site.data.company.short_name }} is not required to appoint a Data Protection Officer (DPO) under Article 37
+    GDPR. For all privacy-related enquiries, please contact us at the email address above.
+  </p>
