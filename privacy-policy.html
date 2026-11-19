@@ -128,9 +128,12 @@
   <h3>Photos (Camera &amp; Photo Library)</h3>
   <ul>
     <li>Meal images you choose to capture with the camera or select from your photo library.
-          Photos are stored <strong>locally on your device</strong>. If you use the optional
-          AI-based nutrition estimation feature, the selected meal photo is transmitted to our
-          third-party AI service provider for processing as described in <a href="#third-party-services">Section 7</a>.</li>
+          Photos are stored <strong>on your device</strong>. They leave it in exactly two cases,
+          both started by you: if you use the optional AI-based nutrition estimation feature, the
+          selected meal photo is transmitted to our third-party AI service provider for processing
+          as described in <a href="#third-party-services">Section 7</a>; and if you share a meal
+          with another NutriMax user, its photo is stored on our servers for 7 days as described
+          under "Shared Meals" below.</li>
   </ul>
 
     <h3>AI Meal Estimation Inputs (optional)</h3>
@@ -156,19 +159,51 @@
           recognition permission.</li>
     </ul>
 
-  <h3>Location Data (opt-in)</h3>
+  <h3>Shared Meals (optional)</h3>
   <ul>
-    <li>If you choose to enable it, NutriMax may record your approximate device location when
-        you log a meal (e.g., to tag "lunch at home" vs. "dinner at a restaurant"). Location
-        access is entirely optional, requires your explicit permission, and is never shared with
-        third parties or used for advertising.</li>
-    <li>You can grant or revoke location permission at any time in your device settings.</li>
+    <li>When you choose <em>Share → Share with a NutriMax user</em>, we store a copy of that one
+        meal — its name, description, nutrition values, ingredient lines and, if it has one, its
+        photo — on our servers (Supabase, EU, AWS eu-central-1) together with your user ID, so we
+        can enforce sharing limits and delete the copy when you delete your account. The copy
+        carries no time of day, no favourite flag and nothing else about you.</li>
+    <li>Anyone who has the link <em>and</em> a NutriMax account can import a copy into their own
+        log for 7 days. We do not record who imported it and do not tell you. After 7 days the
+        link stops working and the copy and its photo are deleted within a day; deleting your
+        account deletes them immediately. There is no public feed, profile or search — a link
+        reaches only the people you send it to.</li>
+    <li>The app shows you a notice saying exactly this before your first share.</li>
   </ul>
 
-  <h3>Preferences &amp; Goals</h3>
+  <h3>Barcode Scanning (optional)</h3>
   <ul>
-    <li>Your main wellness goals, eating-habit targets, and personal motivators entered during
-        onboarding or updated in app settings.</li>
+    <li>When you scan a packaged product's barcode, the camera image is decoded on your device
+        and is never stored or sent. Only the barcode's digits and your app language are sent to
+        our server, which looks the product up in <a href="https://world.openfoodfacts.org" target="_blank" rel="noopener noreferrer">Open Food Facts</a>,
+        a collaborative public food database, and returns the product's name and nutrition
+        values as recorded there. Open Food Facts receives the request from our server, never
+        from your phone, and receives no user ID, account or session information. Our server
+        caches answers by barcode and language only — nothing links a lookup to a person.</li>
+    <li>On Android, barcodes are decoded by Google's ML Kit library on the device. That library
+        reports technical diagnostics to Google (device model, app version, decoding performance,
+        a per-installation identifier) under Google's privacy policy; it sends no barcode or image
+        content. On iPhone, decoding uses Apple's on-device Vision framework, which reports
+        nothing.</li>
+  </ul>
+
+  <h3>Subscriptions (optional)</h3>
+  <ul>
+    <li>If you subscribe to a paid plan, the purchase is made through the Apple App Store or
+        Google Play, which handle your payment. We never receive your payment card or bank
+        details. Our subscription provider, RevenueCat, receives the store's purchase receipt
+        and a random app user ID so your plan can be recognised on your devices and restored
+        after reinstalling (see <a href="#third-party-services">Section 7</a>).</li>
+  </ul>
+
+  <h3>Nutrition Plan &amp; Goals</h3>
+  <ul>
+    <li>The inputs you enter in the nutrition plan wizard or in settings — activity level,
+        strategy, goal weight, timeline, diet type — and the daily calorie and macronutrient
+        goals computed from them.</li>
   </ul>
 
   <h3>Automatically Collected Technical Data</h3>
@@ -198,9 +233,10 @@
     <li><strong>Goal weight, macronutrient targets, diet type</strong> – health data (Art. 9)</li>
     <li><strong>Fitness / activity level</strong> – health data (Art. 9)</li>
     <li><strong>Dietary preferences / restrictions</strong> – health data (Art. 9)</li>
-    <li><strong>Location data</strong> – opt-in only; used for meal location tagging</li>
-    <li><strong>Meal photos</strong> – opt-in only; stored locally on device unless you submit
-        them for optional AI-based nutrition estimation</li>
+    <li><strong>Meal photos</strong> – opt-in only; stored on your device unless you submit
+        them for optional AI-based nutrition estimation or share the meal with another user</li>
+    <li><strong>Shared Meals</strong> – optional; a meal you share may reveal health
+        information, which you choose to share explicitly when you create the link</li>
     <li><strong>AI meal estimation inputs</strong> – optional meal photos and text you submit
         for AI-based nutrition estimation</li>
     <li><strong>Voice dictation</strong> – optional; started only when you tap Dictate. Only the
@@ -218,7 +254,13 @@
     <li><strong>Meal logs</strong> (food items, portion sizes, nutritional values, meal times) – core service feature</li>
     <li><strong>Water intake records</strong> – core service feature</li>
     <li><strong>Daily / weekly weight entries</strong> – core service feature</li>
-    <li><strong>Wellness goals &amp; personal motivators</strong> – core service feature</li>
+    <li><strong>Nutrition plan inputs and goals</strong> – core service feature</li>
+    <li><strong>Shared Meals</strong> (the stored copy, its link and the 7-day limit) – you ask us
+        to provide the sharing feature</li>
+    <li><strong>Barcode lookups</strong> (barcode digits and app language) – you ask us to look a
+        product up</li>
+    <li><strong>Subscription status</strong> (store receipt, random app user ID) – required to
+        provide and restore a paid plan</li>
   </ul>
 
   <h3>Legitimate interest — Art. 6(1)(f) GDPR</h3>
@@ -250,13 +292,17 @@
         and macronutrient ranges based on your body measurements, activity level, and goals.</li>
     <li><strong>Meal photo storage</strong> – to let you attach images to meal entries. Photos
       are stored on-device unless you choose to submit them for optional AI-based nutrition
-      estimation.</li>
+      estimation or share the meal with another user.</li>
     <li><strong>AI-based nutrition estimation</strong> – to analyze a meal photo and/or meal
       description that you choose to submit and return estimated nutrition data.</li>
     <li><strong>Voice dictation (optional)</strong> – to turn the meal description you speak
       into text, on your request.</li>
-    <li><strong>Location tagging (opt-in)</strong> – to associate meal entries with a location
-        if you have granted location permission.</li>
+    <li><strong>Sharing a meal (optional)</strong> – to hand another NutriMax user a copy of
+        one meal by link, for 7 days, at your request.</li>
+    <li><strong>Barcode lookup (optional)</strong> – to fetch a packaged product's recorded
+        nutrition values from Open Food Facts when you scan its barcode.</li>
+    <li><strong>Subscriptions (optional)</strong> – to recognise and restore a paid plan you
+        bought through the App Store or Google Play.</li>
     <li><strong>Goal &amp; reminder features</strong> – to present your nutrition goals and, if
         enabled, to send local (on-device) reminders.</li>
   </ul>
@@ -270,18 +316,21 @@
 
   <p><strong>When consent is collected:</strong></p>
   <ul>
-    <li>During onboarding, when you enter your health and body data (height, weight, goals,
-        diet type, etc.) for the first time.</li>
-    <li>When you enable optional features such as location tagging or meal photo capture and
-        grant the corresponding device permission.</li>
+    <li>When you enter your health and body data (height, weight, goals, diet type, etc.) in
+        the nutrition plan wizard or in settings. The app asks for none of it before you choose
+        to set up a plan.</li>
+    <li>When you enable optional features such as meal photo capture, barcode scanning or voice
+        dictation and grant the corresponding device permission.</li>
     <li>When you intentionally submit a meal photo and/or meal description for the optional
-      AI-based nutrition estimation feature.</li>
+      AI-based nutrition estimation feature. A dedicated consent dialog, naming the provider and
+      what is sent, must be accepted before the first request.</li>
+    <li>When you choose "Share with a NutriMax user" — after a one-time notice explaining what
+        is stored, for how long and who can open it.</li>
   </ul>
   <p><strong>How to withdraw consent:</strong></p>
   <ul>
-    <li><strong>Device permissions</strong> – revoke camera, photo library, microphone, speech
-        recognition or location access
-        at any time via your device's Settings app. The app will continue to work; only the
+    <li><strong>Device permissions</strong> – revoke camera, photo library, microphone or speech
+        recognition access at any time via your device's Settings app. The app will continue to work; only the
         specific feature tied to that permission will be disabled.</li>
     <li><strong>AI-based nutrition estimation</strong> – stop using the optional AI estimation
       feature. If you do not submit a meal photo or meal description for estimation, that
@@ -289,9 +338,11 @@
     <li><strong>Health / body data</strong> – delete individual data points in the app's
         profile or settings screens, or delete your entire account to remove all data (see
         <a href="#data-retention">Section 10</a>).</li>
+    <li><strong>Shared Meals</strong> – a shared copy stops being reachable after 7 days and is
+        then deleted. Deleting your account deletes all your shared copies immediately.</li>
     <li><strong>Full withdrawal</strong> – delete your NutriMax account (in-app or via email).
-        This permanently removes all personal data from our servers and effectively withdraws
-        all consent.</li>
+        This removes or irreversibly anonymizes all personal data on our servers as described in
+        <a href="#data-retention">Section 10</a> and effectively withdraws all consent.</li>
   </ul>
   <p>
     Withdrawing consent does not affect the lawfulness of processing carried out before
@@ -305,10 +356,12 @@
 
   <h3>Camera</h3>
   <p>
-    Used <em>only</em> when you choose to photograph a meal. Images are saved locally on your
-    device. If you use the optional AI-based nutrition estimation feature, the selected image
-    may also be transmitted to our third-party AI service provider for processing. You can deny
-    camera permission without affecting any other feature of the app.
+    Used <em>only</em> when you choose to photograph a meal or to scan a product barcode. Meal
+    images are saved on your device; if you use the optional AI-based nutrition estimation
+    feature the selected image may also be transmitted to our third-party AI service provider,
+    and if you share the meal its photo is stored on our servers for 7 days (Section 2). When
+    scanning a barcode the camera image is decoded on the device and never stored or sent. You
+    can deny camera permission without affecting any other feature of the app.
   </p>
 
   <h3>Photo Library / Storage</h3>
@@ -316,12 +369,6 @@
     Used <em>only</em> when you choose to attach an existing photo to a meal entry. Access is
     limited to photos you explicitly select. Images remain on your device unless you submit a
     selected image for optional AI-based nutrition estimation.
-  </p>
-
-  <h3>Location (optional)</h3>
-  <p>
-    Used <em>only</em> when you opt in to meal location tagging (see Section 2). The app
-    requests "while using" location access; it does not request background location.
   </p>
 
   <h3>Notifications (optional)</h3>
@@ -375,11 +422,35 @@
     <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer">OpenAI Privacy Policy →</a>
   </p>
 
+  <h3>Open Food Facts (Barcode lookups)</h3>
+  <p>
+    When you scan a product barcode, our server asks
+    <a href="https://world.openfoodfacts.org" target="_blank" rel="noopener noreferrer">Open Food Facts</a>
+    (Open Food Facts, a non-profit association based in France) for that product's recorded
+    name and nutrition values. The request carries only the barcode digits and your app
+    language and is sent from our server, so Open Food Facts never sees your phone, IP address,
+    account or any identifier. Product data is licensed under the Open Database License
+    (ODbL) and credited in the app with a link to the product's page.
+    <br>
+    <a href="https://world.openfoodfacts.org/terms-of-use" target="_blank" rel="noopener noreferrer">Open Food Facts Terms of Use →</a>
+  </p>
+
+  <h3>RevenueCat (Subscriptions)</h3>
+  <p>
+    <a href="https://www.revenuecat.com" target="_blank" rel="noopener noreferrer">RevenueCat</a>
+    manages NutriMax's paid plans. It receives the App Store or Google Play purchase receipt and
+    a random app user ID that we assign to your account, so your plan can be recognised on your
+    devices and restored after reinstalling. RevenueCat never receives your payment details,
+    your email or any health data. We do not use it for advertising or analytics.
+    <br>
+    <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">RevenueCat Privacy Policy →</a>
+  </p>
+
   <h3>Apple (App Store / iOS platform)</h3>
   <p>
-    When you download NutriMax from the Apple App Store, Apple collects data as part of the
-    download and payment process in accordance with Apple's own privacy policy. We do not
-    receive your Apple ID or payment details. If you use voice dictation on an iPhone, your
+    When you download NutriMax from the Apple App Store or subscribe through it, Apple collects
+    data as part of the download and payment process in accordance with Apple's own privacy
+    policy. We do not receive your Apple ID or payment details. If you use voice dictation on an iPhone, your
     speech is converted to text by Apple's speech recognition, which may send the audio to
     Apple; NutriMax receives only the recognised text.
     <br>
@@ -388,11 +459,14 @@
 
   <h3>Google (Google Play / Android platform)</h3>
   <p>
-    When you download NutriMax from Google Play, Google collects data as part of the download
-    process in accordance with Google's privacy policy. If you use voice dictation on an Android
-    phone, your speech is converted to text by the phone's speech recognition service (on most
-    phones Google's), which may send the audio to Google; NutriMax receives only the recognised
-    text.
+    When you download NutriMax from Google Play or subscribe through it, Google collects data
+    as part of the download and payment process in accordance with Google's privacy policy. If
+    you use voice dictation on an Android phone, your speech is converted to text by the phone's
+    speech recognition service (on most phones Google's), which may send the audio to Google;
+    NutriMax receives only the recognised text. Barcode scanning on Android uses Google's ML Kit
+    library, which decodes on the device and reports technical diagnostics to Google (device
+    model, app version, decoding performance, a per-installation identifier) — no barcode or
+    image content.
     <br>
     <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy →</a>
   </p>
@@ -400,8 +474,10 @@
   <h3>No advertising or analytics SDKs</h3>
   <p>
     NutriMax does <strong>not</strong> integrate any advertising networks, cross-app tracking
-    SDKs, social-media SDKs, or third-party analytics services. We do not sell or share your
-    data with data brokers or marketing companies.
+    SDKs, social-media SDKs, or third-party analytics services. The only library that reports
+    anything about the app itself is Google's ML Kit barcode decoder on Android (technical
+    diagnostics, described above), which is not an advertising or analytics SDK. We do not sell
+    or share your data with data brokers or marketing companies.
   </p>
 
   <!-- ─── 8. International Data Transfers ──────────────────────────── -->
@@ -436,6 +512,14 @@
         has <strong>SCCs</strong> in place.
         <br>
         <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy →</a></li>
+    <li><strong>RevenueCat, Inc.</strong> (USA) – processes your store purchase receipt and
+        random app user ID if you subscribe. Transfers are covered by Standard Contractual
+        Clauses in our agreement with RevenueCat.
+        <br>
+        <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">RevenueCat Privacy Policy →</a></li>
+    <li><strong>Open Food Facts</strong> (France, EU) – receives barcode digits and the app
+        language from our server for product lookups; no personal data and no transfer outside
+        the EU/EEA.</li>
       <li><strong>OpenAI</strong> – if you use the optional AI-based nutrition estimation feature,
         the meal photo you submit and any related text you enter are sent to OpenAI for
         processing. This may involve processing outside the EU/EEA. We rely on the safeguards
@@ -457,8 +541,9 @@
   <p>
     NutriMax does <strong>not</strong> use Firebase, Sentry, advertising networks,
     cross-app tracking SDKs, or third-party analytics services. NutriMax does use OpenAI for
-    optional AI-based nutrition estimation as described above. No data is sold to or shared
-    with data brokers or marketing companies.
+    optional AI-based nutrition estimation, Open Food Facts for barcode lookups and RevenueCat
+    for subscriptions, as described above. No data is sold to or shared with data brokers or
+    marketing companies.
   </p>
   <p>
     You may request further information about international transfer safeguards by contacting
@@ -479,7 +564,9 @@
         production infrastructure, and access is protected by multi-factor authentication.</li>
     <li><strong>Meal photos</strong> – stored on your device. If you use the optional AI-based
       nutrition estimation feature, the selected photo is also transmitted securely to OpenAI
-      for processing.</li>
+      for processing. A photo of a meal you share with another user is stored for 7 days in a
+      private storage bucket that no app client can list or read directly; it is served only
+      through our server to a signed-in account holding the link.</li>
     <li><strong>No plain-text passwords</strong> – passwords are hashed by Supabase Auth before
         storage.</li>
   </ul>
@@ -493,10 +580,26 @@
   <h2 id="data-retention">10. Data Retention &amp; Deletion</h2>
 
   <p>
-    We retain your personal data for as long as your NutriMax account is active. Once you
-    delete your account, all associated personal data (account info, health data, nutrition
-    logs) will be permanently and irreversibly deleted from our servers <strong>within 30
-    days</strong>.
+    We retain your personal data for as long as your NutriMax account is active. A Shared Meal
+    is kept for 7 days from the moment you create its link and is deleted within a day after
+    that, whether or not anyone opened it.
+  </p>
+  <p>
+    <strong>When you delete your account</strong>, the deletion runs immediately on our server:
+  </p>
+  <ul>
+    <li>Your login (the authentication record with your email address and hashed password) and,
+        if you signed in with Apple, our access to your Apple ID are deleted.</li>
+    <li>Your profile fields (name, birth year, gender) are erased, and all your Shared Meals and
+        their photos are deleted outright.</li>
+    <li>Your meal logs, weight entries, nutrition plans and settings are <strong>irreversibly
+        anonymized</strong>: the user ID on every row is replaced by a random identifier that
+        is linked to nothing, so the records can no longer be associated with you or restored.
+        They cease to be personal data and may be retained in that form.</li>
+  </ul>
+  <p>
+    Deletion requests sent by email are completed within <strong>30 days</strong>. Backups of
+    our database are rotated out within 30 days as well.
   </p>
 
   <h3>How to delete your account</h3>
@@ -504,7 +607,7 @@
     <li><strong>In-app:</strong> Go to <em>Settings → Account → Delete Account</em> and follow
         the confirmation steps.</li>
     <li><strong>By email:</strong> Send a deletion request to
-        <a href="mailto:main.gme.digital@gmail.com">main.gme.digital@gmail.com</a> from the
+        <a href="mailto:main@gmedigital.de">main@gmedigital.de</a> from the
         email address linked to your account. We will confirm deletion within 5 business days
         and complete it within 30 days.</li>
   </ul>
