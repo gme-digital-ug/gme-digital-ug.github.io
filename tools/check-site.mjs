@@ -11,7 +11,7 @@
 //
 // Exits 1 and lists every failure if anything is off.
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
-import { join, relative, sep } from 'node:path';
+import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 
 // ---------------------------------------------------------------- configuration
 
@@ -175,7 +175,11 @@ const { source, site, baseline } = args;
 const excluded = excludeOf(text(source, '_config.yml'));
 check(excluded.length > 0, '_config.yml has no exclude list');
 INTERNAL = [...excluded, ...JEKYLL_INTERNAL];
-const srcFiles = walk(source);
+// Source files, minus .git and the built site when it sits inside the source
+// (CI builds into ./_site): neither is source.
+const siteInSource = relative(resolve(source), resolve(site)).split(sep).join('/');
+const notSource = ['.git/', ...(siteInSource && !siteInSource.startsWith('..') && !isAbsolute(siteInSource) ? [siteInSource + '/'] : [])];
+const srcFiles = walk(source).filter((p) => !notSource.some((d) => p.startsWith(d)));
 const siteFiles = walk(site);
 const company = parseYaml(text(source, '_data/company.yml'));
 const facts = Object.fromEntries(leaves(company));
