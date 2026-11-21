@@ -1,0 +1,18 @@
+# App facts for NutriMax: what its privacy policy and terms of use say that differs
+# from other apps. The shared legal wording is in _includes/legal/; NutriMax's own
+# sections are in _includes/legal/nutrimax/. See docs/adr/0002 and the README.
+name: "NutriMax"
+min_age: 16              # minimum age to use the app (Eligibility, Children's Privacy)
+delete_account: "nutrimax/delete-account.html"   # from the site root
+# NutriMax's pages, from the site root. `home` is the app's website, which the legal
+# documents name. The footer links home, privacy, terms and delete_account
+# (docs/adr/0003); tools/check-site.mjs counts every page listed here, and every page
+# in the same folder as one of them, as NutriMax's.
+pages:
+  home: "nutrimax/index.html"
+  privacy: "privacy-policy.html"
+  terms: "terms-of-use.html"
+  shared_meal: "m/index.html"
+effective:
+  privacy: "November 18, 2026"
+  terms: "November 18, 2026"

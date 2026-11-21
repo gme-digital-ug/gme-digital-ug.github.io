@@ -1,0 +1,22 @@
+# The shared sections of the legal documents and their headings (docs/adr/0002).
+# A legal page lists its sections in its front matter. A section named here is
+# shared: its text is _includes/legal/<doc>/<id>.html. Any other section is the
+# app's own: the page gives its title, its text is _includes/legal/<app>/<doc>/<id>.html.
+privacy:
+  data-controller: "Data Controller"
+  international-transfers: "International Data Transfers"
+  your-rights: "Your Rights (GDPR / CCPA)"
+  childrens-privacy: "Children's Privacy"
+  changes: "Changes to This Policy"
+  contact: "Contact Us"
+terms:
+  provider: "Provider &amp; Contact"
+  scope: "Scope of These Terms"
+  eligibility: "Eligibility"
+  acceptable-use: "Acceptable Use"
+  third-party: "Third-Party Services"
+  disclaimer: "Disclaimer of Warranties"
+  liability: "Limitation of Liability"
+  governing-law: "Governing Law &amp; Jurisdiction"
+  changes: "Changes to These Terms"
+  contact: "Contact"

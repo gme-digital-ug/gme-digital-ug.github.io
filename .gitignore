@@ -1,11 +1,3 @@
-# Github pages / ruby / jekyll
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-vendor
-Gemfile.lock
-
 # Miscellaneous
 *.class
 *.lock
@@ -18,3 +10,5 @@ Gemfile.lock
 .history
 .svn/
 .vscode/
+# Local Jekyll output
+_site/

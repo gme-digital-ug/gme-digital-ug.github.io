@@ -1,0 +1,27 @@
+# Builds the site the way GitHub Pages does and checks the output
+# (tools/check-site.mjs). Never deploys: GitHub Pages deploys from main.
+name: Site check
+
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Build with GitHub Pages' Jekyll
+        uses: actions/jekyll-build-pages@44a6e6beabd48582f863aeeb6cb2151cc1716697 # v1.0.13
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Check the built site
+        run: node tools/check-site.mjs --source . --site _site

@@ -1,0 +1,20 @@
+# GitHub Pages builds this site with its built-in Jekyll (see docs/adr/0001).
+# Pages without front matter are copied as they are. Pages with front matter
+# render Company facts from _data/company.yml and must set `layout: null`.
+
+# No theme: GitHub Pages would otherwise add the default theme's stylesheet.
+theme: null
+
+# Publish the Android App Links file (Jekyll skips dot-folders by default).
+include:
+  - .well-known
+
+# Repo files that are not part of the website.
+exclude:
+  - CLAUDE.md
+  - README.md
+  - GLOSSARY.md
+  - HANDOFF.md
+  - docs/
+  - tools/
+  - .github/
