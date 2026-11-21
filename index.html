@@ -57,7 +57,7 @@ layout: null
     }
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
     }
     .product-card {
@@ -81,13 +81,6 @@ layout: null
       align-items: center;
       justify-content: center;
       font-size: 3rem;
-    }
-    /* A card can show its app's screens in place of the emoji banner. */
-    .product-card-shots {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-bottom: 1px solid var(--border);
     }
     .product-card-body { padding: 1.25rem; flex: 1; }
     .product-card-body h3 { font-size: 1.15rem; margin-bottom: 0.3rem; }
@@ -128,7 +121,7 @@ layout: null
       <p class="products-subtitle">Discover what we've built.</p>
       <div class="product-grid">
         <a href="nutrimax/index.html" class="product-card">
-          <img class="product-card-shots" src="nutrimax/assets/nutrimax-screens.webp" alt="Four NutriMax screens: the Meal Board of meal photos, a tracked day with an AI day review, a logged chicken curry with its calories and macros, and a scanned packaged product" width="1920" height="1002">
+          <div class="product-card-banner">🥗</div>
           <div class="product-card-body">
             <h3>NutriMax</h3>
             <p>Snap your meal, AI does the logging — photo-first calorie tracking you'll actually stick with. No database searching, no weighing.</p>
