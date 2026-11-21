@@ -1,0 +1,12 @@
+{%- comment -%}
+  Shared by both legal documents (docs/adr/0002). Sets, for the page's app:
+    legal_app      its app facts, _data/apps/<page.app>.yml (the build fails if missing)
+    legal_website  the address of its website (pages.home in the app facts) as the
+                   documents show it: the Company origin, then "/nutrimax/"
+    shell_root     the way from this page to the site root ("" or "../")
+  Link the app's website as <a href="{{ shell_root }}{{ legal_app.pages.home }}">.
+{%- endcomment -%}
+{%- include shell/app-facts.html app=page.app -%}
+{%- assign legal_app = site.data.apps[page.app] -%}
+{%- assign legal_website = legal_app.pages.home | replace: "index.html", "" | prepend: "/" | prepend: site.data.company.origin -%}
+{%- include shell/root.html -%}

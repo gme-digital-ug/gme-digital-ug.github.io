@@ -1,0 +1,15 @@
+{%- comment -%}
+  The terms of use of the app named in the page's front matter (app: <name>), with
+  the sections the page lists (sections: ...). See docs/adr/0002 and the README.
+{%- endcomment -%}
+{%- include legal/setup.html -%}
+{%- assign legal_doc = "terms" %}
+  <h1>Terms of Use</h1>
+  <p class="subtitle">{{ legal_app.name }} &nbsp;·&nbsp; Effective date: {{ legal_app.effective.terms }} &nbsp;·&nbsp; Published by {{ site.data.company.name }}</p>
+
+  <div class="notice">
+    <strong>Please read these Terms of Use carefully before using {{ legal_app.name }}.</strong> By downloading,
+    installing, or using the app you confirm that you have read, understood, and agree to be bound
+    by these Terms. If you do not agree, please do not use {{ legal_app.name }}.
+  </div>
+{% include legal/sections.html %}

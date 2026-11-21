@@ -1,0 +1,23 @@
+  <ul>
+    <li><strong>Encryption in transit</strong> – all communication between the NutriMax app and
+        our backend is encrypted using HTTPS/TLS 1.2 or higher.</li>
+    <li><strong>Encryption at rest</strong> – Supabase encrypts data at rest using AES-256
+        on managed cloud infrastructure.</li>
+    <li><strong>Row-Level Security (RLS)</strong> – database access policies ensure that each
+        user can only read and write their own data. The only exception is a meal you choose
+        to share: for 7 days, NutriMax users who have its link can view it and import a copy
+        (see <a href="#shared-meals">Shared Meals</a>).</li>
+    <li><strong>Access controls</strong> – only authorised GME Digital personnel have access to
+        production infrastructure, and access is protected by multi-factor authentication.</li>
+    <li><strong>Meal photos</strong> – stored on your device. If you share a meal with another
+      NutriMax user, its photo is stored on our servers with the shared copy and deleted with
+      it. If you use the optional AI-based nutrition estimation feature, the selected photo is
+      also transmitted securely to OpenAI for processing.</li>
+    <li><strong>No plain-text passwords</strong> – passwords are hashed by Supabase Auth before
+        storage.</li>
+  </ul>
+  <p>
+    While we take industry-standard precautions to protect your data, no system is completely
+    immune to security risks. We encourage you to use a strong, unique password and to keep
+    your device software up to date.
+  </p>

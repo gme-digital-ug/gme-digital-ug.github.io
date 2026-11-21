@@ -1,0 +1,6 @@
+---
+layout: null
+# Published from _includes/shell/site.css, which is also inlined into /m/ (docs/adr/0003).
+# Edit that file, not this one.
+---
+{% include shell/site.css %}

@@ -1,0 +1,8 @@
+{%- comment -%}
+  Sets shell_root, the way from the current page to the site root: "" for
+  index.html, "../" for nutrimax/index.html. Links stay relative, so the site
+  works from any host (docs/adr/0003).
+{%- endcomment -%}
+{%- assign shell_depth = page.path | split: "/" | size | minus: 1 -%}
+{%- assign shell_root = "" -%}
+{%- for shell_i in (1..shell_depth) -%}{%- assign shell_root = shell_root | append: "../" -%}{%- endfor -%}
