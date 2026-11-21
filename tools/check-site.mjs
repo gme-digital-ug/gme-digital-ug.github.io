@@ -33,8 +33,12 @@ const REQUIRED_PATHS = [
   'assets/css/site.css',
   'google4b2bd9d1f918206f.html',
   '.well-known/assetlinks.json',
+  '.well-known/apple-app-site-association',
   'CNAME',
 ];
+
+// Android App Links and iOS Universal Links verification files: published as committed.
+const APP_LINK_FILES = ['.well-known/assetlinks.json', '.well-known/apple-app-site-association'];
 
 // Repo files that must never be published: the `exclude` list in _config.yml
 // (read from there), plus these, which Jekyll never publishes anyway.
@@ -188,11 +192,11 @@ for (const [app, f] of Object.entries(apps)) {
   for (const p of pagesOf(f)) check(existsSync(join(site, p)), `_data/apps/${app}.yml names /${p}, which is not in the site`);
 }
 
-// 2. assetlinks.json byte-identical to the source (and to the baseline, if given).
-const al = '.well-known/assetlinks.json';
-if (existsSync(join(site, al))) {
+// 2. App-link files (Android assetlinks.json, iOS apple-app-site-association)
+//    byte-identical to the source (and to the baseline, if given and present).
+for (const al of APP_LINK_FILES) if (existsSync(join(site, al))) {
   check(read(site, al).equals(read(source, al)), `${al} differs from the source`);
-  if (baseline) check(read(site, al).equals(read(baseline, al)), `${al} differs from the baseline`);
+  if (baseline && existsSync(join(baseline, al))) check(read(site, al).equals(read(baseline, al)), `${al} differs from the baseline`);
   try { JSON.parse(text(site, al)); checks++; } catch { fail(`${al} is not valid JSON`); }
 }
 

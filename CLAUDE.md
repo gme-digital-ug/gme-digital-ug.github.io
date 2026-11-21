@@ -4,7 +4,7 @@ Static GitHub Pages site served at `share.gmedigital.de` (see `CNAME`). Pushing 
 
 ## Load-bearing files and URLs
 
-- `_config.yml` keeps `.well-known/` published (`include`). `.well-known/assetlinks.json` verifies Android App Links for the Shared Meal landing page (`/m/`). Its package name `com.gmedigital.nutriflow` is NutriMax's permanent pre-rebrand ID, so leave it as is.
+- `_config.yml` keeps `.well-known/` published (`include`). `.well-known/assetlinks.json` verifies Android App Links for the Shared Meal landing page (`/m/`). Its package name `com.gmedigital.nutriflow` is NutriMax's permanent pre-rebrand ID, so leave it as is. `.well-known/apple-app-site-association` does the same for iOS Universal Links; its source of truth is the app repo's `docs/share_site/.well-known/`.
 - These URLs are registered with the app stores and must keep resolving: `/privacy-policy.html` and `/terms-of-use.html` (NutriMax, at the root), and `/nutrimax/delete-account.html`.
 - `m/index.html` has a strict CSP (inline styles and scripts only, no requests): it inlines the shared CSS instead of linking it. Don't widen the CSP; `tools/check-site.mjs` pins it.
 - The two legal documents above (`/privacy-policy.html`, `/terms-of-use.html`) are assembled from `_includes/legal/` and `_data/apps/` (ADR 0002, README): edit wording there, not in the pages.
