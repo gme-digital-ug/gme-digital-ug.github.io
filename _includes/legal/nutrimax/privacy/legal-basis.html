@@ -1,0 +1,57 @@
+  <p>
+    Under GDPR, we rely on the following legal bases for each processing activity. The table
+    below maps every data category to its specific legal basis:
+  </p>
+
+  <h3>Consent — Art. 6(1)(a) &amp; Art. 9(2)(a) GDPR</h3>
+  <p>
+    Used for health-related special-category data and optional features that require your
+    explicit permission. You may withdraw consent at any time (see
+    {% include legal/ref.html id="consent" %}).
+  </p>
+  <ul>
+    <li><strong>Height, weight, birth year, biological sex</strong> – health data (Art. 9)</li>
+    <li><strong>Goal weight, macronutrient targets, diet type</strong> – health data (Art. 9)</li>
+    <li><strong>Fitness / activity level</strong> – health data (Art. 9)</li>
+    <li><strong>Dietary preferences / restrictions</strong> – health data (Art. 9)</li>
+    <li><strong>Location data</strong> – opt-in only; used for meal location tagging</li>
+    <li><strong>Meal photos</strong> – opt-in only; stored locally on device unless you submit
+        them for optional AI-based nutrition estimation or share the meal with another
+        NutriMax user (see <a href="#shared-meals">Shared Meals</a>)</li>
+    <li><strong>AI meal estimation inputs</strong> – optional meal photos and text you submit
+        for AI-based nutrition estimation</li>
+  </ul>
+
+  <h3>Performance of a contract — Art. 6(1)(b) GDPR</h3>
+  <p>
+    Used for data that is necessary to provide the NutriMax service you have requested.
+  </p>
+  <ul>
+    <li><strong>Email address</strong> – required for account creation, login, and communication</li>
+    <li><strong>Username / display name</strong> – required for in-app personalisation</li>
+    <li><strong>Password (hashed)</strong> – required for account security</li>
+    <li><strong>Meal logs</strong> (food items, portion sizes, nutritional values, meal times) – core service feature</li>
+    <li><strong>Water intake records</strong> – core service feature</li>
+    <li><strong>Daily / weekly weight entries</strong> – core service feature</li>
+    <li><strong>Wellness goals &amp; personal motivators</strong> – core service feature</li>
+    <li><strong>Shared meals</strong> (the meal copy, its photo, and your user ID) – stored when
+        you share a meal by link; because a shared meal may reveal health or diet information,
+        also based on your explicit consent (Art. 9(2)(a) GDPR, see
+        <a href="#shared-meals">Shared Meals</a>)</li>
+  </ul>
+
+  <h3>Legitimate interest — Art. 6(1)(f) GDPR</h3>
+  <p>
+    Used for processing that is necessary to protect the security and integrity of NutriMax.
+    You have the right to object (see {% include legal/ref.html id="your-rights" %}).
+  </p>
+  <ul>
+    <li><strong>IP address</strong> – temporarily processed by Supabase during authentication
+        sessions for fraud prevention and rate limiting; not stored long-term by us</li>
+    <li><strong>Session tokens</strong> – used to maintain your authenticated session securely</li>
+  </ul>
+
+  <p>
+    Where we rely on consent, you have the right to withdraw it at any time. Where we rely on
+    legitimate interest, you have the right to object (see {% include legal/ref.html id="your-rights" %}).
+  </p>

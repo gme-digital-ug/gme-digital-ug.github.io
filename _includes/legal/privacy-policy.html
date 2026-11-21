@@ -1,0 +1,11 @@
+{%- comment -%}
+  The privacy policy of the app named in the page's front matter (app: <name>), with
+  the sections the page lists (sections: ...). See docs/adr/0002 and the README.
+{%- endcomment -%}
+{%- include legal/setup.html -%}
+{%- assign legal_doc = "privacy" %}
+  <h1>Privacy Policy</h1>
+  <p class="subtitle">{{ legal_app.name }} &nbsp;·&nbsp; Effective date: {{ legal_app.effective.privacy }} &nbsp;·&nbsp; Published by {{ site.data.company.name }}</p>
+
+{% include legal/{{ page.app }}/privacy/intro.html %}
+{% include legal/sections.html %}

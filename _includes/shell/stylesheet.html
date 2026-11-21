@@ -1,0 +1,6 @@
+{%- comment -%}
+  The shared stylesheet, for the page's <head> (docs/adr/0003). The Shared Meal
+  page inlines _includes/shell/site.css instead.
+{%- endcomment -%}
+{%- include shell/root.html -%}
+<link rel="stylesheet" href="{{ shell_root }}assets/css/site.css">

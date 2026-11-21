@@ -1,0 +1,6 @@
+{%- comment -%}
+  Fails the build unless the app named by app= has app facts, _data/apps/<app>.yml:
+  it then includes a file that doesn't exist, so Jekyll stops with the app's name
+  (shell/no-app-facts-for/<app>.html). Used by the footer and the legal documents.
+{%- endcomment -%}
+{%- unless site.data.apps[include.app] -%}{%- include shell/no-app-facts-for/{{ include.app }}.html -%}{%- endunless -%}

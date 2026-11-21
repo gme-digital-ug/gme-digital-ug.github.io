@@ -1,0 +1,18 @@
+# Company facts: the one place to change them. Pages render them with Liquid,
+# for example {{ site.data.company.email }}. Values are canonical as in the Impressum.
+name: "GME Digital UG (haftungsbeschränkt)"
+short_name: "GME Digital UG"
+address:
+  street: "Kolonnenstraße 8"
+  postcode: "10827"
+  city: "Berlin"
+  country_de: "Deutschland"
+  country_en: "Germany"
+register:
+  court: "Amtsgericht Charlottenburg"
+  number: "HRB 278658"
+managing_director: "Grygoriy Garyuk"
+email: "main@gmedigital.de"
+phone: "+49 1523 6181017"
+vat_id: "tbd"
+origin: "https://share.gmedigital.de"

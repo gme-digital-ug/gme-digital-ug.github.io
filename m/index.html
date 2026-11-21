@@ -1,7 +1,10 @@
+---
+layout: null
+---
 <!doctype html>
 <!--
   The landing page of a Shared Meal link (issue #131):
-  https://share.gmedigital.de/m/#<token>
+  {{ site.data.company.origin }}/m/#<token>
 
   On an Android phone with NutriMax installed and the App Link verified, this
   page is never shown — the link opens the app. Everyone else lands here.
@@ -13,10 +16,12 @@
       by a signed-in account;
     * it makes no network request: no fonts, no images, no analytics. The
       Content-Security-Policy below enforces that, and `no-referrer` keeps
-      even the address out of the store link's request.
+      even the address out of the store link's request. So the shared
+      stylesheet and footer are built into the page, not linked
+      (docs/adr/0003); tools/check-site.mjs checks all of this.
   The only script picks English or German from navigator.language.
 -->
-<html lang="en">
+<html lang="en" data-accent="nutrimax" data-color-scheme="nutrimax">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,42 +31,27 @@
   <meta name="robots" content="noindex, nofollow">
   <title>A NutriMax meal</title>
   <style>
-    :root {
-      --brand: #16a34a;
-      --brand-dark: #15803d;
-      --bg: #f3faf5;
-      --card: #ffffff;
-      --text: #0f2a1a;
-      --muted: #4b6455;
-      --border: #d7eadd;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --brand: #4ade80;
-        --brand-dark: #22c55e;
-        --bg: #0b1510;
-        --card: #13211a;
-        --text: #e6f4ea;
-        --muted: #a3bfae;
-        --border: #23382b;
-      }
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; }
+{% include shell/site.css %}
+  </style>
+  <style>
+    /* The Shared Meal card. Tokens, accent and colour scheme (NutriMax: green
+       tinted, light or dark), base and footer come from the shared CSS above. */
     body {
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       padding: 24px 16px;
-      background: var(--bg);
-      color: var(--text);
-      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--surface);
+      font-size: 16px;
+      line-height: 1.5;
     }
     main {
       width: 100%;
       max-width: 420px;
-      background: var(--card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 24px;
       padding: 32px 24px;
@@ -73,25 +63,25 @@
       height: 72px;
       margin: 0 auto 16px;
       border-radius: 20px;
-      background: var(--brand);
+      background: var(--accent-strong);
       display: flex;
       align-items: center;
       justify-content: center;
     }
     h1 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 8px; }
     h2 { font-size: 1rem; margin: 24px 0 4px; }
-    p { margin: 0 0 16px; color: var(--muted); }
+    main p { margin: 0 0 16px; color: var(--muted); }
     .cta {
       display: block;
       margin: 24px 0 8px;
       padding: 14px 20px;
       border-radius: 999px;
-      background: var(--brand);
+      background: var(--accent-strong);
       color: #fff;
       font-weight: 600;
       text-decoration: none;
     }
-    .cta:hover, .cta:focus-visible { background: var(--brand-dark); }
+    .cta:hover, .cta:focus-visible { background: var(--accent-hover); }
     @media (prefers-color-scheme: dark) { .cta { color: #06200f; } }
     ol {
       text-align: left;
@@ -125,12 +115,12 @@
         <li>Install NutriMax and sign in.</li>
         <li>Open the link again from the message you got it in.</li>
       </ol>
-      <a class="cta" href="https://gme-digital-ug.github.io/nutrimax/index.html#download"
+      <a class="cta" href="../nutrimax/index.html#download"
          rel="noreferrer noopener">Get NutriMax</a>
       <h2>Already have NutriMax?</h2>
       <p>If this page opened instead of the app, copy this page's address
-        from the address bar, open NutriMax, go to <b>Favorite Meals</b>,
-        open the menu (⋮) and choose <b>Paste a shared meal link</b>.</p>
+        from the address bar, open NutriMax, open <b>Shared</b> in the menu
+        and choose <b>Paste a shared meal link</b> at the top.</p>
       <small>Shared meals can be opened for 7 days. Nothing about the meal is
         shown on this page.</small>
     </section>
@@ -145,17 +135,18 @@
         <li>Öffne den Link noch einmal aus der Nachricht, in der du ihn
           bekommen hast.</li>
       </ol>
-      <a class="cta" href="https://gme-digital-ug.github.io/nutrimax/index.html#download"
+      <a class="cta" href="../nutrimax/index.html#download"
          rel="noreferrer noopener">NutriMax holen</a>
       <h2>Du hast NutriMax schon?</h2>
       <p>Wenn sich statt der App diese Seite geöffnet hat, kopiere die Adresse
-        dieser Seite aus der Adresszeile, öffne NutriMax, geh zu
-        <b>Lieblingsmahlzeiten</b>, öffne das Menü (⋮) und wähle
+        dieser Seite aus der Adresszeile, öffne NutriMax, öffne im Menü
+        <b>Geteilt</b> und wähle oben
         <b>Link einer geteilten Mahlzeit einfügen</b>.</p>
       <small>Geteilte Mahlzeiten lassen sich 7 Tage lang öffnen. Auf dieser
         Seite wird nichts über die Mahlzeit angezeigt.</small>
     </section>
   </main>
+{% include shell/footer.html app="nutrimax" %}
   <script>
     // Language only. This script deliberately never touches `location`.
     (function () {

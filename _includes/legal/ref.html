@@ -1,0 +1,16 @@
+{%- comment -%}
+  A cross-reference to a section of this legal page, numbered as the page lists it:
+  include legal/ref.html id="consent" gives a link "Section 5" to #consent;
+  add plain=true for the words without the link. An unknown id fails the build.
+{%- endcomment -%}
+{%- assign legal_ref_n = nil -%}
+{%- for legal_ref_s in page.sections -%}
+  {%- assign legal_ref_id = legal_ref_s.id | default: legal_ref_s -%}
+  {%- if legal_ref_id == include.id -%}{%- assign legal_ref_n = forloop.index -%}{%- endif -%}
+{%- endfor -%}
+{%- if legal_ref_n == nil -%}{%- include legal/no-section-on-this-page/{{ include.id }}.html -%}{%- endif -%}
+{%- if include.plain -%}
+  Section {{ legal_ref_n }}
+{%- else -%}
+  <a href="#{{ include.id }}">Section {{ legal_ref_n }}</a>
+{%- endif -%}
